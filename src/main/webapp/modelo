@@ -7,17 +7,6 @@
 	<h:outputStylesheet library="resource" name="estilo.css"/>
 </h:head>
 <h:body>
-	<p:growl autoUpdate="true">
-	</p:growl>
-	<h:form>
-		<div class="container-login100 ">
-			<img src="imgs/logo_fundo.jpg" class="logoLogin"/>
-			<p:panelGrid columns="1" >	
-				Bem vindo!
-				BRUNO OK
-				LUCAS CHEGOU
-			</p:panelGrid>
-		</div>
-	</h:form>
+	
 </h:body>
 </html>
