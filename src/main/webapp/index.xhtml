@@ -4,27 +4,31 @@
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="resource" name="estilo.css"/>
+	<h:outputStylesheet library="css" name="estilo.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 </h:head>
 <h:body>
 	<p:growl autoUpdate="true">
 	</p:growl>
-	<h:form>
-		<div class="container-login100 ">
-			 <h:form>
-            <p:messages id="messages" />
-            <p:panelGrid columns="2">
-                  <p:outputLabel for="Email" value="Email:" />
-                  <p:inputText id="nomeEmail" value="#{LoginMB.usuario.nomeUsuario}" />
-                   
-                  <p:outputLabel for="confirmaEmail" value="Confirmar Email:" />
-                  <p:inputText id="cEmail" value="#{LoginMB.usuario.senha}" />
-                   
-                  <p:commandButton value="Enviar" icon="ui-icon-star" action="#{LoginMB.envia}" ajax="false">
-                  </p:commandButton>
-            </p:panelGrid>
-      </h:form>
-		</div>
-	</h:form>
+	
+	<h:panelGrid columns="1" styleClass="pg">
+	<div class="container" style="width: 20%">
+	<h:panelGrid columns="1" class="z-depth-4">
+		<h:panelGrid columns="5">
+		
+			<p:outputLabel value="NIF: "/>
+			<p:inputMask mask="SN 999 999"/>
+			
+			<p:outputLabel value="PASSWORD: "/>
+			<p:password/>
+			
+			<p:commandButton value="ACESSA" styleClass="waves-effect waves-light btn-large" />
+			
+		</h:panelGrid>
+		
+	</h:panelGrid>
+	</div>
+	</h:panelGrid>
 </h:body>
 </html>
