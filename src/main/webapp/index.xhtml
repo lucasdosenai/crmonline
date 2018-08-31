@@ -5,30 +5,32 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="css" name="estilo.css"/>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+	
 </h:head>
-<h:body>
+<h:body styleClass="teste">
 	<p:growl autoUpdate="true">
 	</p:growl>
+	<div align="center" style="width: 1000px">
+		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
+	</div>
 	
-	<h:panelGrid columns="1" styleClass="pg">
-	<div class="container" style="width: 20%">
-	<h:panelGrid columns="1" class="z-depth-4">
-		<h:panelGrid columns="5">
+
+	
+	<h:panelGrid columns="1" styleClass="caixa">
+	
+	<div class="barra">ACESSO RESTRITO</div>
+		<h:panelGrid columns="2" styleClass="centro">
 		
-			<p:outputLabel value="NIF: "/>
-			<p:inputMask mask="SN 999 999"/>
+			<p:outputLabel  value="NIF: " />
+			<p:inputMask mask="SN 999 999" styleClass="input_normal"/>
 			
-			<p:outputLabel value="PASSWORD: "/>
-			<p:password/>
-			
-			<p:commandButton value="ACESSA" styleClass="waves-effect waves-light btn-large" />
+			<p:outputLabel value="PASSWORD: " />
+			<p:password styleClass="input_normal"/>
 			
 		</h:panelGrid>
-		
+		<h:commandButton value="ACESSA" styleClass="btn" />
+		<div class="barra_informa" >asdasdasdas</div>
 	</h:panelGrid>
-	</div>
-	</h:panelGrid>
+
 </h:body>
 </html>

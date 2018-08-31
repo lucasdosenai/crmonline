@@ -12,12 +12,16 @@ import crmonline.Entidade.Usuario;
 public class UserDAO {
 	private Connection con;
 	private String buscaLogin;
+	private ArrayList<Usuario> usuarios;
 	
 	public UserDAO() {
 		con = ConDB.getConnection();
 		buscaLogin = "SELECT USUARIO.NOME FROM USUARIO"
 				  + " WHERE USUARIO.NIF = ? AND USUARIO.SENHA = ?";
-		ArrayList<Usuario> usuarios = new ArrayList<>();
+	}
+	
+	public Usuario buscaLogin(String usuario, String password) {
+		usuarios = new ArrayList<>();
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(buscaLogin);
@@ -26,11 +30,6 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
-	
-	public Usuario buscaLogin(String usuario, String password) {
-		
 		return null;
 	}
 	
