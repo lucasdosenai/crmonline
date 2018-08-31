@@ -6,7 +6,7 @@ use banco;
 Create table USUARIO(
 	ID int primary key auto_increment not null,
 	NOME varchar(64) not null,
-	NIF int not null not null,
+	NIF varchar(64) not null not null,
 	EMAIL varchar(64) not null,
 	SENHA varchar(16) not null,
 	STATU integer default 1,

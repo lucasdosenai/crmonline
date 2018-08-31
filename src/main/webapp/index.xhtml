@@ -22,13 +22,13 @@
 		<h:panelGrid columns="2" styleClass="centro">
 		
 			<p:outputLabel  value="NIF: " />
-			<p:inputMask mask="SN 999 999" styleClass="input_normal"/>
+			<p:inputMask mask="SN 999 999" styleClass="input_normal" value="#{loginMB.usuario}"/>
 			
 			<p:outputLabel value="PASSWORD: " />
-			<p:password styleClass="input_normal"/>
+			<p:password styleClass="input_normal" value="#{loginMB.password}"/>
 			
 		</h:panelGrid>
-		<h:commandButton value="ACESSA" styleClass="btn" />
+		<h:commandButton value="ACESSA" styleClass="btn" actionListener="#{loginMB.verificaLogin}"/>
 		<div class="barra_informa" >asdasdasdas</div>
 	</h:panelGrid>
 
