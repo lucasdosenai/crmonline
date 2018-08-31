@@ -29,7 +29,7 @@ public class UserDAO {
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				Usuario u = new Usuario();
 				u.setNome(rs.getString("USUARIO.NOME"));
 				u.setNif(rs.getString("USUARIO.NIF"));

@@ -26,12 +26,14 @@ public class LoginMB {
 		}
 	}
 	
-	public void verificaLogin() {
+	public String verificaLogin() {
 		System.out.println("ENTRO NO METODO");
 		if(uDao.buscaLogin(getUsuario(), getPassword()) != null) {
 			System.out.println("usuario conectado com sucesso!");
+			return "/index.xhtml?faces-redirect=true";
 		}else {
 			System.out.println("problema ao se conectar!");
+			return  "/home.xhtml?faces-redirect=true";
 		}
 	}
 	
