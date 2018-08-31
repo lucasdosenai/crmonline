@@ -1,6 +1,8 @@
 package crmonline.MBean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import crmonline.DAO.UserDAO;
 
@@ -15,10 +17,18 @@ public class LoginMB {
 		super();
 		uDao = new UserDAO();
 	}
+	
+	public void isLogged() {
+		String msg = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("msg");
 
+		if(msg != null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
+		}
+	}
+	
 	public void verificaLogin() {
 		System.out.println("ENTRO NO METODO");
-		if(uDao.buscaLogin(getUsuario(), getPassword()).size() > 0) {
+		if(uDao.buscaLogin(getUsuario(), getPassword()) != null) {
 			System.out.println("usuario conectado com sucesso!");
 		}else {
 			System.out.println("problema ao se conectar!");

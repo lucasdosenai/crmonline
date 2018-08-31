@@ -20,9 +20,9 @@ public class UserDAO {
 				  + " WHERE USUARIO.NIF = ? AND USUARIO.SENHA = ?";
 	}
 	
-	public ArrayList<Usuario> buscaLogin(String usuario, String password) {
+	public Usuario buscaLogin(String usuario, String password) {
 		ArrayList<Usuario> usuarios = new ArrayList<>();
-		
+		 Usuario raiz = new Usuario();
 		try {
 			PreparedStatement ps = con.prepareStatement(buscaLogin);
 			ps.setString(1, usuario);
@@ -38,13 +38,13 @@ public class UserDAO {
 				u.setStatu(rs.getInt("USUARIO.STATU"));
 				u.setTipo_user(rs.getInt("USUARIO.TIPO_USUARIO"));
 				
-				usuarios.add(u);
+				raiz = u;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return usuarios;
+		return raiz;
 	}
 	
 }

@@ -14,15 +14,13 @@
 		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
 	</div>
 	
-
-	
 	<h:panelGrid columns="1" styleClass="caixa">
 	
 	<div class="barra">ACESSO RESTRITO</div>
 		<h:panelGrid columns="2" styleClass="centro">
 		
 			<p:outputLabel  value="NIF: " />
-			<p:inputMask mask="SN 999 999" styleClass="input_normal" value="#{loginMB.usuario}"/>
+			<p:inputMask mask="999 999 9" styleClass="input_normal" value="#{loginMB.usuario}"/>
 			
 			<p:outputLabel value="PASSWORD: " />
 			<p:password styleClass="input_normal" value="#{loginMB.password}"/>
