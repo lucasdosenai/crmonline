@@ -9,26 +9,26 @@
 </h:head>
 <h:body styleClass="teste">
 	<h:form>
-	<p:messages autoUpdate="true" />
-	<div align="center" style="width: 1000px">
-		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
-	</div>
-	
-	<h:panelGrid columns="1" styleClass="caixa">
-	
-	<div class="barra">ACESSO RESTRITO</div>
-		<h:panelGrid columns="2" styleClass="centro">
+		<p:messages autoUpdate="true" />
+		<div align="center" style="width: 1000px">
+			<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
+		</div>
 		
-			<p:outputLabel  value="NIF: " />
-			<p:inputMask mask="999 999 9" styleClass="input_normal" value="#{loginMB.usuario}"/>
+		<h:panelGrid columns="1" styleClass="caixa">
+		
+		<div class="barra">ACESSO RESTRITO</div>
+			<h:panelGrid columns="2" styleClass="centro">
 			
-			<p:outputLabel value="PASSWORD: " />
-			<p:password styleClass="input_normal" value="#{loginMB.password}"/>
-			
+				<p:outputLabel  value="NIF: " />
+				<p:inputMask mask="999 999 9" styleClass="input_normal" value="#{loginMB.usuario}"/>
+				
+				<p:outputLabel value="PASSWORD: " />
+				<p:password styleClass="input_normal" value="#{loginMB.password}"/>
+				
+			</h:panelGrid>
+			<h:commandButton value="ACESSA" styleClass="btn" action="#{loginMB.verificaLogin}"/>
+			<div class="barra_informa" >asdasdasdas</div>
 		</h:panelGrid>
-		<h:commandButton value="ACESSA" styleClass="btn" action="#{loginMB.verificaLogin}"/>
-		<div class="barra_informa" >asdasdasdas</div>
-	</h:panelGrid>
-</h:form>
+	</h:form>
 </h:body>
 </html>
