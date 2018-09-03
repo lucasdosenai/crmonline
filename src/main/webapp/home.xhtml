@@ -9,6 +9,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 </h:head>
 <h:body >
+
+<h:commandButton value="Listar" action="#{pessoaMB.listar}" />
+
+    </h:panelGrid>
+
+
+        <h:dataTable value="${pessoaMB.listar}" var="p">
+
+       <h:column>
+         <h:outputText value="${p.nome}"/>
+      </h:column>
+
+
+       <h:column>
+         <h:outputText value="${p.endereco}"/>
+      </h:column>
+
+
+     </h:dataTable>
+
+
+
+</h:form>
+
 <nav class="nav-extended" style="background-color:black">
     
     <div class="nav-content">
