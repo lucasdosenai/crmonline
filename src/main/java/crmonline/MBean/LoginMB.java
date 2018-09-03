@@ -5,13 +5,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import crmonline.DAO.UserDAO;
+import crmonline.Entidade.Usuario;
 
 @ManagedBean
 public class LoginMB {
 	private String usuario;
 	private String password;
 	UserDAO uDao;
-	
+	private Usuario UserAtual;
 	
 	public LoginMB() {
 		super();
@@ -27,14 +28,29 @@ public class LoginMB {
 	}
 	
 	public String verificaLogin() {
-		System.out.println("ENTRO NO METODO");
-		if(uDao.buscaLogin(getUsuario(), getPassword()) != null) {
-			System.out.println("usuario conectado com sucesso!");
-			return "/index.xhtml?faces-redirect=true";
+		FacesContext context = FacesContext.getCurrentInstance();
+		UserAtual = uDao.buscaLogin(getUsuario(), getPassword());
+		if(!getUsuario().equals("") || getPassword().equals("")) {
+			if(UserAtual.getNif() != getUsuario()) {
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("Usuario e/ou senha incorretos"));
+		        
+				System.out.println("problema ao se conectar!");
+				return  "/index.xhtml?faces-redirect=true";
+			}else if(uDao.buscaLogin(getUsuario(), getPassword()).getNif().equals(getUsuario())){
+				
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("Bem-Vindo " + UserAtual.getNome() ));
+				
+				System.out.println("usuario conectado com sucesso!");
+				return "/home.xhtml?faces-redirect=true";
+			}
 		}else {
-			System.out.println("problema ao se conectar!");
-			return  "/home.xhtml?faces-redirect=true";
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("Preencha os campos!" ));
+			
 		}
+		return "true";
 	}
 	
 	public String getUsuario() {
