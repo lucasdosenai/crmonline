@@ -1,8 +1,12 @@
 package crmonline.MBean;
 
+import java.util.Calendar;
+import java.util.Random;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.xml.crypto.Data;
 
 import crmonline.DAO.UserDAO;
 import crmonline.Entidade.Usuario;
@@ -13,6 +17,9 @@ public class LoginMB {
 	private String password;
 	UserDAO uDao;
 	private Usuario UserAtual;
+	private String emailRecupera;
+	
+	private Integer A,B;
 	
 	public LoginMB() {
 		super();
@@ -26,8 +33,17 @@ public class LoginMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
 		}
 	}
+	public void intermediario() {
+		
+	}
 	
+	public void verificaEmailExistente() {
+		if(uDao.buscarEmail(emailRecupera).getEmail().equals(emailRecupera)) {
+			Random r = new Random(Calendar.getInstance().getTimeInMillis());
+		}
+	}
 	public String verificaLogin() {
+		verificaEmailExistente();
 		FacesContext context = FacesContext.getCurrentInstance();
 		UserAtual = uDao.buscaLogin(getUsuario(), getPassword());
 		if(!getUsuario().equals("") || getPassword().equals("")) {
@@ -65,4 +81,45 @@ public class LoginMB {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public UserDAO getuDao() {
+		return uDao;
+	}
+
+	public void setuDao(UserDAO uDao) {
+		this.uDao = uDao;
+	}
+
+	public Usuario getUserAtual() {
+		return UserAtual;
+	}
+
+	public void setUserAtual(Usuario userAtual) {
+		UserAtual = userAtual;
+	}
+
+	public String getEmailRecupera() {
+		return emailRecupera;
+	}
+
+	public void setEmailRecupera(String emailRecupera) {
+		this.emailRecupera = emailRecupera;
+	}
+
+	public Integer getA() {
+		return A;
+	}
+
+	public void setA(Integer a) {
+		A = a;
+	}
+
+	public Integer getB() {
+		return B;
+	}
+
+	public void setB(Integer b) {
+		B = b;
+	}
+	
 }

@@ -3,6 +3,7 @@ package crmonline.Entidade;
 
 public class Usuario {
 	
+	private Integer codigo;
 	private String nif;
 	private String nome;
 	private String email;
@@ -10,6 +11,14 @@ public class Usuario {
 	private Integer statu;
 	private Integer tipo_user;
 	
+	
+	
+	public Integer getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
 	public String getNif() {
 		return nif;
 	}
