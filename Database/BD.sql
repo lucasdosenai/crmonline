@@ -85,7 +85,12 @@ create table VENDA(
 --   
 );
 
--- BUSCA USUARIO NO SISTEMA
-
-SELECT USUARIO FROM 
+create table RECUPERA_USUARIO(
+	ID	int primary key auto_increment not null,
+    EMAIL VARCHAR(64) NOT NULL,
+    ID_USER INTEGER,
+    CODIGO VARCHAR(64),
+    
+    FOREIGN KEY (ID_USER) REFERENCES USUARIO(ID)
+);
 
