@@ -27,21 +27,24 @@
 		<p:autoUpdate />		
 	</p:growl>
 	<p:panelGrid columns="1">
-		<p:inputText placeholder="Nome" size="40" />
-		<p:inputMask placeholder="NIF" size="40" mask="SN 999 999"/>
+		<p:inputText placeholder="Nome" size="40" styleClass="input_normal"/>
+		<p:inputMask placeholder="NIF" size="40" styleClass="input_normal" mask="SN 999 999"/>
 			
-			<p:password placeholder="Senha" size="40"/>
-			<p:password placeholder="Confirmar Senha" size="40"/>
+			<p:password placeholder="Senha" size="40" styleClass="input_normal"/>
+			<p:password placeholder="Confirmar Senha" styleClass="input_normal" size="40"/>
 			
-			<p:inputText placeholder="Tipo de Usuário" size="40"/>
+			<p:inputText placeholder="Tipo de Usuário"  styleClass="input_normal" size="40"/>
 		
-		<p:selectOneRadio>
+		<p:selectOneRadio styleClass="input_normal">
 			<f:selectItem itemValue="M" itemLabel="Masculino" />
 			<f:selectItem itemValue="F" itemLabel="Feminino" />		
 		</p:selectOneRadio>
 		
-		<p:inputText placeholder="E-mail" size="40" />	
-		<h:commandButton value="Cadastrar" styleClass="btn" actionListener="#{loginMB.verificaLogin}"/>
+		<p:inputText placeholder="E-mail" size="40"  styleClass="input_normal"/>	
+		<p:panelGrid columns="2">
+			<h:commandButton value="Cadastrar" styleClass="btn" actionListener="#{loginMB.verificaLogin}"/>
+			<h:commandButton value="Cancelar" styleClass="btn" />
+		</p:panelGrid>
 	</p:panelGrid>
 	</h:form>
 </h:panelGrid>
