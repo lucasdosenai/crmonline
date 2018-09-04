@@ -16,10 +16,9 @@ public class LoginMB {
 	private String usuario;
 	private String password;
 	UserDAO uDao;
+	
 	private Usuario UserAtual;
 	private String emailRecupera;
-	
-	private Integer A,B;
 	
 	public LoginMB() {
 		super();
@@ -37,13 +36,7 @@ public class LoginMB {
 		
 	}
 	
-	public void verificaEmailExistente() {
-		if(uDao.buscarEmail(emailRecupera).getEmail().equals(emailRecupera)) {
-			Random r = new Random(Calendar.getInstance().getTimeInMillis());
-		}
-	}
 	public String verificaLogin() {
-		verificaEmailExistente();
 		FacesContext context = FacesContext.getCurrentInstance();
 		UserAtual = uDao.buscaLogin(getUsuario(), getPassword());
 		if(!getUsuario().equals("") || getPassword().equals("")) {

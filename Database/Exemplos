@@ -1,0 +1,20 @@
+public boolean cadastrar(Aluno aluno) {
+		String sql = "INSERT INTO aluno VALUES(?, ?, ?, ?, ?, ?, ?)";
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, aluno.getCpf());
+			ps.setString(2, aluno.getSenha());
+			ps.setString(3, aluno.getSalt());
+			ps.setString(4, aluno.getNome());
+			ps.setString(6, aluno.getCurso());
+			ps.setString(7, aluno.getTurma());
+			
+			if (ps.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return false;
+	}

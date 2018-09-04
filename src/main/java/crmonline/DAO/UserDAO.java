@@ -22,9 +22,9 @@ public class UserDAO {
 		buscaEmail = "SELECT USUARIO.NOME FROM USUARIO"
 				+ " WHERE USUARIO.EMAIL = ?";
 	}
-	public Integer soma(int a, int b) {
-		int c = a + b;
-		return c;		
+	public Boolean inserirUser() {
+		
+		return true;
 	}
 	public Usuario buscarEmail(String email) {
 		Usuario raiz = new Usuario();
