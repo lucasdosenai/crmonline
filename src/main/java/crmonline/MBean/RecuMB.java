@@ -3,30 +3,35 @@ package crmonline.MBean;
 import java.util.Calendar;
 import java.util.Random;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import crmonline.DAO.UserDAO;
 import crmonline.Entidade.Usuario;
 
 @ManagedBean
 public class RecuMB {
-	UserDAO uDao = new UserDAO();
+	UserDAO uDao;
 	private Usuario UserAtual;
-	private String emailRecupera;
+	private String emailRecupera = "";
 	private Usuario userRecuperado;
 	
 	public RecuMB() {
 		super();
-		
+		uDao = new UserDAO();
 	}
 	
 	public String verificaEmailExistente() {
-		  userRecuperado = uDao.buscarEmail(emailRecupera);
-		if(userRecuperado.getEmail().equals(emailRecupera)) {
-			 
-			 String codigoVerificaEmail = String.valueOf(Calendar.getInstance().getTimeInMillis());
-			}
-		return "";
+		FacesContext context = FacesContext.getCurrentInstance();
+		userRecuperado = uDao.buscarEmail(emailRecupera);
+		if(emailRecupera.equals("")) {
+		if(userRecuperado.getEmail().equals(emailRecupera)) 
+			 return "verifica-codigo?faces-redirect=true";	 
+		     else return "recupera?faces-redirect=true";
+		}
+		context.addMessage(null, new FacesMessage("Preencha os campos!"));
+		return "recupera?faces-redirect=true";
 	}
 	
 	public UserDAO getuDao() {

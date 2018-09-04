@@ -9,13 +9,15 @@
 </h:head>
 <h:body styleClass="teste">
 	<h:form>
-		<p:messages autoUpdate="true" />
+		<p:messages id="messages" showDetail="true" closable="true">
+        	<p:autoUpdate />
+    	</p:messages>
 		<div align="center" style="width: 1000px">
 			<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
 		</div>
 		
 		<h:panelGrid columns="1" styleClass="caixa">
-		
+	
 		<div class="barra">ACESSO RESTRITO</div>
 			<h:panelGrid columns="2" styleClass="centro">
 			

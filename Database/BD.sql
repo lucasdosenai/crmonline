@@ -1,16 +1,15 @@
-DROP DATABASE banco;
-
 Create database banco;
 use banco;
 
 Create table USUARIO(
 	ID int primary key auto_increment not null,
 	NOME varchar(64) not null,
-	NIF int not null not null,
+	NIF varchar(7) not null,
+    SEXO VARCHAR(1) not null,
 	EMAIL varchar(64) not null,
 	SENHA varchar(16) not null,
 	STATU integer default 1,
-	TIPO_USUARIO integer default 0 not null
+	TIPO_USUARIO integer default 0
 
 -- Statu :         1 para Habilitado
 --                 0 para Desabilitado
@@ -19,7 +18,7 @@ Create table USUARIO(
   --               1 USUARIO ROOT
 );
 -- CRIANDO USUARIO
-INSERT INTO USUARIO(NOME,NIF,EMAIL,SENHA,STATU,TIPO_USUARIO) VALUES ('Nailton',01012490,'nana@gay.usa','123',1,1);
+INSERT INTO USUARIO(NOME,NIF,EMAIL,SENHA,STATU,TIPO_USUARIO) VALUES ('AMD',1234567,'nana@gay.usa','123',1,1);
 -- LOGIN USUARIO
 SELECT USUARIO.NOME FROM USUARIO WHERE USUARIO.NIF = "01012490" AND USUARIO.SENHA = "123";
 -- MOSTRA TODOS USUARIOS
@@ -45,6 +44,7 @@ create table CURSO(
 
 create table CLIENTE(
 	ID	int primary key auto_increment not null,
+    CPNJ varchar(16),
 	NOME Varchar(64),
 	TELEFONE Varchar(64),
 	EMAIL	VARCHAR(64),
@@ -93,4 +93,3 @@ create table RECUPERA_USUARIO(
     
     FOREIGN KEY (ID_USER) REFERENCES USUARIO(ID)
 );
-

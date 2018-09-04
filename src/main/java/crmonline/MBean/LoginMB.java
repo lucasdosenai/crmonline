@@ -32,13 +32,13 @@ public class LoginMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
 		}
 	}
-	public void intermediario() {
-		
-	}
 	
 	public String verificaLogin() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		UserAtual = uDao.buscaLogin(getUsuario(), getPassword());
+		if(UserAtual == null) {
+			
+		}
 		if(!getUsuario().equals("") || getPassword().equals("")) {
 			if(UserAtual.getNif() != getUsuario()) {
 				FacesContext.getCurrentInstance().addMessage(null, 
@@ -47,11 +47,10 @@ public class LoginMB {
 				System.out.println("problema ao se conectar!");
 				return  "/index.xhtml?faces-redirect=true";
 			}else if(uDao.buscaLogin(getUsuario(), getPassword()).getNif().equals(getUsuario())){
-				
 				FacesContext.getCurrentInstance().addMessage(null, 
 						new FacesMessage("Bem-Vindo " + UserAtual.getNome() ));
 				
-				System.out.println("usuario conectado com sucesso!");
+				System.out.println("usuario logado com sucesso!");
 				return "/home.xhtml?faces-redirect=true";
 			}
 		}else {
@@ -97,22 +96,6 @@ public class LoginMB {
 
 	public void setEmailRecupera(String emailRecupera) {
 		this.emailRecupera = emailRecupera;
-	}
-
-	public Integer getA() {
-		return A;
-	}
-
-	public void setA(Integer a) {
-		A = a;
-	}
-
-	public Integer getB() {
-		return B;
-	}
-
-	public void setB(Integer b) {
-		B = b;
 	}
 	
 }
