@@ -28,7 +28,7 @@
 	</p:growl>
 	<p:panelGrid columns="1">
 		<p:inputText placeholder="Nome" size="40" styleClass="input_normal" value="#{cadMB.nome}"/>
-		<p:inputMask placeholder="NIF" size="40" styleClass="input_normal" mask="SN 999 999" value="#{cadMB.nif}"/>
+		<p:inputMask placeholder="NIF" size="40" styleClass="input_normal" mask="999 999 9" value="#{cadMB.nif}"/>
 			
 			<p:password placeholder="Senha" size="40" styleClass="input_normal" value="#{cadMB.senha}"/>
 			<p:password placeholder="Confirmar Senha" styleClass="input_normal" size="40"/>
@@ -42,7 +42,7 @@
 		
 		<p:inputText placeholder="E-mail" size="40"  styleClass="input_normal" value="#{cadMB.email}"/>	
 		<p:panelGrid columns="2">
-			<h:commandButton value="Cadastrar" styleClass="btn" actionListener="#{cadMB.verificaLogin}"/>
+			<h:commandButton value="Cadastrar" styleClass="btn" action="#{cadMB.cadastraUsuario}"/>
 			<h:commandButton value="Cancelar" styleClass="btn" />
 		</p:panelGrid>
 	</p:panelGrid>

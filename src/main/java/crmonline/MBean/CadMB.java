@@ -32,10 +32,10 @@ public class CadMB {
 				getSenha().equals("") ||
 				getStatu().equals("") ||
 				getTipo_usuario().equals("")) {
-			
+			System.out.println("Compos vazios");
 			contex.addMessage(null,new FacesMessage( "Preencha os Campos Vazios!"));
 		}else {
-			
+			System.out.println("entrou no else, e preencheou o usuario");
 			Usuario usuario = new Usuario();
 			usuario.setNome(getNome());
 			usuario.setNif(getNif());
@@ -45,9 +45,11 @@ public class CadMB {
 			usuario.setStatu(getStatu());
 			usuario.setTipo_user(getTipo_usuario());
 			
-			
-			if(usuario)
-			uDao.cadastrar(usuario)
+			if(uDao.verificaNifNoBanco(usuario.getNif()))contex.addMessage(null, new FacesMessage("NIF ja cadastrado"));
+			else { 
+				System.out.println(usuario.getNome() + " : cadastrado com sucesso!");
+				uDao.cadastrar(usuario);
+			}
 		}
 	 }
 	 
