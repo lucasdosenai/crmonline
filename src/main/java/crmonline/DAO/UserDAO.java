@@ -80,5 +80,30 @@ public class UserDAO {
 		return raiz;
 	}
 	
+	
+
+	
+	public boolean cadastrar(Usuario usuario) {
+		String sql = "INSERT INTO USUARIO VALUES(?, ?, ?, ?, ?, ?, ?)";
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, usuario.getNome());
+			ps.setString(2, usuario.getNif());
+			ps.setString(3, usuario.getEmail());
+			ps.setString(4, usuario.getPassword());
+			ps.setInt(6, usuario.getStatu());
+			ps.setInt(7, usuario.getTipo_user());
+			
+			if (ps.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return false;
+	}
+	
+	
 }
 
