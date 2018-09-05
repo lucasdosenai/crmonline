@@ -35,9 +35,9 @@
 			
 			<p:inputText placeholder="Tipo de Usuário"  styleClass="input_normal" size="40" value="#{cadMB.tipo_usuario}"/>
 		
-		<p:selectOneRadio styleClass="input_normal" >
-			<f:selectItem itemValue="M" itemLabel="Masculino" value="#{cadMB.sexo}"/>
-			<f:selectItem itemValue="F" itemLabel="Feminino" value="#{cadMB.sexo}"/>		
+		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.sexo}">
+			<f:selectItem itemValue="M" itemLabel="Masculino" />
+			<f:selectItem itemValue="F" itemLabel="Feminino" />		
 		</p:selectOneRadio>
 		
 		<p:inputText placeholder="E-mail" size="40"  styleClass="input_normal" value="#{cadMB.email}"/>	

@@ -16,8 +16,8 @@ public class CadMB {
 	 private String sexo;
 	 private String email;
 	 private String senha;
-	 private Integer statu;
-	 private Integer tipo_usuario;
+	 private Integer statu = 0;
+	 private Integer tipo_usuario = 0;
 	
 	 public CadMB() {
 		 uDao = new UserDAO();
@@ -29,26 +29,31 @@ public class CadMB {
 				getNif().equals("") ||
 				getSexo().equals("") ||
 				getEmail().equals("") ||
-				getSenha().equals("") ||
-				getStatu().equals("") ||
-				getTipo_usuario().equals("")) {
-			System.out.println("Compos vazios");
+				getSenha().equals("")) {
+			System.out.println("Campos vazios");
 			contex.addMessage(null,new FacesMessage( "Preencha os Campos Vazios!"));
 		}else {
+			
 			System.out.println("entrou no else, e preencheou o usuario");
 			Usuario usuario = new Usuario();
+			Usuario usuarioVerifica = new Usuario();
 			usuario.setNome(getNome());
-			usuario.setNif(getNif());
+			usuario.setNif(getNif().replaceAll(" ", ""));
 			usuario.setSexo(getSexo());
 			usuario.setEmail(getEmail());
 			usuario.setPassword(getSenha());
 			usuario.setStatu(getStatu());
 			usuario.setTipo_user(getTipo_usuario());
 			
-			if(uDao.verificaNifNoBanco(usuario.getNif()))contex.addMessage(null, new FacesMessage("NIF ja cadastrado"));
+			usuarioVerifica = uDao.verificaNifNoBanco(usuario.getNif());
+			if(usuarioVerifica.getNif() == usuario.getNif())
+				contex.addMessage(null, new FacesMessage("NIF ja cadastrado"));
 			else { 
-				System.out.println(usuario.getNome() + " : cadastrado com sucesso!");
-				uDao.cadastrar(usuario);
+				if(uDao.cadastrar(usuario)) {
+					System.out.println(usuario.getNome() + " : cadastrado com sucesso!");
+				}else {
+					System.out.println(usuario.getNome() + " : não cadastrado");
+				}
 			}
 		}
 	 }

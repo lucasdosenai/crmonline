@@ -16,13 +16,12 @@ public class UserDAO {
 	
 	public UserDAO() {
 		con = ConDB.getConnection();
-		buscaLogin = "SELECT USUARIO.NOME FROM USUARIO"
+		buscaLogin = "SELECT USUARIO.NOME FROM USUARIO "
 				  + " WHERE USUARIO.NIF = ? AND USUARIO.SENHA = ?";
 		
 		buscaEmail = "SELECT USUARIO.NOME FROM USUARIO"
 				+ " WHERE USUARIO.EMAIL = ?";
-		buscaNIF = "SELECT USUARIO.NIF FROM USUARIO"
-				+ "WHERE USUARIO.NIF = ?";
+		buscaNIF = " SELECT USUARIO.NIF FROM USUARIO WHERE USUARIO.NIF = ?";
 	}
 	public Boolean inserirUser() {
 		
@@ -32,6 +31,7 @@ public class UserDAO {
 		Usuario raiz = new Usuario();
 		PreparedStatement ps;
 		try {
+			System.out.println(buscaEmail);
 			ps = con.prepareStatement(buscaEmail);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
@@ -55,7 +55,8 @@ public class UserDAO {
 		return raiz;
 	}
 	
-	public Boolean verificaNifNoBanco(String nif) {
+	public Usuario verificaNifNoBanco(String nif) {
+		Usuario raiz = new Usuario();
 		try {
 			PreparedStatement ps = con.prepareStatement(buscaNIF);
 			ps.setString(1, nif);
@@ -71,13 +72,14 @@ public class UserDAO {
 				u.setPassword(rs.getString("USUARIO.SENHA"));
 				u.setStatu(rs.getInt("USUARIO.STATU"));
 				u.setTipo_user(rs.getInt("USUARIO.TIPO_USUARIO"));
+				
+				raiz = u;
 			}
-			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return false;
+		return raiz;
 	}
 	
 	public Usuario buscaLogin(String usuario, String password) {
@@ -112,14 +114,15 @@ public class UserDAO {
 
 	
 	public boolean cadastrar(Usuario usuario) {
-		String sql = "INSERT INTO USUARIO VALUES(?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO USUARIO VALUES(0, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, usuario.getNome());
 			ps.setString(2, usuario.getNif());
-			ps.setString(3, usuario.getEmail());
-			ps.setString(4, usuario.getPassword());
+			ps.setString(3, usuario.getSexo());
+			ps.setString(4, usuario.getEmail());
+			ps.setString(5, usuario.getPassword());
 			ps.setInt(6, usuario.getStatu());
 			ps.setInt(7, usuario.getTipo_user());
 			
