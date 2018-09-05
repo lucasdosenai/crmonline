@@ -7,6 +7,7 @@ public class Usuario {
 	private String nif;
 	private String nome;
 	private String email;
+	private String sexo;
 	private String password;
 	private Integer statu;
 	private Integer tipo_user;
@@ -54,6 +55,12 @@ public class Usuario {
 	}
 	public void setTipo_user(Integer tipo_user) {
 		this.tipo_user = tipo_user;
+	}
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 	
 	

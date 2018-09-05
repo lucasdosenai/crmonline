@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import crmonline.DAO.UserDAO;
+import crmonline.Entidade.Usuario;
 
 @ManagedBean
 public class CadMB {
@@ -15,8 +16,8 @@ public class CadMB {
 	 private String sexo;
 	 private String email;
 	 private String senha;
-	 private String statu;
-	 private String tipo_usuario;
+	 private Integer statu;
+	 private Integer tipo_usuario;
 	
 	 public CadMB() {
 		 uDao = new UserDAO();
@@ -33,6 +34,20 @@ public class CadMB {
 				getTipo_usuario().equals("")) {
 			
 			contex.addMessage(null,new FacesMessage( "Preencha os Campos Vazios!"));
+		}else {
+			
+			Usuario usuario = new Usuario();
+			usuario.setNome(getNome());
+			usuario.setNif(getNif());
+			usuario.setSexo(getSexo());
+			usuario.setEmail(getEmail());
+			usuario.setPassword(getSenha());
+			usuario.setStatu(getStatu());
+			usuario.setTipo_user(getTipo_usuario());
+			
+			
+			if(usuario)
+			uDao.cadastrar(usuario)
 		}
 	 }
 	 
@@ -67,16 +82,16 @@ public class CadMB {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public String getStatu() {
+	public Integer getStatu() {
 		return statu;
 	}
-	public void setStatu(String statu) {
+	public void setStatu(Integer statu) {
 		this.statu = statu;
 	}
-	public String getTipo_usuario() {
+	public Integer getTipo_usuario() {
 		return tipo_usuario;
 	}
-	public void setTipo_usuario(String tipo_usuario) {
+	public void setTipo_usuario(Integer tipo_usuario) {
 		this.tipo_usuario = tipo_usuario;
 	}
 	
