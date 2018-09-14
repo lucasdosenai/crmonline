@@ -73,31 +73,27 @@ public class UserDAO {
 	}
 	
 	public Usuario buscaLogin(String usuario, String password) {
-		 ArrayList<Usuario> usuarios = new ArrayList<>();
-		 Usuario raiz = new Usuario();
+		 Usuario u = new Usuario();
 		try {
 			PreparedStatement ps = con.prepareStatement(buscaLogin);
 			ps.setString(1, usuario);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
-			
+			u = null;
 			if(rs.next()) {
-				Usuario u = new Usuario();
-				u.setCodigo(rs.getInt("USUARIO.ID"));
-				u.setNome(rs.getString("USUARIO.NOME"));
-				u.setNif(rs.getString("USUARIO.NIF"));
-				u.setEmail(rs.getString("USUARIO.EMAIL"));
-				u.setPassword(rs.getString("USUARIO.SENHA"));
-				u.setStatu(rs.getInt("USUARIO.STATU"));
-				u.setTipo_user(rs.getInt("USUARIO.TIPO_USUARIO"));
-				
-				raiz = u;
+				u.setCodigo(rs.getInt("ID"));
+				u.setNome(rs.getString("NOME"));
+				u.setNif(rs.getString("NIF"));
+				u.setEmail(rs.getString("EMAIL"));
+				u.setPassword(rs.getString("SENHA"));
+				u.setStatu(rs.getInt("STATU"));
+				u.setTipo_user(rs.getInt("TIPO_USUARIO"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return raiz;
+		return u;
 	}
 	
 	

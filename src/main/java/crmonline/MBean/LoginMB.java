@@ -13,58 +13,42 @@ import crmonline.Entidade.Usuario;
 
 @ManagedBean
 public class LoginMB {
-	private String usuario;
-	private String password;
+	private String usuario = "";
+	private String password = "";
 	UserDAO uDao;
 	Usuario comum;
-	private Usuario UserAtual;
+	private Usuario userAtual;
 	private String emailRecupera;
 	
 	public LoginMB() {
 		super();
 		uDao = new UserDAO();
 	}
+// -------------------------------------------------------------------------------------------------
 	
-	public void isLogged() {
-		String msg = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("msg");
-
-		if(msg != null) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
-		}
-	}
-	
-	public void loginUsuario() {
-		
-		
-	}
-	
-	public String verificaLogin() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		UserAtual = uDao.buscaLogin(getUsuario(), getPassword());
-		if(UserAtual == null) {
-			
-		}
-		if(!getUsuario().equals("") || getPassword().equals("")) {
-			if(UserAtual.getNif() != getUsuario()) {
-				FacesContext.getCurrentInstance().addMessage(null, 
-						new FacesMessage("Usuario e/ou senha incorretos"));
-		        
-				System.out.println("problema ao se conectar!");
-				return  "/index.xhtml?faces-redirect=true";
-			}else if(uDao.buscaLogin(getUsuario(), getPassword()).getNif().equals(getUsuario())){
-				FacesContext.getCurrentInstance().addMessage(null, 
-						new FacesMessage("Bem-Vindo " + UserAtual.getNome() ));
-				
-				System.out.println("usuario logado com sucesso!");
-				return "/home.xhtml?faces-redirect=true";
+	public String logaUsuario() {
+			if(getUsuario().equals("") || getPassword().equals("")) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Preencha os campos"));
+				return "";
+			}else {
+				userAtual = uDao.buscaLogin(getUsuario(), getPassword());
+				if(userAtual.getStatu() == 1 && userAtual.getTipo_user() == 1) {
+					// ADIMINISTRADOR
+					return "";
+				}else if(userAtual.getStatu() == 1 && userAtual.getTipo_user() == 0) {
+					// COMUM
+					return "";
+				}else {
+					// DESATIVADO
+					FacesContext.getCurrentInstance().addMessage(null, 
+							new FacesMessage("Esse usuário esta Desativado!"));
+					return "";
+				}
 			}
-		}else {
-			FacesContext.getCurrentInstance().addMessage(null, 
-					new FacesMessage("Preencha os campos!" ));
-			
-		}
-		return "true";
+		
 	}
+	
+// -------------------------------------------------------------------------------------------------
 	
 	public String getUsuario() {
 		return usuario;
@@ -88,11 +72,11 @@ public class LoginMB {
 	}
 
 	public Usuario getUserAtual() {
-		return UserAtual;
+		return userAtual;
 	}
 
 	public void setUserAtual(Usuario userAtual) {
-		UserAtual = userAtual;
+		userAtual = userAtual;
 	}
 
 	public String getEmailRecupera() {
