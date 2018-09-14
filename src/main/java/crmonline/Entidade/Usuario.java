@@ -9,10 +9,8 @@ public class Usuario {
 	private String email;
 	private String sexo;
 	private String password;
-	private Integer statu;
-	private Integer tipo_user;
-	
-	
+	private Integer statu = 0;
+	private Integer tipo_user = 0;
 	
 	public Integer getCodigo() {
 		return codigo;

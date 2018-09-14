@@ -56,24 +56,14 @@ public class UserDAO {
 	}
 	
 	public Usuario verificaNifNoBanco(String nif) {
-		Usuario raiz = new Usuario();
+		Usuario raiz = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(buscaNIF);
-			ps.setString(1, nif);
+			ps.setString(1, nif.replaceAll(" ", ""));
 			ResultSet rs = ps.executeQuery();
-		
 			if(rs.next()) {
-				Usuario u = new Usuario();
-				u.setCodigo(rs.getInt("USUARIO.ID"));
-				u.setNome(rs.getString("USUARIO.NOME"));
-				u.setNif(rs.getString("USUARIO.NIF"));
-				u.setSexo(rs.getString("USUARIO.SEXO"));
-				u.setEmail(rs.getString("USUARIO.EMAIL"));
-				u.setPassword(rs.getString("USUARIO.SENHA"));
-				u.setStatu(rs.getInt("USUARIO.STATU"));
-				u.setTipo_user(rs.getInt("USUARIO.TIPO_USUARIO"));
-				
-				raiz = u;
+				raiz = new Usuario();
+				raiz.setNif(rs.getString("NIF"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -119,16 +109,15 @@ public class UserDAO {
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, usuario.getNome());
-			ps.setString(2, usuario.getNif());
+			ps.setString(2, usuario.getNif().replaceAll(" ", ""));
 			ps.setString(3, usuario.getSexo());
 			ps.setString(4, usuario.getEmail());
 			ps.setString(5, usuario.getPassword());
 			ps.setInt(6, usuario.getStatu());
 			ps.setInt(7, usuario.getTipo_user());
 			
-			if (ps.executeUpdate() > 0) {
-				return true;
-			}
+			return ps.executeUpdate() > 0;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	

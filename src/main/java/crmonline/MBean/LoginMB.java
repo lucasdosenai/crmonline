@@ -16,7 +16,7 @@ public class LoginMB {
 	private String usuario;
 	private String password;
 	UserDAO uDao;
-	
+	Usuario comum;
 	private Usuario UserAtual;
 	private String emailRecupera;
 	
@@ -31,6 +31,11 @@ public class LoginMB {
 		if(msg != null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(msg));
 		}
+	}
+	
+	public void loginUsuario() {
+		
+		
 	}
 	
 	public String verificaLogin() {
@@ -96,6 +101,14 @@ public class LoginMB {
 
 	public void setEmailRecupera(String emailRecupera) {
 		this.emailRecupera = emailRecupera;
+	}
+
+	public Usuario getComum() {
+		return comum;
+	}
+
+	public void setComum(Usuario comum) {
+		this.comum = comum;
 	}
 	
 }

@@ -23,26 +23,26 @@
 	<h3>Novo Usuário</h3>
 	
 	<h:form>
-	<p:growl showDetail="true" >
+	<p:growl >
 		<p:autoUpdate />		
 	</p:growl>
 	<p:panelGrid columns="1">
-		<p:inputText placeholder="Nome" size="40" styleClass="input_normal" value="#{cadMB.nome}"/>
-		<p:inputMask placeholder="NIF" size="40" styleClass="input_normal" mask="999 999 9" value="#{cadMB.nif}"/>
+		<p:inputText placeholder="Nome" size="40" styleClass="input_normal" value="#{cadMB.usuario.nome}"/>
+		<p:inputMask placeholder="NIF" size="40" styleClass="input_normal" mask="999 999 9" value="#{cadMB.usuario.nif}"/>
 			
-			<p:password placeholder="Senha" size="40" styleClass="input_normal" value="#{cadMB.senha}"/>
+			<p:password placeholder="Senha" size="40" styleClass="input_normal" value="#{cadMB.usuario.password}"/>
 			<p:password placeholder="Confirmar Senha" styleClass="input_normal" size="40"/>
 			
-			<p:inputText placeholder="Tipo de Usuário"  styleClass="input_normal" size="40" value="#{cadMB.tipo_usuario}"/>
+			<p:inputText placeholder="Tipo de Usuário"  styleClass="input_normal" size="40" value="#{cadMB.usuario.tipo_user}"/>
 		
-		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.sexo}">
+		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.usuario.sexo}">
 			<f:selectItem itemValue="M" itemLabel="Masculino" />
 			<f:selectItem itemValue="F" itemLabel="Feminino" />		
 		</p:selectOneRadio>
 		
-		<p:inputText placeholder="E-mail" size="40"  styleClass="input_normal" value="#{cadMB.email}"/>	
+		<p:inputText placeholder="E-mail" size="40"  styleClass="input_normal" value="#{cadMB.usuario.email}"/>	
 		<p:panelGrid columns="2">
-			<h:commandButton value="Cadastrar" styleClass="btn" action="#{cadMB.cadastraUsuario}"/>
+			<h:commandButton value="Cadastrar" styleClass="btn" action="#{cadMB.verifica}"/>
 			<h:commandButton value="Cancelar" styleClass="btn" />
 		</p:panelGrid>
 	</p:panelGrid>

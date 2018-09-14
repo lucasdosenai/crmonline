@@ -2,104 +2,62 @@ package crmonline.MBean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import crmonline.DAO.UserDAO;
 import crmonline.Entidade.Usuario;
 
+@ViewScoped
 @ManagedBean
 public class CadMB {
 
-	 UserDAO uDao;
-	 private String nome;
-	 private String nif;
-	 private String sexo;
-	 private String email;
-	 private String senha;
-	 private Integer statu = 0;
-	 private Integer tipo_usuario = 0;
+	UserDAO uDao;
+	Usuario usuario;
+
+	public CadMB() {
+		uDao = new UserDAO();
+		usuario = new Usuario();
+	}
 	
-	 public CadMB() {
-		 uDao = new UserDAO();
-	 }
-	 
-	 public void cadastraUsuario() {
-		 FacesContext contex =  FacesContext.getCurrentInstance();
-		if(getNome().equals("") ||
-				getNif().equals("") ||
-				getSexo().equals("") ||
-				getEmail().equals("") ||
-				getSenha().equals("")) {
-			System.out.println("Campos vazios");
-			contex.addMessage(null,new FacesMessage( "Preencha os Campos Vazios!"));
-		}else {
+	public String verifica() {
+		if(uDao.verificaNifNoBanco(usuario.getNif()) == null) {
+		
 			
-			System.out.println("entrou no else, e preencheou o usuario");
-			Usuario usuario = new Usuario();
-			Usuario usuarioVerifica = new Usuario();
-			usuario.setNome(getNome());
-			usuario.setNif(getNif().replaceAll(" ", ""));
-			usuario.setSexo(getSexo());
-			usuario.setEmail(getEmail());
-			usuario.setPassword(getSenha());
-			usuario.setStatu(getStatu());
-			usuario.setTipo_user(getTipo_usuario());
-			
-			usuarioVerifica = uDao.verificaNifNoBanco(usuario.getNif());
-			if(usuarioVerifica.getNif() == usuario.getNif())
-				contex.addMessage(null, new FacesMessage("NIF ja cadastrado"));
-			else { 
-				if(uDao.cadastrar(usuario)) {
-					System.out.println(usuario.getNome() + " : cadastrado com sucesso!");
-				}else {
-					System.out.println(usuario.getNome() + " : não cadastrado");
-				}
+			if(uDao.cadastrar(usuario)) {
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("Inserido com sucesso! "));
+				FacesContext.getCurrentInstance().getExternalContext().
+				getFlash().setKeepMessages(true);
+				
+				return "index?faces-redirect=true";
+			}else {
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("Não possível inserir! "));
+				return "";
 			}
+		
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("NIF JÁ EXISTENTE! "));
+			return "";
 		}
-	 }
-	 
-	 
-	 public String getNome() {
-		return nome;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public UserDAO getuDao() {
+		return uDao;
 	}
-	public String getNif() {
-		return nif;
+
+	public void setuDao(UserDAO uDao) {
+		this.uDao = uDao;
 	}
-	public void setNif(String nif) {
-		this.nif = nif;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	public Integer getStatu() {
-		return statu;
-	}
-	public void setStatu(Integer statu) {
-		this.statu = statu;
-	}
-	public Integer getTipo_usuario() {
-		return tipo_usuario;
-	}
-	public void setTipo_usuario(Integer tipo_usuario) {
-		this.tipo_usuario = tipo_usuario;
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

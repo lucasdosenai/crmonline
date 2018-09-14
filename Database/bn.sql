@@ -34,15 +34,15 @@ create table CATEGORIA(
 	NOME	varchar(24)
 );
 -- CRIA CATEGORIAS
-INSERT INTO CATEGORIA(NOME) VALUES('EletrÙnica');
+INSERT INTO CATEGORIA(NOME) VALUES('Eletr√¥nica');
 -- MOSTRA TODAS CATEGORIAS
 
 create table CURSO(
 	ID	         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	NOME	     VARCHAR(64) NOT NULL,
 	VAGAS_TOTAL	 INT DEFAULT 0,
-	DESCRI	     VARCHAR(264) DEFAULT 'SEM DESCRI«√O',
-	DURACAO	     VARCHAR(64) DEFAULT 'SEM DESCRI«√O',
+	DESCRI	     VARCHAR(264) DEFAULT 'SEM DESCRI√á√ÉO',
+	DURACAO	     VARCHAR(64) DEFAULT 'SEM DESCRI√á√ÉO',
     ID_CATEGORIA INT
 );
 
@@ -61,7 +61,7 @@ foreign key (ID_AREA) references CATEGORIA(ID)
 
 create table AGENDA(
 	ID	         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	ATENDENTE    VARCHAR(64) NOT NULL, -- Nome da pessoas que vai atender na hora da visita, reuni„o marcada com ?
+	ATENDENTE    VARCHAR(64) NOT NULL, -- Nome da pessoas que vai atender na hora da visita, reuni√£o marcada com ?
 	QUANDO	     TIMESTAMP NOT NULL, -- Dia da visita
 	HORARIO	     TIMESTAMP NOT NULL, -- Hora da visita
 	ESTADOS	     INT,
