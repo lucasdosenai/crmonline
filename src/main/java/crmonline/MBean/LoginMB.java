@@ -29,20 +29,20 @@ public class LoginMB {
 	public String logaUsuario() {
 			if(getUsuario().equals("") || getPassword().equals("")) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Preencha os campos"));
-				return "";
+				return "index?faces-redirect=true";
 			}else {
 				userAtual = uDao.buscaLogin(getUsuario(), getPassword());
 				if(userAtual.getStatu() == 1 && userAtual.getTipo_user() == 1) {
 					// ADIMINISTRADOR
-					return "";
+					return "cadastrar?faces-redirect=true";
 				}else if(userAtual.getStatu() == 1 && userAtual.getTipo_user() == 0) {
 					// COMUM
-					return "";
+					return "home?faces-redirect=true";
 				}else {
 					// DESATIVADO
 					FacesContext.getCurrentInstance().addMessage(null, 
 							new FacesMessage("Esse usuário esta Desativado!"));
-					return "";
+					return "index?faces-redirect=true";
 				}
 			}
 		

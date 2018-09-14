@@ -8,31 +8,29 @@
 </h:head>
 <h:body styleClass="teste">
 	<h:form>
-		<p:growl>
-			<p:autoUpdate />
-		</p:growl>
+		<p:growl autoUpdate="true"/>
+	</h:form>
+	<h:form>	
 		<div align="center" style="width: 1000px">
 			<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
 		</div>
 		<h:panelGrid columns="1" styleClass="caixa">
-
 			<div class="barra">ACESSO RESTRITO</div>
 			<h:panelGrid columns="2" styleClass="centro">
 
 				<p:outputLabel value="NIF: " />
 				<p:inputMask mask="999 999 9" styleClass="input_normal"
-					value="#{loginMB.comum.nif}" />
+					value="#{loginMB.usuario}" />
 
 				<p:outputLabel value="PASSWORD: " />
 				<p:password styleClass="input_normal"
-					value="#{loginMB.comum.password}" />
+					value="#{loginMB.password}" />
 
 			</h:panelGrid>
 			<h:commandButton value="ACESSA" styleClass="btn"
-				action="#{loginMB.loginUsuario}" />
+				action="#{loginMB.logaUsuario}" />
 			<div class="barra_informa">
-				<h:commandButton value="NOVO USUARIO" styleClass="btn"
-					action="#{util.irCadastrar()}" />
+				<h:commandButton value="NOVO USUARIO" styleClass="btn" action="#{util.irCadastrar}" />
 			</div>
 		</h:panelGrid>
 	</h:form>
