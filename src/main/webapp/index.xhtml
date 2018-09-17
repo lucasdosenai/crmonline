@@ -6,31 +6,36 @@
 	<h:outputStylesheet library="css" name="estilo.css" />
 
 </h:head>
+
 <h:body styleClass="teste">
+	<div align="center" style="width: 1000px">
+		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
+	</div>
+    <p:growl >
+		<p:autoUpdate />		
+	</p:growl>
 	<h:form>
-		<p:growl autoUpdate="true"/>
-	</h:form>
-	<h:form>	
-		<div align="center" style="width: 1000px">
-			<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
-		</div>
+		
 		<h:panelGrid columns="1" styleClass="caixa">
 			<div class="barra">ACESSO RESTRITO</div>
 			<h:panelGrid columns="2" styleClass="centro">
 
 				<p:outputLabel value="NIF: " />
 				<p:inputMask mask="999 999 9" styleClass="input_normal"
-					value="#{loginMB.usuario}" />
+					value="#{loginMB.usuario}" required="true" requiredMessage="NIF Obrigatório"/>
 
 				<p:outputLabel value="PASSWORD: " />
 				<p:password styleClass="input_normal"
-					value="#{loginMB.password}" />
+					value="#{loginMB.password}" required="true" requiredMessage="Senha Obrigatório"/>
 
 			</h:panelGrid>
 			<h:commandButton value="ACESSA" styleClass="btn"
 				action="#{loginMB.logaUsuario}" />
 			<div class="barra_informa">
 				<h:commandButton value="NOVO USUARIO" styleClass="btn" action="#{util.irCadastrar}" />
+			</div>
+			<div class="barra_informa">
+				<h:commandButton value="ESQUECI MINHA SENHA" styleClass="btn" action="#{util.irCadastrar}" />
 			</div>
 		</h:panelGrid>
 	</h:form>
