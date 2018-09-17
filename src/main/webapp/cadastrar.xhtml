@@ -33,7 +33,10 @@
 			<p:password placeholder="Senha" size="40" styleClass="input_normal" value="#{cadMB.usuario.password}"/>
 			<p:password placeholder="Confirmar Senha" styleClass="input_normal" size="40"/>
 			
-			<p:inputText placeholder="Tipo de Usuário"  styleClass="input_normal" size="40" value="#{cadMB.usuario.tipo_user}"/>
+		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.usuario.tipo_user}">
+			<f:selectItem itemValue="0" itemLabel="Administrador" />
+			<f:selectItem itemValue="1" itemLabel="Moderador" />		
+		</p:selectOneRadio>
 		
 		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.usuario.sexo}">
 			<f:selectItem itemValue="M" itemLabel="Masculino" />
