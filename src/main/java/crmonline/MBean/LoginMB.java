@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.crypto.Data;
 
@@ -12,6 +13,7 @@ import crmonline.DAO.UserDAO;
 import crmonline.Entidade.Usuario;
 
 @ManagedBean
+@SessionScoped
 public class LoginMB {
 	private String usuario = "";
 	private String password = "";
@@ -27,9 +29,7 @@ public class LoginMB {
 // -------------------------------------------------------------------------------------------------
 
 	public String logaUsuario() {
-		System.out.println("METODO");
-
-		System.out.println("ENTROU NO ELSE");
+		System.out.println("METODO: logaUsuario");
 		userAtual = uDao.buscaLogin(getUsuario(), getPassword());
 		if (userAtual == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario não encontrado!"));
