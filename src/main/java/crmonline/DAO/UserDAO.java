@@ -81,13 +81,13 @@ public class UserDAO {
 			ResultSet rs = ps.executeQuery();
 			u = null;
 			if(rs.next()) {
-				u.setCodigo(rs.getInt("USUARIO.ID"));
-				u.setNome(rs.getString("USUARIO.NOME"));
-				u.setNif(rs.getString("USUARIO.NIF"));
-				u.setEmail(rs.getString("USUARIO.EMAIL"));
-				u.setPassword(rs.getString("USUARIO.SENHA"));
-				u.setStatu(rs.getInt("USUARIO.STATU"));
-				u.setTipo_user(rs.getInt("USUARIO.TIPO_USUARIO"));
+				u.setCodigo(rs.getInt("ID"));
+				u.setNome(rs.getString("NOME"));
+				u.setNif(rs.getString("NIF"));
+				u.setEmail(rs.getString("EMAIL"));
+				u.setPassword(rs.getString("SENHA"));
+				u.setStatu(rs.getInt("STATU"));
+				u.setTipo_user(rs.getInt("TIPO_USUARIO"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,10 +95,6 @@ public class UserDAO {
 		}
 		return u;
 	}
-	
-	
-
-	
 	public boolean cadastrar(Usuario usuario) {
 		String sql = "INSERT INTO USUARIO VALUES(0, ?, ?, ?, ?, ?, ?, ?)";
 		

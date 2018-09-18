@@ -9,7 +9,7 @@ public class Usuario {
 	private String email;
 	private String sexo;
 	private String password;
-	private Integer statu = 0;
+	private Integer statu = 1;
 	private Integer tipo_user = 0;
 	
 	public Integer getCodigo() {

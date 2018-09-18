@@ -34,22 +34,23 @@ public class LoginMB {
 		if (userAtual == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario não encontrado!"));
 		} else {
-			if (userAtual.getStatu() == 1 && userAtual.getTipo_user() == 1) {
-				// ADIMINISTRADOR
-				return "home?faces-redirect=true";
-			} else if (userAtual.getStatu() == 1 && userAtual.getTipo_user() == 0) {
-				// COMUM
-				return "home?faces-redirect=true";
-			} else {
-				System.out.println("Usuario Desativo");
-				// DESATIVADO
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Esse usuário esta Desativado!"));
+			if(userAtual.getStatu() != 0) {
+				if(userAtual.getTipo_user() != 1) {
+					return "moderador/home?faces-redirect=true";
+				}else {
+					return "adm/home?faces-redirect=true";
+				}
+			}else {
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("Usuario DESATIVADO." + "/n"+
+				        " Entre em contato com o ADMINISTRADOR"));
 				return null;
 			}
 		}
 		return null;
 	}
 
+	
 // -------------------------------------------------------------------------------------------------
 
 	public String getUsuario() {

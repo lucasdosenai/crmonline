@@ -22,8 +22,6 @@ public class CadMB {
 	
 	public String verifica() {
 		if(uDao.verificaNifNoBanco(usuario.getNif()) == null) {
-		
-			
 			if(uDao.cadastrar(usuario)) {
 				FacesContext.getCurrentInstance().addMessage(null, 
 						new FacesMessage("Inserido com sucesso! "));
@@ -36,7 +34,6 @@ public class CadMB {
 						new FacesMessage("Não possível inserir! "));
 				return "";
 			}
-		
 		}else {
 			FacesContext.getCurrentInstance().addMessage(null, 
 					new FacesMessage("NIF JÁ EXISTENTE! "));
