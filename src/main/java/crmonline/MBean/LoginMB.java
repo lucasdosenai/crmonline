@@ -30,15 +30,15 @@ public class LoginMB {
 
 	public String logaUsuario() {
 		System.out.println("METODO: logaUsuario");
-		userAtual = uDao.buscaLogin(getUsuario(), getPassword());
+		userAtual = uDao.buscaLogin(getUsuario().replaceAll(" ", ""), getPassword());
 		if (userAtual == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario não encontrado!"));
 		} else {
 			if(userAtual.getStatu() != 0) {
 				if(userAtual.getTipo_user() != 1) {
-					return "moderador/home?faces-redirect=true";
+					return "pags/moderador/home?faces-redirect=true";
 				}else {
-					return "adm/home?faces-redirect=true";
+					return "pags/adm/home?faces-redirect=true";
 				}
 			}else {
 				FacesContext.getCurrentInstance().addMessage(null, 
