@@ -16,17 +16,14 @@ public class UserDAO {
 	
 	public UserDAO() {
 		con = ConDB.getConnection();
-		buscaLogin = "SELECT USUARIO.NOME FROM USUARIO "
-				  + " WHERE USUARIO.NIF = ? AND USUARIO.SENHA = ?";
+		buscaLogin = "SELECT * FROM USUARIO "
+				  + " WHERE NIF = ? AND SENHA = ?";
 		
 		buscaEmail = "SELECT USUARIO.NOME FROM USUARIO"
 				+ " WHERE USUARIO.EMAIL = ?";
 		buscaNIF = " SELECT USUARIO.NIF FROM USUARIO WHERE USUARIO.NIF = ?";
 	}
-	public Boolean inserirUser() {
-		
-		return true;
-	}
+
 	public Usuario buscarEmail(String email) {
 		Usuario raiz = new Usuario();
 		PreparedStatement ps;
@@ -72,15 +69,15 @@ public class UserDAO {
 		return raiz;
 	}
 	
-	public Usuario buscaLogin(String usuario, String password) {
-		 Usuario u = new Usuario();
+	public Usuario buscaLogin(String usuario, String password) { 
 		try {
 			PreparedStatement ps = con.prepareStatement(buscaLogin);
 			ps.setString(1, usuario);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
-			u = null;
+			
 			if(rs.next()) {
+				Usuario u = new Usuario();
 				u.setCodigo(rs.getInt("ID"));
 				u.setNome(rs.getString("NOME"));
 				u.setNif(rs.getString("NIF"));
@@ -88,12 +85,13 @@ public class UserDAO {
 				u.setPassword(rs.getString("SENHA"));
 				u.setStatu(rs.getInt("STATU"));
 				u.setTipo_user(rs.getInt("TIPO_USUARIO"));
+				return u;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return u;
+		return null;
 	}
 	public boolean cadastrar(Usuario usuario) {
 		String sql = "INSERT INTO USUARIO VALUES(0, ?, ?, ?, ?, ?, ?, ?)";
