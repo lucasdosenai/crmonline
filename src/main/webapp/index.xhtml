@@ -22,11 +22,11 @@
 				<p:outputLabel value="NIF: " />
 				<p:inputMask mask="999 999 9" styleClass="input_normal"
 					value="#{loginMB.usuario}" />
-
+					
 				<p:outputLabel value="PASSWORD: " />
 				<p:password styleClass="input_normal"
 					value="#{loginMB.password}" />
-
+					
 			</h:panelGrid>
 			<h:commandButton value="ACESSA" styleClass="btn"
 				action="#{loginMB.logaUsuario}" />
@@ -34,7 +34,7 @@
 				<h:commandButton value="NOVO USUARIO" styleClass="btn" action="#{util.irCadastrar}" />
 			</div>
 			<div class="barra_informa">
-				<h:commandButton value="ESQUECI MINHA SENHA" styleClass="btn" action="#{util.irCadastrar}" />
+				<h:commandButton value="ESQUECI MINHA SENHA" styleClass="btn" action="#{util.irRecupera}" />
 			</div>
 		</h:panelGrid>
 	</h:form>

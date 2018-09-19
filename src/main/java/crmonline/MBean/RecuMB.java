@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import crmonline.DAO.UserDAO;
 import crmonline.Entidade.Usuario;
+import crmonline.util.Util;
 
 @ManagedBean
 public class RecuMB {
@@ -17,21 +18,26 @@ public class RecuMB {
 	private String emailRecupera = "";
 	private Usuario userRecuperado;
 	
+	Util u ;
+	
 	public RecuMB() {
 		super();
 		uDao = new UserDAO();
 	}
 	
 	public String verificaEmailExistente() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		userRecuperado = uDao.buscarEmail(emailRecupera);
+		Random random = new Random();
+		Integer aleatorio = (int) (Math.random()*9999);
+		
+		// Verifica se o campo email esta vazio!
 		if(emailRecupera.equals("")) {
-		if(userRecuperado.getEmail().equals(emailRecupera)) 
-			 return "verifica-codigo?faces-redirect=true";	 
-		     else return "recupera?faces-redirect=true";
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("Preencha os campos!"));
+		}else {
+			userRecuperado = uDao.buscarEmail(emailRecupera);
 		}
-		context.addMessage(null, new FacesMessage("Preencha os campos!"));
-		return "recupera?faces-redirect=true";
+		
+		return null;
 	}
 	
 	public UserDAO getuDao() {
