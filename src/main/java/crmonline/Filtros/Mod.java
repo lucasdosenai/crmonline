@@ -13,23 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import crmonline.MBean.LoginMB;
-
-@WebFilter("/pags/adm/*")
-public class Adm implements Filter{
-	
+@WebFilter("/pags/moderador/*")
+public class Mod implements Filter{
 	private LoginMB login;
-	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("Filtro adiministrador iniciado");
+		
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("Encontreou um adiministrador com filtro!");
+		System.out.println("Encontreou um moderador com filtro!");
 		login = (LoginMB) ((HttpServletRequest) request).getSession().getAttribute("loginMB");
 		if(login == null || login.getUsuario().equals("")) {
 			String diretorio = ((HttpServletRequest)request).getContextPath();

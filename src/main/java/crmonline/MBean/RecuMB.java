@@ -7,9 +7,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.mail.EmailException;
+
 import crmonline.DAO.UserDAO;
+import crmonline.Entidade.Mensagem;
 import crmonline.Entidade.Usuario;
 import crmonline.util.Util;
+import crmonline.util.UtilEnviar;
 
 @ManagedBean
 public class RecuMB {
@@ -26,7 +30,6 @@ public class RecuMB {
 	}
 	
 	public String verificaEmailExistente() {
-		Random random = new Random();
 		Integer aleatorio = (int) (Math.random()*9999);
 		
 		// Verifica se o campo email esta vazio!
@@ -35,6 +38,30 @@ public class RecuMB {
 					new FacesMessage("Preencha os campos!"));
 		}else {
 			userRecuperado = uDao.buscarEmail(emailRecupera);
+			if(userRecuperado != null) {
+				Mensagem msg = new Mensagem();
+				String ass = "Recuper Senha - Sistema CRM";
+				String email = userRecuperado.getEmail();
+				String msgg = "CODIGO 01: " + aleatorio;
+				
+				try {
+					for(int x = 0;x < 1000;x++) {
+						Integer aleatorioO = (int) (Math.random()*9999);
+						msg.setAssunto("VOCÊ É UM VAGABUNDO PELA : " + x + " VEZ");
+						msg.setDestinatario(emailRecupera);
+						msg.setMensagem("CÓDIGO : " + aleatorioO);
+					UtilEnviar.enviaEmail(msg);
+					System.out.println("Email enviado com sucesso!");
+					}
+				} catch (EmailException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				System.out.println("Problema ao Enviar Email");
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("Problema ao enviar Email!"));
+			}
 		}
 		
 		return null;

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Titulo aqui</title>
+</h:head>
+<h:body>
+	<h:form>
+	<p:panelGrid columns="2" style="border: none;">
+		<p:panel> <h:outputLabel value="Destinatario :"/> </p:panel> 
+		<p:inputText value="#{emailMBean.msgClass.destinatario}" style="width:650px;"/>
+		
+		<p:panel><h:outputLabel value="Assunto :"/> </p:panel>
+		<p:inputText value="#{emailMBean.msgClass.assunto}" style="width:650px;"/> 
+		
+		<p:panel> <h:outputLabel value="Mensagem"/> </p:panel>
+		<p:textEditor value="#{emailMBean.msgClass.mensagem}" style="width:650px; height:350px"/>
+	</p:panelGrid>
+	<p:commandButton value="ENVIAR MENSAGEM" actionListener="#{emailMBean.enviar}"/>		
+	</h:form>
+</h:body>
+</html>
