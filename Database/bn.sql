@@ -4,7 +4,7 @@ use banco;
 Create table USUARIO(
 	ID int primary key auto_increment not null,
 	NOME varchar(64) not null,
-	NIF varchar(7) not null unique,
+	NIF varchar(7) not null,
     SEXO VARCHAR(1) not null,
 	EMAIL varchar(64) not null,
 	SENHA varchar(16) not null,
@@ -18,31 +18,27 @@ Create table USUARIO(
   --               1 USUARIO ROOT
 );
 -- CRIANDO USUARIO
-INSERT INTO USUARIO(NOME,NIF,EMAIL,SENHA,STATU,TIPO_USUARIO) VALUES ('AMD',1234567,'nana@gay.usa','123',1,1);
+INSERT INTO USUARIO(NOME,NIF,SEXO,EMAIL,SENHA,STATU,TIPO_USUARIO) VALUES ('AMD',1234567,'M','teste@teste.com','123',1,1);
 -- LOGIN USUARIO
 SELECT USUARIO.NOME FROM USUARIO WHERE USUARIO.NIF = "01012490" AND USUARIO.SENHA = "123";
 -- MOSTRA TODOS USUARIOS
 SELECT * FROM USUARIO;
 
-delete from USUARIO WHERE 1 = 1;
-
-SELECT USUARIO.NIF FROM USUARIO WHERE USUARIO.NIF = "01012490";
-SELECT USUARIO.NIF FROM USUARIO WHERE USUARIO.NIF = "1234567";
 
 create table CATEGORIA(
 	ID	int primary key auto_increment not null,
 	NOME	varchar(24)
 );
 -- CRIA CATEGORIAS
-INSERT INTO CATEGORIA(NOME) VALUES('Eletr√¥nica');
+INSERT INTO CATEGORIA(NOME) VALUES('EletrÙnica');
 -- MOSTRA TODAS CATEGORIAS
 
 create table CURSO(
 	ID	         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	NOME	     VARCHAR(64) NOT NULL,
 	VAGAS_TOTAL	 INT DEFAULT 0,
-	DESCRI	     VARCHAR(264) DEFAULT 'SEM DESCRI√á√ÉO',
-	DURACAO	     VARCHAR(64) DEFAULT 'SEM DESCRI√á√ÉO',
+	DESCRI	     VARCHAR(264) DEFAULT 'SEM DESCRI«√O',
+	DURACAO	     VARCHAR(64) DEFAULT 'SEM DESCRI«√O',
     ID_CATEGORIA INT
 );
 
@@ -61,7 +57,7 @@ foreign key (ID_AREA) references CATEGORIA(ID)
 
 create table AGENDA(
 	ID	         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	ATENDENTE    VARCHAR(64) NOT NULL, -- Nome da pessoas que vai atender na hora da visita, reuni√£o marcada com ?
+	ATENDENTE    VARCHAR(64) NOT NULL, -- Nome da pessoas que vai atender na hora da visita, reuni„o marcada com ?
 	QUANDO	     TIMESTAMP NOT NULL, -- Dia da visita
 	HORARIO	     TIMESTAMP NOT NULL, -- Hora da visita
 	ESTADOS	     INT,
@@ -88,10 +84,9 @@ create table VENDA(
 	foreign key (ID_CURSO) references CURSO(ID)
 --   
 );
-
+SELECT * FROM RECUPERA_USUARIO;
 create table RECUPERA_USUARIO(
 	ID	int primary key auto_increment not null,
-    EMAIL VARCHAR(64) NOT NULL,
     ID_USER INTEGER,
     CODIGO VARCHAR(64),
     

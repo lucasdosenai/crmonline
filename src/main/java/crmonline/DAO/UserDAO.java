@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import crmonline.DB.ConDB;
+import crmonline.Entidade.RecuperaUser;
 import crmonline.Entidade.Usuario;
 
 public class UserDAO {
@@ -16,16 +17,12 @@ public class UserDAO {
 	
 	public UserDAO() {
 		con = ConDB.getConnection();
-		buscaLogin = "SELECT * FROM USUARIO "
-				  + " WHERE NIF = ? AND SENHA = ?";
-		
-		buscaEmail = "SELECT USUARIO.NOME FROM USUARIO"
-				+ " WHERE USUARIO.EMAIL = ?";
+		buscaLogin = "SELECT * FROM USUARIO WHERE NIF = ? AND SENHA = ?";
+		buscaEmail = "SELECT * FROM USUARIO WHERE EMAIL = ?";
 		buscaNIF = " SELECT USUARIO.NIF FROM USUARIO WHERE USUARIO.NIF = ?";
 	}
 
 	public Usuario buscarEmail(String email) {
-		Usuario raiz = new Usuario();
 		PreparedStatement ps;
 		try {
 			System.out.println(buscaEmail);
@@ -35,21 +32,22 @@ public class UserDAO {
 			
 			if(rs.next()) {
 				Usuario u = new Usuario();
-				u.setCodigo(rs.getInt("USUARIO.ID"));
-				u.setNome(rs.getString("USUARIO.NOME"));
-				u.setNif(rs.getString("USUARIO.NIF"));
-				u.setEmail(rs.getString("USUARIO.EMAIL"));
-				u.setPassword(rs.getString("USUARIO.SENHA"));
-				u.setStatu(rs.getInt("USUARIO.STATU"));
-				u.setTipo_user(rs.getInt("USUARIO.TIPO_USUARIO"));
+				u.setCodigo(rs.getInt("ID"));
+				u.setNome(rs.getString("NOME"));
+				u.setNif(rs.getString("NIF"));
+				u.setSexo(rs.getString("SEXO"));
+				u.setEmail(rs.getString("EMAIL"));
+				u.setPassword(rs.getString("SENHA"));
+				u.setStatu(rs.getInt("STATU"));
+				u.setTipo_user(rs.getInt("TIPO_USUARIO"));
 				
-				raiz = u;
+				return u;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return raiz;
+		return null;
 	}
 	
 	public Usuario verificaNifNoBanco(String nif) {
@@ -111,6 +109,22 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
+		return false;
+	}
+	public boolean recuperaUser(RecuperaUser ru) {
+		String sql = "INSERT INTO RECUPERA_USUARIO VALUES(0, ?, ?)";
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, ru.getId_user());
+			ps.setString(2, ru.getCodigo());
+			
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	

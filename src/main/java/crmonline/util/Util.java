@@ -10,7 +10,7 @@ public class Util {
 		return "cadastro?faces-redirect=true";
 	}
 	public String irRecuperar() {
-		return "recuperar?faces-redirect=true";
+		return "recupera?faces-redirect=true";
 	}
 	public String irVerificaCodigo() {
 		return "verifica-codigo?faces-redirect=true";

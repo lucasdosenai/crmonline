@@ -15,7 +15,7 @@
 	<div align="center" style="width: 1000px">
 		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
 	</div>
-	<h:panelGrid columns="1" styleClass="caixa">
+	<h:panelGrid columns="1" styleClass="caixa" rendered="#{!recuMB.codigo}">
 	
 	<div class="barra">EMAIL PARA RECUPERAÇÃO</div>
 		<h:panelGrid columns="2" styleClass="centro">
@@ -27,6 +27,17 @@
 		<h:commandButton value="ENVIAR" styleClass="btn" action="#{recuMB.verificaEmailExistente}"/>
 		<div class="barra_informa" ></div>
 	</h:panelGrid>
+
+	<h:panelGrid rendered="#{recuMB.codigo}">
+		<p:outputLabel  value="VERIFICA CÓDIGOl: " />
+		<h:inputText styleClass="input_normal" value=""/>	
+			
+	<h:panelGrid>
+		<h:commandButton value="VERIFICAR" styleClass="btn" />
+		<div class="barra_informa" ></div>
+	</h:panelGrid>
+	</h:panelGrid>
+
 </h:form>	
 
 </h:body>
