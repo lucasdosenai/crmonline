@@ -26,47 +26,33 @@
 			</ul>
 		</div>
 	</nav>
-	<h:panelGrid columns="2" id="pai" >
-		<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+	<h:panelGrid columns="1" id="pai">
+		<h:panelGrid columns="2" style="padding:10px !important" cellpadding="5">
 			<p:dataTable var="car" value="">
 				<p:column headerText="Clientes">
 					<h:outputText value="" />
 				</p:column>
 			</p:dataTable>
 		</h:panelGrid>
-
 		<h:panelGrid>
-			<h:panelGrid id="toolbar" columns="2" style="margin-bottom:10px"
-				cellpadding="5">
+			<h:panelGrid id="toolbar" columns="2">
 				<p:toolbar>
-					<f:facet name="left" columns="2" style="margin-bottom:10px"
-						cellpadding="5">
-
-						<h:panelGrid columns="2" style="margin-bottom:10px"
-							cellpadding="5">
-							
-						</h:panelGrid>
-					</f:facet>
 					<f:facet name="left">
-			<p:commandButton 
-				action="cadCliente?faces-redirect=true"
-				value="Agende visita a esse cliente"
-				icon="ui-icon-plus"/>
-		</f:facet>
-	
+						<p:commandButton style="justify-content:center" action="cadCliente?faces-redirect=true"
+							value="Agende visita a esse cliente" icon="ui-icon-plus" />
+					</f:facet>
 				</p:toolbar>
-
 			</h:panelGrid>
-			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+		
 
 				<p:dataTable var="car" value="#{dtBasicView.cars}">
 					<p:column headerText="Lista de visitas já realizadas ao Cliente">
 						<h:outputText value="#{car.id}" />
 					</p:column>
 
-				
+
 				</p:dataTable>
-			</h:panelGrid>
+		
 		</h:panelGrid>
 	</h:panelGrid>
 </h:body>
