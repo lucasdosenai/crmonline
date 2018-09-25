@@ -24,7 +24,7 @@ public class Mensagem {
 	public String getMensagem() {
 		return mensagem;
 	}
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
+	public void setMensagem(String object) {
+		this.mensagem =  object;
 	}
 }

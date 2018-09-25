@@ -14,9 +14,9 @@ public class UtilEnviar {
 	
 
 	private static final String HOSTNAME = "smtp.gmail.com";
-	private static final String USERNAME = "rlemesenai@gmail.com";
-	private static final String PASSWORD = "senai2018";
-	private static final String EMAILORIGEM = "rlemesenai@gmail.com";
+	private static final String USERNAME = "spam.nepo2018@gmail.com";
+	private static final String PASSWORD = "senai123";
+	private static final String EMAILORIGEM = "spam.nepo2018@gmail.com";
 	
 	public static Email conectaEmail() throws EmailException{
 		   Email email = new SimpleEmail();

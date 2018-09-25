@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import crmonline.DB.ConDB;
+import crmonline.Entidade.RecuperaUser;
 import crmonline.Entidade.Usuario;
 
 public class UserDAO {
@@ -108,6 +109,22 @@ public class UserDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
+		return false;
+	}
+	public boolean recuperaUser(RecuperaUser ru) {
+		String sql = "INSERT INTO RECUPERA_USUARIO VALUES(0, ?, ?)";
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, ru.getId_user());
+			ps.setString(2, ru.getCodigo());
+			
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	

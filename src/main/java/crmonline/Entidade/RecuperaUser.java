@@ -1,7 +1,7 @@
 package crmonline.Entidade;
 
 public class RecuperaUser {
-	private String Email;
+	private String codigo;
 	private Integer id_user;
 	
 	
@@ -13,11 +13,11 @@ public class RecuperaUser {
 		this.id_user = id_user;
 	}
 
-	public String getEmail() {
-		return Email;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setEmail(String email) {
-		Email = email;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 }
