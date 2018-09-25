@@ -2,6 +2,7 @@ package crmonline.MBean;
 
 import java.awt.Label;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.faces.application.FacesMessage;
@@ -24,6 +25,7 @@ public class RecuMB {
 	private String emailRecupera = "";
 	private Usuario userRecuperado;
 	boolean codigo = false;
+	private String vCod = "" ;
 	Util u ;
 	Label c;
 	public RecuMB() {
@@ -53,7 +55,8 @@ public class RecuMB {
 						msg.setMensagem(c.getText());
 					UtilEnviar.enviaEmail(msg);
 					System.out.println("Email enviado com sucesso!");
-					codigo = true;
+					// codigo = true;
+					return "verifica-codigo?faces-redirect=true";
 					}else {
 						System.out.println("Problema ao cadastrar codigo");
 						FacesContext.getCurrentInstance().addMessage(null, 
@@ -67,6 +70,18 @@ public class RecuMB {
 				System.out.println("Problema ao Enviar Email");
 				FacesContext.getCurrentInstance().addMessage(null, 
 						new FacesMessage("Problema ao enviar Email!"));
+			}
+		}
+		return null;
+	}
+	public String verificaCodigo() {
+		if(vCod != "") {
+			RecuperaUser protocolo = uDao.listaProtocolo(vCod);
+			if(protocolo != null) {
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("PROCESSANDO PROTOCOLOGO!") );
+			}else {
+				
 			}
 		}
 		return null;
@@ -127,6 +142,15 @@ public class RecuMB {
 	public void setC(Label c) {
 		this.c = c;
 	}
+
+	public String getvCod() {
+		return vCod;
+	}
+
+	public void setvCod(String vCod) {
+		this.vCod = vCod;
+	}
+	
 	
 	
 }

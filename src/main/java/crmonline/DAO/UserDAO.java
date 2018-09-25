@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import crmonline.DB.ConDB;
 import crmonline.Entidade.RecuperaUser;
@@ -111,6 +112,26 @@ public class UserDAO {
 		}	
 		return false;
 	}
+	public RecuperaUser listaProtocolo(String cod){
+		String sql = "SELECT * FROM RECUPERA_USUARIO WHERE CODIGO = ?";
+
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, cod);
+			ResultSet rs = ps.executeQuery();
+	
+			RecuperaUser eUser = new RecuperaUser();
+			while(rs.next()) {
+				eUser.setId_user(rs.getInt("ID_USER"));
+				eUser.setCodigo(rs.getString("CODIGO"));
+				return eUser;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public boolean recuperaUser(RecuperaUser ru) {
 		String sql = "INSERT INTO RECUPERA_USUARIO VALUES(0, ?, ?)";
 		
@@ -124,7 +145,6 @@ public class UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return false;
 	}
 	

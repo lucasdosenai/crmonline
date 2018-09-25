@@ -13,20 +13,20 @@
 	<div align="center" style="width: 1000px">
 		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
 	</div>
-	
+	<h:form>
 	<h:panelGrid columns="1" styleClass="caixa">
 	
-	<div class="barra">EMAIL PARA RECUPERAÇÃO</div>
+	<div class="barra">VERIFICAR CÓDIGO</div>
 		<h:panelGrid columns="2" styleClass="centro">
 		
-		<p:outputLabel  value="Email: " />
-		<h:inputText styleClass="input_normal" value="#{login}"/>	
+		<p:outputLabel  value="CODIGO" />
+		<h:inputText styleClass="input_normal" value="#{recuMB.vCod}"/>	
 			
 	</h:panelGrid>
-		<h:commandButton value="ENVIAR" styleClass="btn" />
+		<h:commandButton value="ENVIAR" styleClass="btn" action="#{recuMB.verificaCodigo}"/>
 		<div class="barra_informa" ></div>
 	</h:panelGrid>
-			
+			</h:form>
 
 </h:body>
 </html>
