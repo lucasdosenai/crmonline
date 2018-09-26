@@ -15,8 +15,7 @@
 		<p:autoUpdate />		
 	</p:growl>
 	<h:form>
-		
-		<h:panelGrid columns="1" styleClass="caixa">
+		<h:panelGrid id="teste" columns="1" styleClass="caixa">
 			<div class="barra">ACESSO RESTRITO</div>
 			<h:panelGrid columns="2" styleClass="centro">
 				<p:outputLabel value="NIF: " />
@@ -24,9 +23,7 @@
 					value="#{loginMB.usuario}" />
 					
 				<p:outputLabel value="PASSWORD: " />
-				<p:password styleClass="input_normal"
-					value="#{loginMB.password}" />
-					
+				<p:password styleClass="input_normal" value="#{loginMB.password}" />
 			</h:panelGrid>
 			<h:commandButton value="ACESSA" styleClass="btn"
 				action="#{loginMB.logaUsuario}" />

@@ -21,17 +21,25 @@ import crmonline.util.UtilEnviar;
 @ManagedBean
 public class RecuMB {
 	UserDAO uDao;
+	Util u ;
+	Label c;
+	
+	boolean render;
+	
 	private Usuario UserAtual;
 	private String emailRecupera = "";
 	private Usuario userRecuperado;
-	boolean codigo = false;
 	private String vCod = "" ;
-	Util u ;
-	Label c;
+	
+	String ID_USUARIO_FINAL = "";
+	String verificaPassword = "";
+	String Password = "";
+	
 	public RecuMB() {
 		super();
 		uDao = new UserDAO();
 		c = new Label();
+		render = false;
 	}
 	
 	public String verificaEmailExistente() {
@@ -55,7 +63,6 @@ public class RecuMB {
 						msg.setMensagem(c.getText());
 					UtilEnviar.enviaEmail(msg);
 					System.out.println("Email enviado com sucesso!");
-					// codigo = true;
 					return "verifica-codigo?faces-redirect=true";
 					}else {
 						System.out.println("Problema ao cadastrar codigo");
@@ -78,13 +85,33 @@ public class RecuMB {
 		if(vCod != "") {
 			RecuperaUser protocolo = uDao.listaProtocolo(vCod);
 			if(protocolo != null) {
+				ID_USUARIO_FINAL = protocolo.getId_user().toString();
+				render = true;
 				FacesContext.getCurrentInstance().addMessage(null, 
-						new FacesMessage("PROCESSANDO PROTOCOLOGO!") );
+						new FacesMessage("PROTOCOLOGO! LIBERADO") );
 			}else {
-				
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("PROTOCOLOGO! NÃO LIBERADO, APARENTEMENTE VERIFIQUE SEU CÓDIGO") );
 			}
+		}else {
+				FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("COLOQUE UM CÓDIGO") );
 		}
 		return null;
+	}
+	public String novaSenha() {
+		render = true;
+		if(Password.equals("") || verificaPassword.equals("")) {
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("Preencha o campo em branco!"));
+			return null;
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("NOVA SENHA") );
+			return "index?faces-redirect=true";
+		}
+		
+		
 	}
 	
 	public UserDAO getuDao() {
@@ -119,12 +146,12 @@ public class RecuMB {
 		this.userRecuperado = userRecuperado;
 	}
 
-	public boolean isCodigo() {
-		return codigo;
+	public boolean isrender() {
+		return render;
 	}
 
-	public void setCodigo(boolean codigo) {
-		this.codigo = codigo;
+	public void setCodigo(boolean render) {
+		this.render = render;
 	}
 
 	public Util getU() {
@@ -149,6 +176,38 @@ public class RecuMB {
 
 	public void setvCod(String vCod) {
 		this.vCod = vCod;
+	}
+
+	public boolean isRender() {
+		return render;
+	}
+
+	public void setRender(boolean render) {
+		this.render = render;
+	}
+
+	public String getID_USUARIO_FINAL() {
+		return ID_USUARIO_FINAL;
+	}
+
+	public void setID_USUARIO_FINAL(String iD_USUARIO_FINAL) {
+		ID_USUARIO_FINAL = iD_USUARIO_FINAL;
+	}
+
+	public String getVerificaPassword() {
+		return verificaPassword;
+	}
+
+	public void setVerificaPassword(String verificaPassword) {
+		this.verificaPassword = verificaPassword;
+	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
 	}
 	
 	

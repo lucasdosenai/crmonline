@@ -26,18 +26,17 @@
 	</h:panelGrid>
 		<h:commandButton value="ENVIAR" styleClass="btn" action="#{recuMB.verificaEmailExistente}"/>
 		<div class="barra_informa" ></div>
+		
 	</h:panelGrid>
-
-	<h:panelGrid rendered="#{recuMB.codigo}">
+	<h:panelGrid rendered="#{recuMB.codigo}" styleClass="caixa">
 		<p:outputLabel  value="VERIFICA CÓDIGOl: " />
 		<h:inputText styleClass="input_normal" value=""/>	
-			
 	<h:panelGrid>
-		<h:commandButton value="VERIFICAR" styleClass="btn" />
+		<h:commandButton id="saveBtn" value="VERIFICAR" styleClass="btn" />
 		<div class="barra_informa" ></div>
 	</h:panelGrid>
 	</h:panelGrid>
-
+	
 </h:form>	
 
 </h:body>

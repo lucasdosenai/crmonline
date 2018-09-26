@@ -13,20 +13,37 @@
 	<div align="center" style="width: 1000px">
 		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
 	</div>
-	<h:form>
-	<h:panelGrid columns="1" styleClass="caixa">
 	
+	<h:panelGrid columns="1" styleClass="caixa">
 	<div class="barra">VERIFICAR CÓDIGO</div>
-		<h:panelGrid columns="2" styleClass="centro">
-		
-		<p:outputLabel  value="CODIGO" />
-		<h:inputText styleClass="input_normal" value="#{recuMB.vCod}"/>	
+	<h:panelGrid styleClass="centro" columns="2">
+	
+		<h:panelGrid id="panelcodigo" rendered="#{!recuMB.render}">
+		<h:form>
+			<p:outputLabel  value="CODIGO" />
+			<h:inputText styleClass="input_normal" value="#{recuMB.vCod}"/>	
 			
-	</h:panelGrid>
-		<h:commandButton value="ENVIAR" styleClass="btn" action="#{recuMB.verificaCodigo}"/>
-		<div class="barra_informa" ></div>
-	</h:panelGrid>
-	</h:form>
+			<h:commandButton value="ENVIAR" styleClass="btn" action="#{recuMB.verificaCodigo}"/>
+			<div class="barra_informa" ></div>
+		</h:form>
+		</h:panelGrid>
+		<h:panelGrid id="panelNovaSenha" columns="2" rendered="#{recuMB.render}">
+			<h:form>
+			<p:outputLabel  value="NOVA SENHA" />
+			<p:password styleClass="input_normal" value="#{recuMB.password}" />
+			
+			<p:outputLabel  value="CONFIRMA SENHA" />
+			<p:password styleClass="input_normal" value="#{recuMB.verificaPassword}" />	
+				
+			<h:commandButton value="CONFIRMAR" styleClass="btn" action="#{recuMB.novaSenha}"/>
+			<div class="barra_informa" ></div>
+			</h:form>
+		</h:panelGrid>
+		
+		</h:panelGrid>
+		</h:panelGrid>	
+	
+
 
 </h:body>
 </html>
