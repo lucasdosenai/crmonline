@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.mail.EmailException;
@@ -19,12 +20,13 @@ import crmonline.util.Util;
 import crmonline.util.UtilEnviar;
 
 @ManagedBean
+@ViewScoped
 public class RecuMB {
 	UserDAO uDao;
 	Util u ;
 	Label c;
 	
-	boolean render;
+	boolean render = false;
 	
 	private Usuario UserAtual;
 	private String emailRecupera = "";
@@ -39,7 +41,6 @@ public class RecuMB {
 		super();
 		uDao = new UserDAO();
 		c = new Label();
-		render = false;
 	}
 	
 	public String verificaEmailExistente() {
@@ -49,6 +50,8 @@ public class RecuMB {
 					new FacesMessage("Preencha os campos!"));
 		}else {
 			userRecuperado = uDao.buscarEmail(emailRecupera);
+			Integer x = userRecuperado.getCodigo();
+			
 			if(userRecuperado != null) {
 				Mensagem msg = new Mensagem();	
 				try {
@@ -100,20 +103,28 @@ public class RecuMB {
 		return null;
 	}
 	public String novaSenha() {
-		render = true;
+		System.out.println();
 		if(Password.equals("") || verificaPassword.equals("")) {
 			FacesContext.getCurrentInstance().addMessage(null, 
 					new FacesMessage("Preencha o campo em branco!"));
 			return null;
 		}else {
-			FacesContext.getCurrentInstance().addMessage(null, 
-					new FacesMessage("NOVA SENHA") );
-			return "index?faces-redirect=true";
+			if(Password.equals(verificaPassword)) {
+				if(uDao.novaSenha(Password, ID_USUARIO_FINAL)) {
+					uDao.deletaProtocologo(ID_USUARIO_FINAL);
+					for(int x = 1; x< 2;x++) {
+						FacesContext.getCurrentInstance().addMessage(null, 
+								new FacesMessage("SENHA ALTERADA COM SUCESSO!"));
+					}
+					return "index?faces-redirect=true";
+				}
+			}else {
+				FacesContext.getCurrentInstance().addMessage(null, 
+						new FacesMessage("Senhas diferentes. Veirifique password") );
+			}
+			return null;
 		}
-		
-		
 	}
-	
 	public UserDAO getuDao() {
 		return uDao;
 	}

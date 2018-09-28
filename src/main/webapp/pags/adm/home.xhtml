@@ -11,68 +11,31 @@
 </h:head>
 
 <h:body>
-	<nav class="nav-extended" style="background-color: black">
-		<div class="nav-content">
-			<ul class="tabs tabs-transparent">
-				<li class="tab"><a href="#"><h:graphicImage library="img"
-							name="logo.png" width="50px" height="50px" /></a></li>
-				<li class="tab"><a href="#test1">AGENDAMENTOS</a></li>
-				<li class="tab"><a href="#test2">CLIENTES</a></li>
-				<li class="tab" style="margin-right: 50%"><a href="#test4">CADASTRO</a></li>
-
-				<li class="tab"><a href="sass.html">INICIO</a></li>
-				<li class="tab"><a href="badges.html">PERFIL</a></li>
-				<li class="tab"><a href="collapsible.html">SAIR</a></li>
-			</ul>
-		</div>
-	</nav>
-	<h:panelGrid columns="2" id="pai" >
-		<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-			<p:dataTable var="car" value="">
-				<p:column headerText="Clientes">
-					<h:outputText value="" />
-				</p:column>
-			</p:dataTable>
+	<h:form>  
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+        <p:menuitem value="HOME" url="#" />
+        <p:submenu label="CADASTRAR" icon="ui-icon-pencil">
+            <p:menuitem value="CLIENTE" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:menuitem value="VISITA" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+            <p:menuitem value="CONTATO" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+        </p:submenu>
+ 
+        <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+ 
+        <f:facet name="options">
+            <p:inputText style="margin-right:10px" placeholder="Search"/>
+            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+        </f:facet>
+    </p:menubar>
+</h:form>
+	<h:panelGrid id="listas" columns="2">
+		<h:panelGrid id="clientes">
+		
 		</h:panelGrid>
-
-		<h:panelGrid>
-			<h:panelGrid id="toolbar" columns="2" style="margin-bottom:10px"
-				cellpadding="5">
-				<p:toolbar>
-					<f:facet name="left" columns="2" style="margin-bottom:10px"
-						cellpadding="5">
-
-						<h:panelGrid columns="2" style="margin-bottom:10px"
-							cellpadding="5">
-							<p:outputLabel for="console" value="Filtrar" />
-							<p:selectOneMenu id="console"
-								value="#{selectOneMenuView.console}" style="width:125px">
-								<f:selectItem itemLabel="Selecione" itemValue="" />
-								<f:selectItem itemLabel="Cu" itemValue="Xbox One" />
-								<f:selectItem itemLabel="PS4" itemValue="PS4" />
-								<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
-							</p:selectOneMenu>
-						</h:panelGrid>
-					</f:facet>
-				</p:toolbar>
-
-			</h:panelGrid>
-			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-
-				<p:dataTable var="car" value="#{dtBasicView.cars}">
-					<p:column headerText="Data/Hora">
-						<h:outputText value="#{car.id}" />
-					</p:column>
-
-					<p:column headerText="Local">
-						<h:outputText value="#{car.year}" />
-					</p:column>
-
-					<p:column headerText="Quem">
-						<h:outputText value="#{car.brand}" />
-					</p:column>
-				</p:dataTable>
-			</h:panelGrid>
+		<h:panelGrid id="">
+		
 		</h:panelGrid>
 	</h:panelGrid>
 </h:body>

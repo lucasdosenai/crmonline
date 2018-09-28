@@ -22,7 +22,34 @@ public class UserDAO {
 		buscaEmail = "SELECT * FROM USUARIO WHERE EMAIL = ?";
 		buscaNIF = " SELECT USUARIO.NIF FROM USUARIO WHERE USUARIO.NIF = ?";
 	}
-
+	
+	public ArrayList<Usuario> listaClientes (){
+			ArrayList<Usuario> clientes = new ArrayList<>();
+			String SQL = "SELECT * FROM USUARIO";
+			PreparedStatement PS;
+			try {
+				PS = con.prepareStatement(SQL);
+				ResultSet rs = PS.executeQuery();
+				
+				while(rs.next()) {
+					Usuario u = new Usuario();
+					u.setCodigo(rs.getInt("ID"));
+					u.setNome(rs.getString("NOME"));
+					u.setNif(rs.getString("NIF"));
+					u.setSexo(rs.getString("SEXO"));
+					u.setPassword("");
+					u.setStatu(rs.getInt("STATU"));
+					u.setTipo_user(rs.getInt("TIPO_USUARIO"));
+					
+					clientes.add(u);	
+				}
+				return clientes;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
 	public Usuario buscarEmail(String email) {
 		PreparedStatement ps;
 		try {
@@ -92,6 +119,40 @@ public class UserDAO {
 		}
 		return null;
 	}
+	public boolean deletaProtocologo(String ID) {
+		String SQL = "DELETE FROM RECUPERA_USUARIO WHERE ID_USER = ?";
+		
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, ID);
+			
+			if(ps.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public boolean novaSenha(String pass, String ID) {
+		String SQL = "UPDATE USUARIO SET SENHA = ? WHERE ID = ? ";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, pass);
+			ps.setString(2, ID);
+			
+			if(ps.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 	public boolean cadastrar(Usuario usuario) {
 		String sql = "INSERT INTO USUARIO VALUES(0, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -119,7 +180,6 @@ public class UserDAO {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, cod);
 			ResultSet rs = ps.executeQuery();
-	
 			RecuperaUser eUser = new RecuperaUser();
 			while(rs.next()) {
 				eUser.setId_user(rs.getInt("ID_USER"));
@@ -132,6 +192,7 @@ public class UserDAO {
 		}
 		return null;
 	}
+	
 	public boolean recuperaUser(RecuperaUser ru) {
 		String sql = "INSERT INTO RECUPERA_USUARIO VALUES(0, ?, ?)";
 		
