@@ -37,7 +37,8 @@ public class UserDAO {
 					u.setNome(rs.getString("NOME"));
 					u.setNif(rs.getString("NIF"));
 					u.setSexo(rs.getString("SEXO"));
-					u.setPassword("");
+					u.setPassword("*****");
+					u.setEmail(rs.getString("EMAIL"));
 					u.setStatu(rs.getInt("STATU"));
 					u.setTipo_user(rs.getInt("TIPO_USUARIO"));
 					

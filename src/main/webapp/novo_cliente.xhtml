@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="estilo.css"/>
+	
+</h:head>
+<h:body styleClass="teste">
+	<p:growl autoUpdate="true">
+	</p:growl>
+	<div align="center" style="width: 1000px">
+		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
+	</div>
+
+	<h:panelGrid columns="1" styleClass="caixa">
+	
+	<div class="barra">ACESSO RESTRITO</div>
+		<h:panelGrid columns="2" styleClass="centro">
+		
+		<h:panelGrid styleClass="centro">
+	<h3>Novo Cliente</h3>
+	
+	<h:form>
+	<p:growl >
+		<p:autoUpdate />		
+	</p:growl>
+	<p:panelGrid columns="1">
+		<p:inputText placeholder="Nome Cliente" size="40" styleClass="input_normal" />
+		<p:inputText placeholder="CNPJ " size="40" type="number" styleClass="input_normal"  />
+		<p:inputText placeholder="N° Funcionarios " size="40" type="number" styleClass="input_normal"  />
+		<p:inputText placeholder="Logradouro " size="40"  styleClass="input_normal"  />
+		<p:inputText placeholder="Cidade " size="40"  styleClass="input_normal"  />
+		
+		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.usuario.tipo_user}">
+			<p:dataTable var="categoria" >
+				<f:selectItem itemValue="0" itemLabel="Administrador" />
+			</p:dataTable>
+		</p:selectOneRadio>
+		
+		<p:panelGrid columns="2">
+			<h:commandButton value="Cadastrar" styleClass="btn" action="#{cadMB.verifica}"/>
+			<h:commandButton value="Cancelar" styleClass="btn" />
+		</p:panelGrid>
+	</p:panelGrid>
+	</h:form>
+</h:panelGrid>
+		</h:panelGrid>
+</h:panelGrid>
+</h:body>
+</html>

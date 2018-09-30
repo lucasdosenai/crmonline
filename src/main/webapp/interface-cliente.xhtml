@@ -1,0 +1,130 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="resource" name="estilo.css" />
+	<style>
+	.textoID td{
+    	background-color: #000;
+    	border-color: #fff;
+    	width: 100px !important;
+    	height: 32px;
+    	font-size: 32px;
+	}
+	.clientes{
+		width: 25%;
+		float: left;
+		padding: 0;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: blink;
+	}
+	body {
+	    font-size: 17px;
+	    margin: 0 auto;
+	}
+	
+	ul {
+	    list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	    overflow: hidden;
+	    background-color: #333;
+	    position: -webkit-sticky; /* Safari */
+	    position: sticky;
+	    top: 0;
+	}
+	
+	li {
+	    float: left;
+	}
+	
+	li a {
+	    display: block;
+	    color: white;
+	    text-align: center;
+	    padding: 14px 16px;
+	    text-decoration: none;
+	}
+	
+	li a:hover {
+	    background-color: #111;
+	}
+	
+	.active {
+	    background-color: #4CAF50;
+	}
+	.pro{
+		margin-bottom: 13%;
+	}
+</style>
+</h:head>
+<h:body>
+	
+	<p:panelGrid columns="2">
+	<p:panel id="info_cliente">
+	<p:toolbar>
+		<f:facet name="left">
+			<p:commandButton value="Nova Visita"/>
+		</f:facet>
+	</p:toolbar>
+	
+	<p:panelGrid columns="2">
+		<p:outputLabel value="EMPRESA : "   />
+		<p:outputLabel value="SENAI JAGUARIÚNA "   />
+
+		<p:outputLabel value="CNPJ  : "   />
+		<p:outputLabel value="1523658856"   />
+
+		<p:outputLabel value="COLABORADORES : "   />
+		<p:outputLabel value="350"   />
+
+		<p:outputLabel value="TELEFONE : "   />
+		<p:outputLabel value="19 97210182"   />
+
+		<p:outputLabel value="EMAIL : "   />
+		<p:outputLabel value="SENAI@EDUC.SENAI.COM.BR"   />
+
+		<p:outputLabel value="LOGRADOURO : "   />
+		<p:outputLabel value="Rua gentulio - G123"   />
+	
+		<p:outputLabel value="CIDADE : "   />
+		<p:outputLabel value="Jaguariúna - SP"   />
+		
+		<p:outputLabel value="RAMO: "   />
+		<p:outputLabel value="ESCOLAR"   />
+	</p:panelGrid>
+		
+	</p:panel>
+	
+	<p:panel id="Contatos-visitas" styleClass="pro">
+		<p:panelGrid columns="1">
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton value="Novo Contato"/>
+					<p:commandButton value="Novo Cargo"/>
+				</f:facet>
+			</p:toolbar>
+			<p:dataTable var="">
+				<p:column headerText="Contato">
+				
+				</p:column>
+				<p:column headerText="Telefone">
+				
+				</p:column>
+				<p:column headerText="Email">
+				
+				</p:column>
+				<p:column headerText="Cargo">
+				
+				</p:column>
+				<p:column headerText="Ação">
+				
+				</p:column>
+			</p:dataTable>
+		</p:panelGrid>
+	</p:panel>
+	</p:panelGrid>
+</h:body>
+</html>
