@@ -1,91 +1,70 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="resource" name="estilo.css"/>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+	<h:outputStylesheet library="resource" name="estilo.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 </h:head>
 
 <h:body>
 
-<nav class="nav-extended" style="background-color:black">
-    <div class="nav-content">
-      <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#" ><h:graphicImage library="img" name="logo.png" width="50px" height="50px" /></a></li>
-        <li class="tab"><a href="#test1">AGENDAMENTOS</a></li>
-        <li class="tab"><a href="#test2">CLIENTES</a></li>
-        <li class="tab" style="margin-right:50%"><a href="#test4">CADASTRO</a></li>
-        
-        <li class="tab"><a href="sass.html">Inicio</a></li>
-         <li class="tab"><a href="badges.html">PERFIL</a></li>
-        <li class="tab"><a href="collapsible.html">SAIR</a></li>
-      </ul>
-    </div>
-</nav>
+	<nav class="nav-extended" style="background-color: black">
+		<div class="nav-content">
+			<ul class="tabs tabs-transparent">
+				<li class="tab"><a href="#"><h:graphicImage library="img"
+							name="logo.png" width="50px" height="50px" /></a></li>
+				<li class="tab"><a href="#test1">AGENDAMENTOS</a></li>
+				<li class="tab"><a href="#test2">CLIENTES</a></li>
+				<li class="tab" style="margin-right: 50%"><a href="#test4">CADASTRO</a></li>
 
-<p:toolbar>
-	
-	
+				<li class="tab"><a href="sass.html">Inicio</a></li>
+				<li class="tab"><a href="badges.html">PERFIL</a></li>
+				<li class="tab"><a href="collapsible.html">SAIR</a></li>
+			</ul>
+		</div>
+	</nav>
 
+	<p:toolbar>
 		<f:facet name="left">
-			<p:commandButton 
-				action="cadCliente?faces-redirect=true"
-				value="Nova Visita"
-				icon="ui-icon-plus"/>
+			<p:commandButton action="cadCliente?faces-redirect=true"
+				value="Nova Visita" icon="ui-icon-plus" />
 		</f:facet>
-	
-	<f:facet name="right">
-	
-	<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-        <p:outputLabel for="console" value="Filtrar" />
-        <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
-            <f:selectItem itemLabel="Selecione" itemValue="" />
-            <f:selectItem itemLabel="Cu" itemValue="Xbox One" />
-            <f:selectItem itemLabel="PS4" itemValue="PS4" />
-            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
-        </p:selectOneMenu>
-		</h:panelGrid>
-		
-	
-	
-	
-	
-	
-	</f:facet>
-	
-		
-		
+
+		<f:facet name="right">
+
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<p:outputLabel for="console" value="Filtrar" />
+				<p:selectOneMenu id="console" value="#{selectOneMenuView.console}"
+					style="width:125px">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItem itemLabel="Cu" itemValue="Xbox One" />
+					<f:selectItem itemLabel="PS4" itemValue="PS4" />
+					<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</f:facet>
 	</p:toolbar>
 
+	<p:dataTable var="Data/Hora" value="#{dtBasicView.cars}">
+		<p:column headerText="Data/Hora">
+			<h:outputText value="" />
+		</p:column>
 
-<p:dataTable var="Data/Hora" value="#{dtBasicView.cars}">
-    <p:column headerText="Data/Hora">
-        <h:outputText value="" />
-    </p:column>
- 
-    <p:column headerText="Local">
-        <h:outputText value="" />
-    </p:column>
- 
-    <p:column headerText="Quem">
-        <h:outputText value="" />
-    </p:column>
- 
-    <p:column headerText="Editar">
-		<p:commandButton styleClass="btn" value="Editar" />
-    </p:column>
-</p:dataTable>
+		<p:column headerText="Local">
+			<h:outputText value="" />
+		</p:column>
 
+		<p:column headerText="Quem">
+			<h:outputText value="" />
+		</p:column>
 
-
-
-
-
-
-
-
+		<p:column headerText="Editar">
+			<p:commandButton styleClass="btn" value="Editar" />
+		</p:column>
+	</p:dataTable>
 </h:body>
 </html>

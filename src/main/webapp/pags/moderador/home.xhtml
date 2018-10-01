@@ -86,15 +86,13 @@ li a:hover {
 
 	<p:panelGrid columns="2" style="width:100%;">
 
-		<p:panelGrid columns="1" style="width:40%;">
+		<p:panelGrid columns="1" style="width:450px !important;">
 			<h:form>
 				<p:dataTable var="cliente" value="#{userMB.clientes}">
-					<p:column headerText="CLIENTES">
-						<p:commandButton id="testeBTN" value="Informações"
-							icon="fa-list-ul" />
-
+					
+					<p:column headerText="Cliente">
 						<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
-
+					</p:column>	
 						<p:overlayPanel id="imagePanel" for="testeBTN" hideEffect="fade">
 							<p:panelGrid columns="1">
 								<p:outputLabel value="ID : #{cliente.codigo}" />
@@ -104,34 +102,24 @@ li a:hover {
 								<p:outputLabel value="STATU : #{cliente.statu}" />
 							</p:panelGrid>
 						</p:overlayPanel>
-
 						<p:dialog for="testeBTN" header="NOME : #{cliente.nome}"
 							widgetVar="infor" />
+					<p:column headerText="Ações">
+						<p:commandButton id="testeBTN" value="I" icon="fa-list-ul" />
 					</p:column>
 
 					<p:overlayPanel id="moviePanel" for="testeBTN" hideEffect="fade"
 						dynamic="true" style="width:600px">
 						<p:outputLabel value="NOME : #{cliente.nome}"></p:outputLabel>
 					</p:overlayPanel>
-
+				
 				</p:dataTable>
-				<p:panelGrid columns="1" style="width:50%;">
-						<p:dataTable var="visita" value="#{userMB.clientes}">
-						<p:column headerText="VISITAS PENDENTE">
-							<br/><h:outputText value="VISITA : #{visita.nome}" style="font-weight: bold" /> 
-							<br/><h:outputText value="DATA :    #{visita.nif} " style="font-weight: bold" />
-						</p:column>
-						<p:column headerText="Observar">
-						<p:commandButton id="testeBTN" 
-							icon="fa-list-ul" />
-						</p:column>
-						</p:dataTable>
-				</p:panelGrid>
+				
 			</h:form>
 		</p:panelGrid>
-		<!-- 
-	<p:panelGrid columns="1" style="width:60%;">
-		<p:dataTable var="visita" value="#{userMB.clientes}">
+		
+		<p:panelGrid columns="1" style="vertical-align: top;">
+		<p:dataTable style="vertical-align: top;" var="visita" value="#{userMB.clientes}">
 		    <p:column headerText="VISITA">
 		        <h:outputText value="#{visita.nome}" style="font-weight: bold"/>
 		    </p:column>
@@ -143,7 +131,7 @@ li a:hover {
 		    </p:column>
 		</p:dataTable>
 	</p:panelGrid>
-	 -->
+
 	</p:panelGrid>
 
 </h:body>

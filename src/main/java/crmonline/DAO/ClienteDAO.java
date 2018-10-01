@@ -25,7 +25,6 @@ public class ClienteDAO {
 				Categoria c = new Categoria();
 				c.setCodigo(rs.getInt("ID"));
 				c.setNome(rs.getString("NOME"));
-				
 				categorias.add(c);
 			}
 		return categorias;

@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\Workspace"/>
 			<item value="D:\Workspace\crmonline"/>
 		</list>
 		<list key="projectNameTemplate">
@@ -12,5 +13,7 @@
 			<item value="[groupId].[artifactId]-[version]"/>
 			<item value="[name]"/>
 		</list>
+	</section>
+	<section name="MavenDependenciesWizardPage">
 	</section>
 </section>
