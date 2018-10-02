@@ -43,6 +43,4 @@ public class UserMB {
 	public void setuDao(UserDAO uDao) {
 		this.uDao = uDao;
 	}
-	
-	
 }

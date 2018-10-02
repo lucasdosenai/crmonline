@@ -16,7 +16,7 @@ public class ClienteMB {
 	ClienteDAO cDao;
 	public ClienteMB() {
 		cliente    = new Cliente();
-		cDao = new ClienteDAO();
+		cDao	   = new ClienteDAO();
 		categorias = new ArrayList<>();
 		categorias = cDao.listaCategorias();
 	}

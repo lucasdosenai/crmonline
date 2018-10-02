@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="resource" name="estilo.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+</h:head>
+
+<h:body>
+	<nav class="nav-extended" style="background-color: black">
+		<div class="nav-content">
+			<ul class="tabs tabs-transparent">
+				<li class="tab"><a href="#"><h:graphicImage library="img"
+							name="logo.png" width="50px" height="50px" /></a></li>
+				<li class="tab"><a href="#test1">AGENDAMENTOS</a></li>
+				<li class="tab"><a href="#test2">CLIENTES</a></li>
+				<li class="tab" style="margin-right: 50%"><a href="#test4">CADASTRO</a></li>
+
+				<li class="tab"><a href="sass.html">INICIO</a></li>
+				<li class="tab"><a href="badges.html">PERFIL</a></li>
+				<li class="tab"><a href="collapsible.html">SAIR</a></li>
+			</ul>
+		</div>
+	</nav>
+	<h:panelGrid columns="1" id="pai">
+		<h:panelGrid columns="2" style="padding:10px !important" cellpadding="5">
+			<p:dataTable var="car" value="">
+				<p:column headerText="Clientes">
+					<h:outputText value="" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+		<h:panelGrid>
+			<h:panelGrid id="toolbar" columns="2">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton style="justify-content:center" action="cadCliente?faces-redirect=true"
+							value="Agende visita a esse cliente" icon="ui-icon-plus" />
+					</f:facet>
+				</p:toolbar>
+			</h:panelGrid>
+		
+
+				<p:dataTable var="car" value="#{dtBasicView.cars}">
+					<p:column headerText="Lista de visitas já realizadas ao Cliente">
+						<h:outputText value="#{car.id}" />
+					</p:column>
+
+
+				</p:dataTable>
+		
+		</h:panelGrid>
+	</h:panelGrid>
+</h:body>
+</html>

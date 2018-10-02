@@ -24,6 +24,7 @@
 }
 
 body {
+	width: 100%;
 	margin: 0 auto;
 }
 
@@ -38,7 +39,7 @@ ul {
 	top: 0;
 }
 
-li {
+.li {
 	float: left;
 }
 
@@ -61,9 +62,9 @@ li a:hover {
 </h:head>
 
 <h:body>
-	<h:form>
-		<p:growl id="messages" />
-	</h:form>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
 	<div class="header">
 		<h2>CRM ONLINE</h2>
 		<p>Mais produtividade para geral</p>
@@ -84,57 +85,73 @@ li a:hover {
 	</h:form>
 	<p:column>
 		<h:form>
-		<p:commandButton value="Novo" icon="ui-icon-disk" onclick="PF('newC').show();"/>
-		<p:dialog header="NOVO CLIENTE" widgetVar="newC" minHeight="40">
-			<p:column headerText="Novo Cliente">
-		    	<p:inputText placeholder="NOME : "/><br/>
-		    	<p:inputText placeholder="COLABORADORES : "/><br/>
-		    	<p:inputText placeholder="CNPJ : "/><br/>
-		    	<p:inputText placeholder="LOGRADOURO : "/><br/>
-		    	<p:inputText placeholder="CIDADE : "/><br/>
-		        <p:selectOneMenu id="categoria"  value="#{dropdownView.city}" style="width:150px">
-		            <f:selectItem itemLabel="Selecione Categoria" itemValue="" noSelectionOption="true" />
-		            <f:selectItems  />
-		        </p:selectOneMenu>
-		        <p:commandButton icon="ui-icon-plus" onclick="PF('newCT').show();"/>
-		        <p:dialog widgetVar="newCT">
-		        	<p:inputText placeholder="NOME : " value="#{categoriaMB.ctg.nome}"/><br/>
-		        	<p:commandButton icon="ui-icon-plus" action="#{categoriaMB.novaCategoria()}"/>
-		        </p:dialog>
-		         <br/>
-		        <p:commandButton value="Salvar"/>
-			</p:column>
-		</p:dialog>
+			<p:commandButton value="Novo" icon="ui-icon-disk"
+				onclick="PF('newC').show();" />
+			<p:dialog header="NOVO CLIENTE" widgetVar="newC" minHeight="40">
+				<p:column headerText="Novo Cliente">
+					<p:inputText placeholder="NOME : " />
+					<br />
+					<p:inputText placeholder="COLABORADORES : " />
+					<br />
+					<p:inputText placeholder="CNPJ : " />
+					<br />
+					<p:inputText placeholder="LOGRADOURO : " />
+					<br />
+					<p:inputText placeholder="CIDADE : " />
+					<br />
+					<p:selectOneMenu id="categoria" value="#{categoriaMB.categoria.codigo}" style="width:150px">
+						<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
+							itemLabel="#{categoria.nome}" itemValue="categoria.codigo" />
+					</p:selectOneMenu>
+					<p:commandButton icon="ui-icon-plus" ajax="true"
+						onclick="PF('newCT').show();" />
+					
+					<p:dialog widgetVar="newCT">
+						<p:ajax listener="#{categoriaMB.att}" update="categoria" />
+						<p:inputText placeholder="NOME : "
+							value="#{categoriaMB.categoria.nome}" />
+						<br />
+						<p:commandButton icon="ui-icon-plus" ajax="true"
+							actionListener="#{categoriaMB.novaCategoria}" />
+					</p:dialog>
+					
+					<br />
+					<p:commandButton value="Salvar" />
+					<p:commandButton value="Atualizar" action="#{categoriaMB}" />
+				</p:column>
+			</p:dialog>
 		</h:form>
 	</p:column>
-		<p:panelGrid columns="1" style="width:100% !important;">
-			<h:form>
-				<p:dataTable var="cliente" value="#{userMB.clientes}">
-					<p:column>
-						<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
-					</p:column>
-					<p:column>
-						<p:outputLabel value="ID : #{cliente.codigo}" />
-					</p:column>
-					<p:column>
-						<p:outputLabel value="NIF : #{cliente.nif}" />
-					</p:column>
-					<p:column>
-						<p:outputLabel value="EMAIL : #{cliente.email}" />
-					</p:column>
-					<p:column>
-						<p:outputLabel value="SEXO : #{cliente.sexo}" />
-					</p:column>
-					<p:column>
-						<p:outputLabel value="STATU : #{cliente.statu}" />
-					</p:column>
-					<p:column>
-						<p:commandButton icon="ui-icon-trash"/>
-						<p:commandButton icon="ui-icon-edit"/>
-						<p:commandButton icon="fa-align-justify"/>
-					</p:column>
-				</p:dataTable>
-			</h:form>
-		</p:panelGrid>
+	<p:panelGrid columns="1" style="width:100% !important;">
+		<h:form>
+			<p:dataTable var="cliente" value="#{userMB.clientes}">
+				<p:column>
+					<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="ID : #{cliente.codigo}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="NIF : #{cliente.nif}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="EMAIL : #{cliente.email}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="SEXO : #{cliente.sexo}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="STATU : #{cliente.statu}" />
+				</p:column>
+				<p:column>
+					<p:commandButton icon="ui-icon-trash" />
+					<p:commandButton icon="ui-icon-edit" />
+					<p:commandButton icon="fa-align-justify" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panelGrid>
 </h:body>
 </html>

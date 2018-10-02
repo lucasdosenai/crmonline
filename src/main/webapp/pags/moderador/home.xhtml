@@ -89,21 +89,20 @@ li a:hover {
 		<p:panelGrid columns="1" style="width:450px !important;">
 			<h:form>
 				<p:dataTable var="cliente" value="#{userMB.clientes}">
-					
 					<p:column headerText="Cliente">
 						<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
-					</p:column>	
-						<p:overlayPanel id="imagePanel" for="testeBTN" hideEffect="fade">
-							<p:panelGrid columns="1">
-								<p:outputLabel value="ID : #{cliente.codigo}" />
-								<p:outputLabel value="NIF : #{cliente.nif}" />
-								<p:outputLabel value="EMAIL : #{cliente.email}" />
-								<p:outputLabel value="SEXO : #{cliente.sexo}" />
-								<p:outputLabel value="STATU : #{cliente.statu}" />
-							</p:panelGrid>
-						</p:overlayPanel>
-						<p:dialog for="testeBTN" header="NOME : #{cliente.nome}"
-							widgetVar="infor" />
+					</p:column>
+					<p:overlayPanel id="imagePanel" for="testeBTN" hideEffect="fade">
+						<p:panelGrid columns="1">
+							<p:outputLabel value="ID : #{cliente.codigo}" />
+							<p:outputLabel value="NIF : #{cliente.nif}" />
+							<p:outputLabel value="EMAIL : #{cliente.email}" />
+							<p:outputLabel value="SEXO : #{cliente.sexo}" />
+							<p:outputLabel value="STATU : #{cliente.statu}" />
+						</p:panelGrid>
+					</p:overlayPanel>
+					<p:dialog for="testeBTN" header="NOME : #{cliente.nome}"
+						widgetVar="infor" />
 					<p:column headerText="Ações">
 						<p:commandButton id="testeBTN" value="I" icon="fa-list-ul" />
 					</p:column>
@@ -112,25 +111,25 @@ li a:hover {
 						dynamic="true" style="width:600px">
 						<p:outputLabel value="NOME : #{cliente.nome}"></p:outputLabel>
 					</p:overlayPanel>
-				
 				</p:dataTable>
-				
+
 			</h:form>
 		</p:panelGrid>
-		
+
 		<p:panelGrid columns="1" style="vertical-align: top;">
-		<p:dataTable style="vertical-align: top;" var="visita" value="#{userMB.clientes}">
-		    <p:column headerText="VISITA">
-		        <h:outputText value="#{visita.nome}" style="font-weight: bold"/>
-		    </p:column>
-		    <p:column headerText="DATA">
-		        <h:outputText value="#{visita.nif}" style="font-weight: bold"/>
-		    </p:column>
-		    <p:column headerText="STATU">
-		        <h:outputText value="#{visita.statu}" style="font-weight: bold"/>
-		    </p:column>
-		</p:dataTable>
-	</p:panelGrid>
+			<p:dataTable style="vertical-align: top;" var="visita"
+				value="#{userMB.clientes}">
+				<p:column headerText="VISITA">
+					<h:outputText value="#{visita.nome}" style="font-weight: bold" />
+				</p:column>
+				<p:column headerText="DATA">
+					<h:outputText value="#{visita.nif}" style="font-weight: bold" />
+				</p:column>
+				<p:column headerText="STATU">
+					<h:outputText value="#{visita.statu}" style="font-weight: bold" />
+				</p:column>
+			</p:dataTable>
+		</p:panelGrid>
 
 	</p:panelGrid>
 

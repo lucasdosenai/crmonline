@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConDB {
 	
 private static Connection con;
-private static String dns = "jdbc:mysql://localhost:3606/banco?useTimezone=true&serverTimezone=UTC";
+private static String dns = "jdbc:mysql://localhost:3306/banco?useTimezone=true&serverTimezone=UTC";
 private static String user = "root";
 private static String pass = "";
 
