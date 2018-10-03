@@ -36,12 +36,6 @@ public class ClienteMB {
 	 categoria = cDao.categoriaCliente(cliente.getCod_categoria().toString());
 		cliente.setCategoriaNome(categoria);
 	  */
-	
-	public String categoriaCliente(String codigo) {
-		categoria = cDao.categoriaCliente(codigo);
-		cliente.setCategoriaNome(categoria);
-		return cliente.getCategoriaNome();
-	}
 	public void novoCliente() {
 		if(cliente != null) {
 			if(cDao.novoCliente(cliente)) {

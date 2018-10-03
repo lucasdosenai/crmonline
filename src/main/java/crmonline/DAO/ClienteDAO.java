@@ -12,40 +12,16 @@ import crmonline.Entidade.Categoria;
 import crmonline.Entidade.Cliente;
 
 public class ClienteDAO {
-	
-	private Connection con; 
-	
+
+	private Connection con;
+
 	public ClienteDAO() {
-		con      = ConDB.getConnection();
+		con = ConDB.getConnection();
 	}
-	
-	public String categoriaCliente(String ID) {
-		String SQL = "SELECT CT.NOME FROM CATEGORIA CT, CLIENTE C " + 
-				" WHERE CT.ID = ?";
-		
-		try {
-			PreparedStatement ps = con.prepareStatement(SQL);
-			ps.setString(1, ID);
-			ResultSet rs = ps.executeQuery();
-			Categoria c = new Categoria();
-			while(rs.next()) {
-				c.setCodigo(rs.getInt("ID"));
-				c.setNome(rs.getString("NOME"));
-			}
-			
-			return c.getNome().toString();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+
 	public boolean novoCliente(Cliente c) {
-		System.out.println(c.getCod_categoria());
 		String SQL = "INSERT INTO CLIENTE VALUES (0,?,?,?,?,?,?,?,?)";
-		
+
 		try {
 			PreparedStatement ps = con.prepareStatement(SQL);
 			ps.setString(1, c.getNome());
@@ -55,49 +31,53 @@ public class ClienteDAO {
 			ps.setString(5, c.getEmail());
 			ps.setString(6, c.getLogradouro());
 			ps.setString(7, c.getCidade());
-			ps.setInt(8, c.getCod_categoria());
-			
-			 if(ps.executeUpdate() > 0) {
-				 return true;
-			 }
-			
+			ps.setInt(8, c.getCategoria().getId());
+
+			System.out.println(ps.toString());
+
+			if (ps.executeUpdate() > 0) {
+				return true;
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @return
 	 */
-	public ArrayList<Cliente> listaCliente(){
+	public ArrayList<Cliente> listaCliente() {
 		ArrayList<Cliente> clientes = new ArrayList<>();
-		String SQL = "SELECT * FROM CLIENTE";
-		
+		String SQL = "SELECT c.*, cat.NOME as nomeCategoria FROM CLIENTE AS c "
+				+ "INNER JOIN CATEGORIA as cat ON cat.id = c.ID_CATEGORIA;";
+
 		try {
 			PreparedStatement ps = con.prepareStatement(SQL);
 			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				Cliente c = new Cliente(); 
+
+			while (rs.next()) {
+				Cliente c = new Cliente();
 				c.setNome(rs.getString("NOME"));
 				c.setNumeroFuncionario(rs.getString("N_FUNCIONARIO"));
-				c.setCnjp(rs.getString("CNPJ"));
+				c.setCnjp(rs.getString("CPNJ"));
 				c.setTelefone(rs.getString("TELEFONE"));
 				c.setEmail(rs.getString("EMAIL"));
 				c.setLogradouro(rs.getString("LOGRADOURO"));
 				c.setCidade(rs.getString("CIDADE"));
-				c.setCod_categoria(rs.getInt("ID_CATEGORIA"));
 				c.setCodigo(rs.getInt("ID"));
+				c.getCategoria().setId(rs.getInt("ID_CATEGORIA"));
+				c.getCategoria().setNome(rs.getString("nomeCategoria"));
 				clientes.add(c);
 			}
-		return clientes;
+			return clientes;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 }

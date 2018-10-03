@@ -1,22 +1,21 @@
 package crmonline.Entidade;
 
-import crmonline.MBean.ClienteMB;
-
 public class Cliente {
-	
+
+	public Cliente() {
+		categoria = new ClasseGenerica();
+	}
+
 	private Integer codigo;
-	private String  nome;
+	private String nome;
 	private String numeroFuncionario;
-	private String  cnjp;
-	private String 	telefone;
-	private String  email;
-	private String  logradouro;
-	private String  cidade;
-	private String categoriaNome = new ClienteMB().categoriaCliente(getCod_categoria().toString());
-	private Integer cod_categoria;
-	
-	
-	
+	private String cnjp;
+	private String telefone;
+	private String email;
+	private String logradouro;
+	private String cidade;
+	private ClasseGenerica categoria;
+
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -65,14 +64,6 @@ public class Cliente {
 		this.cidade = cidade;
 	}
 
-	public Integer getCod_categoria() {
-		return cod_categoria;
-	}
-
-	public void setCod_categoria(Integer cod_categoria) {
-		this.cod_categoria = cod_categoria;
-	}
-
 	public String getTelefone() {
 		return telefone;
 	}
@@ -89,12 +80,12 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public String getCategoriaNome() {
-		return categoriaNome;
+	public ClasseGenerica getCategoria() {
+		return categoria;
 	}
 
-	public void setCategoriaNome(String categoriaNome) {
-		this.categoriaNome = categoriaNome;
+	public void setCategoria(ClasseGenerica categoria) {
+		this.categoria = categoria;
 	}
-	
+
 }

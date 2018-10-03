@@ -27,12 +27,7 @@ public class AgendaMB {
 			return "pags/agendamentos?faces-redirect=true";
 		}else {
 			return null;
-		}
-		
-		
-		
-		
-		
+		}	
 	}
 
 	public AgendaDAO getaDao() {
