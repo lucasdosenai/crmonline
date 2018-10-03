@@ -1,73 +1,98 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="css" name="estilo.css"/>
-	
+	<h:outputStylesheet library="css" name="estilo.css" />
+
 </h:head>
 <h:body styleClass="teste">
-	<p:growl autoUpdate="true">
+	<p:growl>
+		<p:autoUpdate />
 	</p:growl>
+
 	<div align="center" style="width: 1000px">
-		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
+		<h:graphicImage library="img" name="logo.png" width="200px"
+			height="200px" />
 	</div>
 
 	<h:panelGrid columns="1" styleClass="caixa">
-	
-	<div class="barra">ACESSO RESTRITO</div>
+
+		<div class="barra">ACESSO RESTRITO</div>
 		<h:panelGrid columns="2" styleClass="centro">
-		
-		<h:panelGrid styleClass="centro">
-	<h3>Agendar Visita</h3>
-	
-	<h:form>
-	<p:growl showDetail="true" >
-		<p:autoUpdate />		
-	</p:growl>
-	<p:panelGrid columns="1">
-		<p:inputText value="#{agendaMB.agenda.atendente}" placeholder="Atendente" size="40" styleClass="input_normal"/>
-		
-		
-		<p:calendar value="#{agendaMB.agenda.data}"
-			
-			showOn="button" 
-			placeholder="Dia da Visita"
-			mask="true" 
-			pattern="dd/MM/yyyy"
-			 />
-		
-		
-		
-		<p:inputMask placeholder="Horário da Visita" size="40" styleClass="input_normal" mask="99:99" value="#{agendaMB.agenda.hora}" />
-			
-			
-			<h:form>
-    <p:growl id="messages" showDetail="true" />
-			
-			<h:outputText value="Classificação da Visita:" />
-        <p:rating value="#{ratingView.rating3}">
-            <p:ajax event="rate" listener="#{ratingView.onrate}" update="messages" />
-            <p:ajax event="cancel" listener="#{ratingView.oncancel}" update="messages" />
-        </p:rating>
- 
-			</h:form>
-			
-			<h:form>               
-    <h3 style="margin-top: 0">Descrição</h3>
-    <p:inputTextarea rows="6" cols="33" value="#{agendaMB.agenda.observacao}" /> 
-</h:form>
-			
-				
-		<p:panelGrid columns="2">
-			<h:commandButton value="Agendar" styleClass="btn" action="#{agendaMB.agendar}"/>
-			<h:commandButton value="Cancelar" styleClass="btn" />
-		</p:panelGrid>
-	</p:panelGrid>
-	</h:form>
-</h:panelGrid>
+
+			<h:panelGrid styleClass="centro">
+				<h3>Agendar Visita</h3>
+
+				<h:form>
+
+
+						
+
+					<p:panelGrid columns="1">
+					
+					<p:inputText value="#{agendaMB.agenda.nome}"
+							placeholder="Atendente" size="40" styleClass="input_normal" />
+					
+					
+						<p:inputText value="#{agendaMB.agenda.atendente}"
+							placeholder="Atendente" size="40" styleClass="input_normal" />
+
+						<p:inputText value="#{agendaMB.agenda.data}"
+							placeholder="Atendente" size="40" styleClass="input_normal" />
+						
+						
+						<!-- <p:calendar value="#{agendaMB.agenda.data}" showOn="button"
+							placeholder="Dia da Visita" mask="true" pattern="dd/MM/yyyy" />
+							-->
+
+
+
+						<p:inputMask placeholder="Horário da Visita" size="40"
+							styleClass="input_normal" mask="99:99"
+							value="#{agendaMB.agenda.hora}" />
+							
+							
+						<p:inputText value="#{agendaMB.agenda.id_visitante}"
+							placeholder="Nome Completo" size="40" styleClass="input_normal" />
+
+						<p:inputText value="#{agendaMB.agenda.estadovisita}"
+							placeholder="Nome Completo" size="40" styleClass="input_normal" />
+
+						<p:growl id="messages" showDetail="true" />
+
+						<h:outputText value="Classificação da Visita:" />
+						<p:rating value="#{agendaMB.agenda.classificacao}">
+							<p:ajax event="rate" listener="#{ratingView.onrate}"
+								update="messages" />
+							<p:ajax event="cancel" listener="#{ratingView.oncancel}"
+								update="messages" />
+						</p:rating>
+
+
+						<h3 style="margin-top: 0">Descrição</h3>
+						<p:inputTextarea rows="6" cols="33"
+							value="#{agendaMB.agenda.observacao}" />
+
+
+						<p:inputText value="#{agendaMB.agenda.id_cliente}"
+							placeholder="Nome Completo" size="40" styleClass="input_normal" />
+
+						<p:inputText value="#{agendaMB.agenda.curso}"
+							placeholder="Nome Completo" size="40" styleClass="input_normal" />
+
+						<center>
+							<p:panelGrid columns="2">
+								<h:commandButton value="Agendar" styleClass="btn"
+									action="#{agendaMB.agendar}" />
+								<h:commandButton value="Cancelar" styleClass="btn" />
+
+							</p:panelGrid>
+						</center>
+					</p:panelGrid>
+				</h:form>
+			</h:panelGrid>
 		</h:panelGrid>
-</h:panelGrid>
+	</h:panelGrid>
 </h:body>
 </html>

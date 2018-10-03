@@ -1,5 +1,7 @@
 package crmonline.MBean;
 
+import java.sql.SQLException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -7,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import crmonline.DAO.AgendaDAO;
 import crmonline.Entidade.Agenda;
+import crmonline.util.Mensagem;
 
 @ViewScoped
 @ManagedBean
@@ -14,28 +17,24 @@ public class AgendaMB {
 
 	AgendaDAO aDao;
 	Agenda agenda;
-	
+
 	public AgendaMB() {
 		aDao = new AgendaDAO();
 		agenda = new Agenda();
-		
 	}
-	
+
 	public String agendar() {
-		if(aDao.inserir(agenda)) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Agendada!"));
-			return "pags/agendamentos?faces-redirect=true";
-		}else {
-			return null;
-		}	
-	}
-
-	public AgendaDAO getaDao() {
-		return aDao;
-	}
-
-	public void setaDao(AgendaDAO aDao) {
-		this.aDao = aDao;
+		try {
+			if (aDao.inserir(agenda)) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Agendada!"));
+				return "pags/agendamentos?faces-redirect=true";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Mensagem.make(e.toString());
+		}
+		return null;
 	}
 
 	public Agenda getAgenda() {
@@ -45,10 +44,5 @@ public class AgendaMB {
 	public void setAgenda(Agenda agenda) {
 		this.agenda = agenda;
 	}
-	
-	
-	
-	
-	
-	
+
 }
