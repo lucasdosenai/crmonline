@@ -89,21 +89,25 @@ li a:hover {
 				onclick="PF('newC').show();" />
 			<p:dialog header="NOVO CLIENTE" widgetVar="newC" minHeight="40">
 				<p:column headerText="Novo Cliente">
-					<p:inputText placeholder="NOME : " />
+					<p:inputText placeholder="NOME : " value="#{clienteMB.cliente.nome}" />
 					<br />
-					<p:inputText placeholder="COLABORADORES : " />
+					<p:inputText placeholder="COLABORADORES : " value="#{clienteMB.cliente.numeroFuncionario}"/>
 					<br />
-					<p:inputText placeholder="CNPJ : " />
+					<p:inputText placeholder="CNPJ : " value="#{clienteMB.cliente.cnjp}"/>
 					<br />
-					<p:inputText placeholder="LOGRADOURO : " />
+					<p:inputText placeholder="TELEFONE : " value="#{clienteMB.cliente.telefone}"/>
 					<br />
-					<p:inputText placeholder="CIDADE : " />
+					<p:inputText placeholder="EMAIL : " value="#{clienteMB.cliente.email}"/>
 					<br />
-					<p:selectOneMenu id="categoria" value="#{categoriaMB.categoria.codigo}" style="width:150px">
+					<p:inputText placeholder="LOGRADOURO : " value="#{clienteMB.cliente.logradouro}"/>
+					<br />
+					<p:inputText placeholder="CIDADE : " value="#{clienteMB.cliente.cidade}" />
+					<br />
+					<p:selectOneMenu id="categoria" value="#{clienteMB.cliente.cod_categoria}" style="width:150px">
 						<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
 							noSelectionOption="true" />
 						<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
-							itemLabel="#{categoria.nome}" itemValue="categoria.codigo" />
+							itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
 					</p:selectOneMenu>
 					<p:commandButton icon="ui-icon-plus" ajax="true"
 						onclick="PF('newCT').show();" />
@@ -114,11 +118,11 @@ li a:hover {
 							value="#{categoriaMB.categoria.nome}" />
 						<br />
 						<p:commandButton icon="ui-icon-plus" ajax="true"
-							actionListener="#{categoriaMB.novaCategoria}" />
+							action="#{categoriaMB.novaCategoria}" />
 					</p:dialog>
 					
 					<br />
-					<p:commandButton value="Salvar" />
+					<p:commandButton value="Adicionar" action="#{clienteMB.novoCliente}" />
 					<p:commandButton value="Atualizar" action="#{categoriaMB}" />
 				</p:column>
 			</p:dialog>
@@ -126,25 +130,20 @@ li a:hover {
 	</p:column>
 	<p:panelGrid columns="1" style="width:100% !important;">
 		<h:form>
-			<p:dataTable var="cliente" value="#{userMB.clientes}">
+			<p:dataTable var="cliente" value="#{clienteMB.clientes}">
 				<p:column>
 					<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
 				</p:column>
 				<p:column>
-					<p:outputLabel value="ID : #{cliente.codigo}" />
+					<p:outputLabel value="TELEFONE : #{cliente.telefone}" />
 				</p:column>
 				<p:column>
-					<p:outputLabel value="NIF : #{cliente.nif}" />
+					<p:outputLabel value="RUA : #{cliente.logradouro}" />
 				</p:column>
 				<p:column>
-					<p:outputLabel value="EMAIL : #{cliente.email}" />
+					<p:outputLabel value="RAMO : #{cliente.categoriaNome}" />
 				</p:column>
-				<p:column>
-					<p:outputLabel value="SEXO : #{cliente.sexo}" />
-				</p:column>
-				<p:column>
-					<p:outputLabel value="STATU : #{cliente.statu}" />
-				</p:column>
+				
 				<p:column>
 					<p:commandButton icon="ui-icon-trash" />
 					<p:commandButton icon="ui-icon-edit" />

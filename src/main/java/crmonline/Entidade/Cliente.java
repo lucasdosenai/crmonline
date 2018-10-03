@@ -1,16 +1,22 @@
 package crmonline.Entidade;
 
+import crmonline.MBean.ClienteMB;
+
 public class Cliente {
 	
 	private Integer codigo;
 	private String  nome;
-	private Integer numeroFuncionario;
-	private Integer cnjp;
+	private String numeroFuncionario;
+	private String  cnjp;
+	private String 	telefone;
+	private String  email;
 	private String  logradouro;
 	private String  cidade;
-	
+	private String categoriaNome = new ClienteMB().categoriaCliente(getCod_categoria().toString());
 	private Integer cod_categoria;
-
+	
+	
+	
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -27,19 +33,19 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public Integer getNumeroFuncionario() {
+	public String getNumeroFuncionario() {
 		return numeroFuncionario;
 	}
 
-	public void setNumeroFuncionario(Integer numeroFuncionario) {
+	public void setNumeroFuncionario(String numeroFuncionario) {
 		this.numeroFuncionario = numeroFuncionario;
 	}
 
-	public Integer getCnjp() {
+	public String getCnjp() {
 		return cnjp;
 	}
 
-	public void setCnjp(Integer cnjp) {
+	public void setCnjp(String cnjp) {
 		this.cnjp = cnjp;
 	}
 
@@ -66,4 +72,29 @@ public class Cliente {
 	public void setCod_categoria(Integer cod_categoria) {
 		this.cod_categoria = cod_categoria;
 	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCategoriaNome() {
+		return categoriaNome;
+	}
+
+	public void setCategoriaNome(String categoriaNome) {
+		this.categoriaNome = categoriaNome;
+	}
+	
 }

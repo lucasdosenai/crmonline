@@ -36,7 +36,7 @@ public class LoginMB {
 		} else {
 			if(userAtual.getStatu() != 0) {
 				if(userAtual.getTipo_user() != 1) {
-					return "pags/moderador/home?faces-redirect=true";
+					return "pags/moderador/index?faces-redirect=true";
 				}else {
 					return "pags/adm/home?faces-redirect=true";
 				}
