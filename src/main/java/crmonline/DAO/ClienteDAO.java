@@ -18,7 +18,44 @@ public class ClienteDAO {
 	public ClienteDAO() {
 		con = ConDB.getConnection();
 	}
-
+	
+	public boolean deletaCliente(String codigo) throws SQLException {
+		String SQL = "DELETE FROM CLIENTE WHERE ID = ? ";		
+			PreparedStatement ps = con.prepareStatement(SQL);
+			ps.setString(1, codigo);	
+			return ps.executeUpdate() > 0; 
+	}
+	
+	public ArrayList<Cliente> listaCategoriaCliente(String codigo){
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		String SQL = "SELECT * FROM CLIENTE AS C INNER JOIN CATEGORIA AS CT ON C.ID_CATEGORIA = ? AND CT.ID = ?";	
+		try {
+			PreparedStatement ps = con.prepareStatement(SQL);
+			ps.setString(1, codigo);
+			ps.setString(2, codigo);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Cliente c = new Cliente();
+				c.setNome(rs.getString("NOME"));
+				c.setNumeroFuncionario(rs.getString("N_FUNCIONARIO"));
+				c.setCnjp(rs.getString("CNPJ"));
+				c.setTelefone(rs.getString("TELEFONE"));
+				c.setEmail(rs.getString("EMAIL"));
+				c.setLogradouro(rs.getString("LOGRADOURO"));
+				c.setCidade(rs.getString("CIDADE"));
+				c.setCodigo(rs.getInt("ID"));
+				c.getCategoria().setId(rs.getInt("ID_CATEGORIA"));
+				c.getCategoria().setNome(rs.getString("CT.NOME"));
+				clientes.add(c);
+			}
+			return clientes;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public boolean novoCliente(Cliente c) {
 		String SQL = "INSERT INTO CLIENTE VALUES (0,?,?,?,?,?,?,?,?)";
 
@@ -62,7 +99,7 @@ public class ClienteDAO {
 				Cliente c = new Cliente();
 				c.setNome(rs.getString("NOME"));
 				c.setNumeroFuncionario(rs.getString("N_FUNCIONARIO"));
-				c.setCnjp(rs.getString("CPNJ"));
+				c.setCnjp(rs.getString("CNPJ"));
 				c.setTelefone(rs.getString("TELEFONE"));
 				c.setEmail(rs.getString("EMAIL"));
 				c.setLogradouro(rs.getString("LOGRADOURO"));

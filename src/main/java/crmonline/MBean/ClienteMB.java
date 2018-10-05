@@ -1,5 +1,6 @@
 package crmonline.MBean;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
@@ -18,6 +19,7 @@ public class ClienteMB {
 	private ArrayList<Cliente> clientes;
 	ClienteDAO cDao;
 	String categoria;
+	private String categoriaEscolhida;
 	
 	public ClienteMB() {
 		cliente    = new Cliente();
@@ -36,16 +38,48 @@ public class ClienteMB {
 	 categoria = cDao.categoriaCliente(cliente.getCod_categoria().toString());
 		cliente.setCategoriaNome(categoria);
 	  */
+	
+	public void removeBean(String bean){
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(bean);
+    }
+	// Limpa método
+	public Cliente limpaObj(Cliente c) {
+		c.setCategoria(null);
+		c.setCidade(null);
+		c.setCnjp(null);
+		c.setCodigo(null);
+		c.setEmail(null);
+		return c;
+		
+	}
+	public void testando() {
+		listaCategorias(categoriaEscolhida);
+	}
+	public void listaCategorias(String codigo) {
+		if(codigo.equals("TODAS")) 
+		clientes = cDao.listaCliente();
+		else clientes = cDao.listaCategoriaCliente(codigo);
+		
+	}
+	public void apagaCliente(Cliente c) {
+		try {
+			cDao.deletaCliente(c.getCodigo().toString());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void novoCliente() {
 		if(cliente != null) {
 			if(cDao.novoCliente(cliente)) {
-				cliente = new Cliente();
 				FacesContext.getCurrentInstance().addMessage("ALERTA" , 
 						new FacesMessage(cliente.getNome() + " ADICIONADO COM SUCESSO!"));
+				limpaObj(cliente);
 			}else {
 				FacesContext.getCurrentInstance().addMessage("ALERTA", 
 						new FacesMessage("FALHA AO INSERIR"));
 			}
+			cliente = new Cliente();
 			System.out.println(cliente.getNome() + ":" + cliente.getNumeroFuncionario());
 		}else {
 			FacesContext.getCurrentInstance().addMessage("ALERTA" , 
@@ -92,6 +126,14 @@ public class ClienteMB {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getCategoriaEscolhida() {
+		return categoriaEscolhida;
+	}
+
+	public void setCategoriaEscolhida(String categoriaEscolhida) {
+		this.categoriaEscolhida = categoriaEscolhida;
 	}
 	
 	
