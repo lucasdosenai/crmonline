@@ -97,6 +97,7 @@ li a:hover {
 						icon="ui-icon-circle-zoomin" />
 				</p:panel>
 			</p:panelGrid>
+
 			<p:dialog header="NOVO CLIENTE" widgetVar="newC" minHeight="40">
 				<p:column headerText="Novo Cliente">
 					<p:inputText placeholder="NOME : "
@@ -146,10 +147,10 @@ li a:hover {
 			</p:dialog>
 		</h:form>
 	</p:column>
-	<p:panelGrid id="listaCompletaCliente" columns="1" style="width:100% !important;">
+	<p:panelGrid id="listaCompletaCliente" columns="1"
+		style="width:100% !important;">
 		<h:form>
-			<p:dataTable  var="cliente"
-				value="#{clienteMB.clientes}">
+			<p:dataTable id="teste" var="cliente" value="#{clienteMB.clientes}">
 				<p:column>
 					<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
 				</p:column>
@@ -164,11 +165,23 @@ li a:hover {
 				</p:column>
 
 				<p:column>
-					<p:commandButton action="#{clienteMB.apagaCliente(cliente)}" icon="ui-icon-trash" />
+					<p:commandButton action="#{clienteMB.apagaCliente(cliente)}"
+						icon="ui-icon-trash" update="listaCompletaCliente">
+						<p:confirm header="Confirmation"
+							message="Você tem certeza sobre excluir #{cliente.nome}"
+							icon="ui-icon-alert" />
+					</p:commandButton>
 					<p:commandButton value="Perfil" icon="fa-fa-user" />
 					<p:commandButton icon="fa-align-justify" />
 				</p:column>
 			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="SIM" styleClass="ui-confirmdialog-yes"
+					icon="ui-icon-check" event="onClick"
+					listener="#{categoriaMB.att}" ajax="true" />
+				<p:commandButton value="NÃO" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</h:form>
 	</p:panelGrid>
 </h:body>
