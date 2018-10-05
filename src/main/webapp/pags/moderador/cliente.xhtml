@@ -97,6 +97,7 @@ li a:hover {
 						icon="ui-icon-circle-zoomin" />
 				</p:panel>
 			</p:panelGrid>
+			
 			<p:dialog header="NOVO CLIENTE" widgetVar="newC" minHeight="40">
 				<p:column headerText="Novo Cliente">
 					<p:inputText placeholder="NOME : "
@@ -164,11 +165,18 @@ li a:hover {
 				</p:column>
 
 				<p:column>
-					<p:commandButton action="#{clienteMB.apagaCliente(cliente)}" icon="ui-icon-trash" />
+					<p:commandButton action="#{clienteMB.apagaCliente(cliente)}" icon="ui-icon-trash" >
+						<p:ajax listener="#{categoriaMB.att}" />
+						<p:confirm header="Confirmation" message="Você tem certeza sobre excluir #{cliente.nome}" icon="ui-icon-alert" />
+					</p:commandButton>
 					<p:commandButton value="Perfil" icon="fa-fa-user" />
 					<p:commandButton icon="fa-align-justify" />
 				</p:column>
 			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		        <p:commandButton value="SIM" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		        <p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		    </p:confirmDialog>
 		</h:form>
 	</p:panelGrid>
 </h:body>
