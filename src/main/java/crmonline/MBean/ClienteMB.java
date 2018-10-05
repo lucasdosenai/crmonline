@@ -75,7 +75,8 @@ public class ClienteMB {
 			if(cDao.novoCliente(cliente)) {
 				FacesContext.getCurrentInstance().addMessage("ALERTA" , 
 						new FacesMessage(cliente.getNome() + " ADICIONADO COM SUCESSO!"));
-				limpaObj(cliente);
+				clientes.add(cliente);
+				clientes = 
 			}else {
 				FacesContext.getCurrentInstance().addMessage("ALERTA", 
 						new FacesMessage("FALHA AO INSERIR"));

@@ -56,9 +56,10 @@ create table CURSO(
 
 create table AGENDA(
 	ID	         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    NOME		 VARCHAR(64),
 	ATENDENTE    VARCHAR(64) NOT NULL, -- Nome da pessoas que vai atender na hora da visita, reunião marcada com ?
-	QUANDO	     TIMESTAMP NOT NULL, -- Dia da visita
-	HORARIO	     TIMESTAMP NOT NULL, -- Hora da visita
+	DATAV	     VARCHAR(64) NOT NULL, -- Dia da visita
+	HORARIO	     VARCHAR(64) NOT NULL, -- Hora da visita
 	ESTADOS	     INT,
 	CLASSFICACOES INT,
 	OBSERVACOES	  VARCHAR(264),

@@ -20,8 +20,8 @@ public class CategoriaMB {
 	
 	public CategoriaMB() {
 		categorias = new ArrayList<>();
-		categoria = new Categoria();
-		cDao = new CategoriaDAO();
+		categoria  = new Categoria();
+		cDao       = new CategoriaDAO();
 		categorias = cDao.todasCategorias();
 	}
 	public void att() {
