@@ -3,7 +3,7 @@ package crmonline.Entidade;
 public class Agenda {
 
 	public Agenda() {
-		observacao = "TESTE";
+		
 	}
 
 	private Integer codigo;
@@ -11,8 +11,8 @@ public class Agenda {
 	private String atendente;
 	private String data;
 	private String hora;
-	private Integer id_visitante;
-	private Integer estadovisita;
+	private Integer id_visitante = 1;
+	private Integer estadovisita = 0;
 	private String classificacao;
 	private String observacao;
 	private Integer id_cliente;

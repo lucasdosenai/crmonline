@@ -33,21 +33,21 @@ public class AgendaDAO {
 
 	public boolean inserir(Agenda agenda) throws SQLException {
 
-		String sql = "INSERT INTO AGENDA(NOME,ATENDENTE,DATAV,HORARIO,ID_VISITANTE,ESTADO,CLASSFICACOES,OBSERVACOES,ID_CLIENTE,ID_CURSO)" 
-		+" VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO AGENDA(NOME,ATENDENTE,DATAV,HORARIO,ESTADOS,CLASSFICACOES,OBSERVACOES,ID_VISITANTE,ID_CLIENTE,ID_CURSO)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, agenda.getNome());
 		ps.setString(2, agenda.getAtendente());
 		ps.setString(3, agenda.getData());
 		ps.setString(4, agenda.getHora());
-		ps.setInt(5, agenda.getId_visitante());
-		ps.setInt(6, agenda.getEstadovisita());
-		ps.setString(7, agenda.getClassificacao());
-		ps.setString(8, agenda.getObservacao());
+		ps.setInt(5, agenda.getEstadovisita());
+		ps.setString(6, agenda.getClassificacao());
+		ps.setString(7, agenda.getObservacao());
+		ps.setInt(8, agenda.getId_visitante());
 		ps.setInt(9, agenda.getId_cliente());
 		ps.setInt(10, agenda.getCurso());
-		
+
 		System.out.println(ps.toString());
 
 		return ps.executeUpdate() > 0;
