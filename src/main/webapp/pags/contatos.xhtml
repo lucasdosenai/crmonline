@@ -8,6 +8,12 @@
 		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" />
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+		
+		<style>
+			.ui-toolbar-group-left{
+				margin-left: 25% !important;				
+			}
+		</style>
 </h:head>
 
 <h:body>
@@ -30,11 +36,29 @@
 
 
 		
-		<f:facet name="right">
+		<f:facet name="left" >
 
-			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+			<h:panelGrid columns="8" style="margin-bottom:10px"  cellpadding="5">
 				<p:outputLabel for="console" value="Filtrar" />
 				<p:selectOneMenu id="console" value="#{selectOneMenuView.console}"
+					style="width:125px">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItem itemLabel="Até uma semana atrás" itemValue="Xbox One" />
+					<f:selectItem itemLabel="Até um mês atrás" itemValue="PS4" />
+					<f:selectItem itemLabel="Todos os Relatórios" itemValue="PS4" />
+					
+				</p:selectOneMenu>
+					<p:outputLabel for="a" value="Filtrar" />
+				<p:selectOneMenu id="a" value="#{selectOneMenuView.console}"
+					style="width:125px" >
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItem itemLabel="Até uma semana atrás" itemValue="Xbox One" />
+					<f:selectItem itemLabel="Até um mês atrás" itemValue="PS4" />
+					<f:selectItem itemLabel="Todos os Relatórios" itemValue="PS4" />
+					
+				</p:selectOneMenu>
+				<p:outputLabel for="b" value="Filtrar" />
+				<p:selectOneMenu id="b" value="#{selectOneMenuView.console}"
 					style="width:125px">
 					<f:selectItem itemLabel="Selecione" itemValue="" />
 					<f:selectItem itemLabel="Até uma semana atrás" itemValue="Xbox One" />
@@ -45,21 +69,6 @@
 			</h:panelGrid>
 		</f:facet>
 		
-		
-		<f:facet name="left">
-
-			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-				<p:outputLabel for="console" value="Filtrar" />
-				<p:selectOneMenu id="console" value="#{selectOneMenuView.console}"
-					style="width:125px">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItem itemLabel="Até uma semana atrás" itemValue="Xbox One" />
-					<f:selectItem itemLabel="Até um mês atrás" itemValue="PS4" />
-					<f:selectItem itemLabel="Todos os Relatórios" itemValue="PS4" />
-					
-				</p:selectOneMenu>
-			</h:panelGrid>
-		</f:facet>
 	</p:toolbar>
 	
 	<p:dataTable var="Data" value="#{dtBasicView.cars}">
