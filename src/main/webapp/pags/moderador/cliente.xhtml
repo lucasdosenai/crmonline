@@ -166,7 +166,7 @@ li a:hover {
 
 				<p:column>
 					<p:commandButton action="#{clienteMB.apagaCliente(cliente)}"
-						icon="ui-icon-trash">
+						icon="ui-icon-trash" update="listaCompletaCliente">
 						<p:confirm header="Confirmation"
 							message="Você tem certeza sobre excluir #{cliente.nome}"
 							icon="ui-icon-alert" />
@@ -177,7 +177,7 @@ li a:hover {
 			</p:dataTable>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 				<p:commandButton value="SIM" styleClass="ui-confirmdialog-yes"
-					icon="ui-icon-check" event="onClick" update="listaCompletaCliente"
+					icon="ui-icon-check" event="onClick"
 					listener="#{categoriaMB.att}" ajax="true" />
 				<p:commandButton value="NÃO" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

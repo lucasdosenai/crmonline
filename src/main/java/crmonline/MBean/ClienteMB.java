@@ -64,6 +64,7 @@ public class ClienteMB {
 	public void apagaCliente(Cliente c) {
 		try {
 			cDao.deletaCliente(c.getCodigo().toString());
+			clientes.remove(c);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
