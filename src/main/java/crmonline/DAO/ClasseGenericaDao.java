@@ -9,6 +9,7 @@ import java.util.List;
 
 import crmonline.DB.ConDB;
 import crmonline.Entidade.ClasseGenerica;
+import crmonline.Entidade.Curso;
 
 public class ClasseGenericaDao {
 
@@ -40,4 +41,56 @@ public class ClasseGenericaDao {
 
 	}
 
+	
+	
+	public List<Curso> listarCurso() throws SQLException {
+		String sql = "SELECT * FROM CURSO;";
+
+		PreparedStatement ps = conn.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<Curso> cate = new ArrayList<>();
+
+		while (rs.next()) {
+			Curso c = new Curso();
+            ClasseGenerica CG = new ClasseGenerica();
+            CG.setId(rs.getInt("ID"));
+            CG.setNome(rs.getString("NOME"));
+            c.setCurso(CG);
+            c.setVAGAS_TOTAL(rs.getInt("VAGAS_TOTAL"));
+            c.setDESCRI(rs.getString("DESCRI"));
+            c.setDURACAO(rs.getString("DURACAO"));
+            CG.setId(rs.getInt("ID_CATEGORIA"));
+			cate.add(c);
+		}
+
+		return cate;
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

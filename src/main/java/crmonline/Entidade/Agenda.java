@@ -1,5 +1,7 @@
 package crmonline.Entidade;
 
+import java.util.Date;
+
 public class Agenda {
 
 	public Agenda() {
@@ -9,7 +11,7 @@ public class Agenda {
 	private Integer codigo;
 	private String nome;
 	private String atendente;
-	private String data;
+	private Date data;
 	private String hora;
 	private Integer id_visitante = 1;
 	private Integer estadovisita = 0;
@@ -46,11 +48,11 @@ public class Agenda {
 		this.atendente = atendente;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 

@@ -4,6 +4,8 @@ public class ClasseGenerica {
 
 	private Integer id;
 	private String nome;
+	
+	
 
 	public Integer getId() {
 		return id;

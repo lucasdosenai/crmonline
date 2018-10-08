@@ -3,9 +3,13 @@ package crmonline.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Agenda;
+import sun.security.jca.GetInstance;
 
 public class AgendaDAO {
 
@@ -16,20 +20,7 @@ public class AgendaDAO {
 
 	}
 
-	public Agenda teste() {
-		Agenda c = new Agenda();
-		c.setAtendente("LUCAS");
-		c.setClassificacao("5 Pontos");
-		c.setCodigo(01);
-		c.setCurso(02);
-		c.setData("23:11");
-		c.setEstadovisita(02);
-		c.setHora("23:11");
-		c.setId_cliente(1);
-		c.setId_visitante(5);
-		c.setObservacao("dsadadasd");
-		return c;
-	}
+
 
 	public boolean inserir(Agenda agenda) throws SQLException {
 
@@ -39,7 +30,12 @@ public class AgendaDAO {
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, agenda.getNome());
 		ps.setString(2, agenda.getAtendente());
-		ps.setString(3, agenda.getData());
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar c = Calendar.getInstance();
+		String x = format.format(agenda.getData());
+		
+		ps.setString(3, x);
 		ps.setString(4, agenda.getHora());
 		ps.setInt(5, agenda.getEstadovisita());
 		ps.setString(6, agenda.getClassificacao());

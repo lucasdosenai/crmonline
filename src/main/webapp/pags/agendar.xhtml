@@ -53,21 +53,24 @@
 						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 						<f:selectItem itemLabel="Selecionar Cliente"/>
 							<f:selectItems value="#{clienteMB.clientes}" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
+								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />	
 						</p:selectOneMenu>
+						<h:panelGrid columns="2">
 						<p:selectOneMenu value="#{agendaMB.agenda.curso}">
-						<f:selectItem itemLabel="Selecionar Curso"/>
-							<f:selectItems value="#{agendaMB.categorias}" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.id}" />
+							<f:selectItem itemLabel="Selecionar Curso"/>
+							<f:selectItems var="c" value="#{cursoMB.cursos}" 
+										   itemLabel="#{c.curso.nome}" 
+										   itemValue="#{c.curso.id}" />
 						</p:selectOneMenu>
 						<p:commandButton value="+" onclick="PF('Add').show();"/>
+						</h:panelGrid>
 						<p:dialog widgetVar="Add">
 						<p:inputText placeholder="Nome"  />
 						<p:inputText placeholder="Vagas"  />
 						<p:inputText placeholder="Descrição"  />
 						<p:inputText placeholder="Categoria"  />
 						<p:commandButton value="Adicionar Curso"/>
-						
+	
 						</p:dialog>
 						<center>
 							<p:panelGrid columns="2">
