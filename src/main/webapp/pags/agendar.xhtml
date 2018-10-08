@@ -65,10 +65,14 @@
 						<p:commandButton value="+" onclick="PF('Add').show();"/>
 						</h:panelGrid>
 						<p:dialog widgetVar="Add">
-						<p:inputText placeholder="Nome"  />
-						<p:inputText placeholder="Vagas"  />
-						<p:inputText placeholder="Descrição"  />
-						<p:inputText placeholder="Categoria"  />
+						<p:inputText placeholder="Nome" value="#{cursoMB.curso.nome}" />
+						<p:inputText placeholder="Vagas" value="#{cursoMB.curso.VAGAS_TOTAL}" />
+						<p:inputText placeholder="Descrição" value="#{cursoMB.curso.DESCRI}" />
+						<p:selectOneMenu>
+						<f:selectItem itemLabel="Selecionar Categoria"/>
+							<f:selectItems value="sss" var="c"
+								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />	
+						</p:selectOneMenu>
 						<p:commandButton value="Adicionar Curso"/>
 	
 						</p:dialog>

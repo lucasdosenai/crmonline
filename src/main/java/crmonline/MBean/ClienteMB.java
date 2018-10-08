@@ -76,7 +76,7 @@ public class ClienteMB {
 				FacesContext.getCurrentInstance().addMessage("ALERTA" , 
 						new FacesMessage(cliente.getNome() + " ADICIONADO COM SUCESSO!"));
 				clientes.add(cliente);
-				clientes = 
+				
 			}else {
 				FacesContext.getCurrentInstance().addMessage("ALERTA", 
 						new FacesMessage("FALHA AO INSERIR"));
