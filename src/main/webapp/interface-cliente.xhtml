@@ -5,6 +5,9 @@
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
 	<style>
+	*{
+		
+	}
 	.textoID td{
     	background-color: #000;
     	border-color: #fff;
@@ -24,6 +27,7 @@
 		width: 100%;
 	    font-size: 17px;
 	    margin: 0 auto;
+	    border: 0px;
 	}
 	
 	ul {
@@ -61,45 +65,26 @@
 	}
 	.shop{
 		margin-bottom: 100%;
+		
 	}
 </style>
 </h:head>
 <h:body>
-	
+	<p:dataList value="#{clienteMB.clientes}" var="cliente" type="ordered">
+	   <f:facet name="header">INFORMAÇÕES </f:facet>
+        Cliente       : #{cliente.nome},<br/> 
+        Colaboradores : #{cliente.numeroFuncionario},<br/>
+        CNPJ          : #{cliente.cnjp},<br/>
+        Telefone      : #{cliente.telefone},<br/>
+        Email         : #{cliente.email},<br/>
+        Logradouro    : #{cliente.logradouro},<br/>
+        cidade        : #{cliente.cidade},<br/>
+        categoria     : #{cliente.categoria.nome}<br/>
+    </p:dataList>
 	<p:panelGrid columns="2">
 	<p:panel id="info_cliente">
-	<p:toolbar>
-		<f:facet name="left">
-			<p:commandButton value="Nova Visita"/>
-		</f:facet>
-	</p:toolbar>
 	
-	<p:panelGrid columns="2" styleClass="shop">
-		<p:outputLabel value="EMPRESA : "   />
-		<p:outputLabel value="SENAI JAGUARIÚNA "   />
 
-		<p:outputLabel value="CNPJ  : "   />
-		<p:outputLabel value="1523658856"   />
-
-		<p:outputLabel value="COLABORADORES : "   />
-		<p:outputLabel value="350"   />
-
-		<p:outputLabel value="TELEFONE : "   />
-		<p:outputLabel value="19 97210182"   />
-
-		<p:outputLabel value="EMAIL : "   />
-		<p:outputLabel value="SENAI@EDUC.SENAI.COM.BR"   />
-
-		<p:outputLabel value="LOGRADOURO : "   />
-		<p:outputLabel value="Rua gentulio - G123"   />
-	
-		<p:outputLabel value="CIDADE : "   />
-		<p:outputLabel value="Jaguariúna - SP"   />
-		
-		<p:outputLabel value="RAMO: "   />
-		<p:outputLabel value="ESCOLAR"   />
-	</p:panelGrid>
-		
 	</p:panel>
 	
 	<p:panel id="Contatos-visitas" styleClass="pro">

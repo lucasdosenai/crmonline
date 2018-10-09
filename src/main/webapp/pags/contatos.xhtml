@@ -37,7 +37,15 @@
 
 		
 		<f:facet name="left" >
-
+			<p:commandButton value="Novo Contato"/>
+			<p:dialog widgetVar="newCT">
+						<p:ajax listener="#{categoriaMB.att}" update="categoria" />
+						<p:inputText placeholder="NOME : "
+							value="#{categoriaMB.categoria.nome}" />
+						<br />
+						<p:commandButton icon="ui-icon-plus" ajax="true"
+							action="#{categoriaMB.novaCategoria}" />
+					</p:dialog>
 			<h:panelGrid columns="8" style="margin-bottom:10px"  cellpadding="5">
 				<p:outputLabel for="console" value="Filtrar" />
 				<p:selectOneMenu id="console" value="#{selectOneMenuView.console}"
