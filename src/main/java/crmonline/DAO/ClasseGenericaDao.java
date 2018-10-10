@@ -41,8 +41,6 @@ public class ClasseGenericaDao {
 
 	}
 
-	
-	
 	public List<Curso> listarCurso() throws SQLException {
 		String sql = "SELECT * FROM CURSO;";
 
@@ -54,43 +52,18 @@ public class ClasseGenericaDao {
 
 		while (rs.next()) {
 			Curso c = new Curso();
-            ClasseGenerica CG = new ClasseGenerica();
-            CG.setId(rs.getInt("ID"));
-            CG.setNome(rs.getString("NOME"));
-            c.setCurso(CG);
-            c.setVAGAS_TOTAL(rs.getInt("VAGAS_TOTAL"));
-            c.setDESCRI(rs.getString("DESCRI"));
-            c.setDURACAO(rs.getString("DURACAO"));
-            CG.setId(rs.getInt("ID_CATEGORIA"));
+
+			c.setNome(rs.getString("NOME"));
+			c.setId(rs.getInt("ID"));
+			c.setVAGAS_TOTAL(rs.getInt("VAGAS_TOTAL"));
+			c.setDESCRI(rs.getString("DESCRI"));
+			c.setDURACAO(rs.getString("DURACAO"));
+			c.getCATEGORIA().setId(rs.getInt("ID_CATEGORIA"));
 			cate.add(c);
 		}
 
 		return cate;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

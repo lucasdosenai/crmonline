@@ -19,9 +19,7 @@ public class AgendaDAO {
 		con = ConDB.getConnection();
 
 	}
-
-
-
+	
 	public boolean inserir(Agenda agenda) throws SQLException {
 
 		String sql = "INSERT INTO AGENDA(NOME,ATENDENTE,DATAV,HORARIO,ESTADOS,CLASSFICACOES,OBSERVACOES,ID_VISITANTE,ID_CLIENTE,ID_CURSO)"

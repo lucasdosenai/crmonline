@@ -23,18 +23,13 @@
 
 			<h:panelGrid styleClass="centro">
 				<h3>Agendar Visita</h3>
-
 				<h:form>
-
-
-
-
 					<p:panelGrid columns="1">
 						<p:inputText value="#{agendaMB.agenda.nome}"
 							placeholder="Nome da Visita" size="40" styleClass="input_normal" />
 						<p:inputText value="#{agendaMB.agenda.atendente}"
 							placeholder="Atendente" size="40" styleClass="input_normal" />
-						 <p:calendar value="#{agendaMB.agenda.data}" showOn="button"
+						<p:calendar value="#{agendaMB.agenda.data}" showOn="button"
 							placeholder="Dia da Visita" mask="true" pattern="dd/MM/yyyy" />
 						<p:inputMask placeholder="Horário da Visita" size="40"
 							styleClass="input_normal" mask="99:99"
@@ -47,42 +42,64 @@
 							<p:ajax event="cancel" listener="#{ratingView.oncancel}"
 								update="messages" />
 						</p:rating>
+
+
 						<h3 style="margin-top: 0">Descrição</h3>
 						<p:inputTextarea rows="6" cols="33"
 							value="#{agendaMB.agenda.observacao}" />
-						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
-						<f:selectItem itemLabel="Selecionar Cliente"/>
-							<f:selectItems value="#{clienteMB.clientes}" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />	
-						</p:selectOneMenu>
-						<h:panelGrid columns="2">
-						<p:selectOneMenu value="#{agendaMB.agenda.curso}">
-							<f:selectItem itemLabel="Selecionar Curso"/>
-							<f:selectItems var="c" value="#{cursoMB.cursos}" 
-										   itemLabel="#{c.curso.nome}" 
-										   itemValue="#{c.curso.id}" />
-						</p:selectOneMenu>
-						<p:commandButton value="+" onclick="PF('Add').show();"/>
-						</h:panelGrid>
-						<p:dialog widgetVar="Add">
-						<p:inputText placeholder="Nome" value="#{cursoMB.curso.nome}" />
-						<p:inputText placeholder="Vagas" value="#{cursoMB.curso.VAGAS_TOTAL}" />
-						<p:inputText placeholder="Descrição" value="#{cursoMB.curso.DESCRI}" />
 						<p:selectOneMenu>
-						<f:selectItem itemLabel="Selecionar Categoria"/>
-							<f:selectItems value="sss" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />	
+							<f:selectItem itemLabel="Selecionar Cliente" />
+							<f:selectItems value="#{clienteMB.clientes}" var="c"
+								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 						</p:selectOneMenu>
-						<p:commandButton value="Adicionar Curso"/>
-	
+
+
+						<h:panelGrid columns="2">
+							<p:selectOneMenu value="#{agendaMB.agenda.curso}">
+								<f:selectItem itemLabel="Selecionar Curso" />
+								<f:selectItems var="c" value="#{cursoMB.cursos}"
+									itemLabel="#{c.nome}" itemValue="#{c.id}" />
+							</p:selectOneMenu>
+
+							<p:commandButton value="+" onclick="PF('Add').show();" />
+
+						</h:panelGrid>
+
+						<p:dialog widgetVar="Add">
+							<h:form>
+								<center>
+									<p:panelGrid columns="1">
+
+										<p:inputText placeholder="Nome" value="#{agendaMB.curso.nome}" />
+										<p:inputText placeholder="Vagas"
+											value="#{agendaMB.curso.VAGAS_TOTAL}" />
+										<p:inputText placeholder="Descrição"
+											value="#{agendaMB.curso.DESCRI}" />
+										<p:inputText placeholder="Duração"
+											value="#{agendaMB.curso.DURACAO}" />
+
+										<p:selectOneMenu value="#{agendaMB.curso.CATEGORIA.id}"
+											required="true"
+											requiredMessage="Uma categoria é necessaria !">
+											<f:selectItem itemLabel="Selecionar Categoria" itemValue="" />
+											<f:selectItems var="c" value="#{agendaMB.categorias}"
+												itemLabel="#{c.nome}" itemValue="#{c.id}" />
+										</p:selectOneMenu>
+									</p:panelGrid>
+
+									<br />
+									<p:commandButton value="Salvar novo curso !"
+										actionListener="#{agendaMB.salvarCurso}" update="@all" />
+								</center>
+
+							</h:form>
 						</p:dialog>
-						<center>
-							<p:panelGrid columns="2">
-								<h:commandButton value="Agendar" styleClass="btn"
-									action="#{agendaMB.agendar}" />
-								<h:commandButton value="Cancelar" styleClass="btn" />
-							</p:panelGrid>
-						</center>
+
+						<p:panelGrid columns="2">
+							<h:commandButton value="Agendar" styleClass="btn"
+								action="#{agendaMB.agendar}" />
+							<h:commandButton value="Cancelar" styleClass="btn" />
+						</p:panelGrid>
 					</p:panelGrid>
 				</h:form>
 			</h:panelGrid>
