@@ -98,7 +98,8 @@ li a:hover {
 				</p:panel>
 			</p:panelGrid>
 
-			<p:dialog header="NOVO CLIENTE" widgetVar="newC" minHeight="40">
+			<p:dialog id="dialog" header="NOVO CLIENTE" widgetVar="newC"
+				minHeight="40">
 				<p:column headerText="Novo Cliente">
 					<p:inputText placeholder="NOME : "
 						value="#{clienteMB.cliente.nome}" />
@@ -141,7 +142,8 @@ li a:hover {
 
 					<br />
 					<p:commandButton value="Adicionar"
-						action="#{clienteMB.novoCliente}" ajax="true"  update="listaCompletaCliente" />
+						action="#{clienteMB.novoCliente}" ajax="true"
+						update="listaCompletaCliente" />
 					<p:commandButton value="Atualizar" action="#{categoriaMB}" />
 				</p:column>
 			</p:dialog>
@@ -171,18 +173,73 @@ li a:hover {
 							message="Você tem certeza sobre excluir #{cliente.nome}"
 							icon="ui-icon-alert" />
 					</p:commandButton>
-					<p:commandButton value="Perfil" icon="fa-fa-user" />
-					<p:commandButton icon="fa-align-justify" />
+					<p:commandButton value="Perfil" icon="ui-icon-notice" />
+					<p:commandButton icon="ui-icon-pencil" update="dialog"
+						oncomplete="PF('editC').show();">
+						<f:setPropertyActionListener value="#{cliente}"
+							target="#{clienteMB.cliente}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 				<p:commandButton value="SIM" styleClass="ui-confirmdialog-yes"
-					icon="ui-icon-check" event="onClick"
-					listener="#{categoriaMB.att}" ajax="true" />
+					icon="ui-icon-check" event="onClick" listener="#{categoriaMB.att}"
+					ajax="true" />
 				<p:commandButton value="NÃO" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</h:form>
 	</p:panelGrid>
+
+	<p:dialog id="dialog" draggable="true" maximizable="true"
+		header="EDITA CLIENTE" widgetVar="editC" minHeight="40">
+		<h:form>
+			<p:column headerText="Editar Cliente">
+				<p:inputText placeholder="NOME : " value="#{clienteMB.cliente.nome}" />
+				<br />
+				<p:inputText placeholder="COLABORADORES : "
+					value="#{clienteMB.cliente.numeroFuncionario}" />
+				<br />
+				<p:inputText placeholder="CNPJ : " value="#{clienteMB.cliente.cnjp}" />
+				<br />
+				<p:inputText placeholder="TELEFONE : "
+					value="#{clienteMB.cliente.telefone}" />
+				<br />
+				<p:inputText placeholder="EMAIL : "
+					value="#{clienteMB.cliente.email}" />
+				<br />
+				<p:inputText placeholder="LOGRADOURO : "
+					value="#{clienteMB.cliente.logradouro}" />
+				<br />
+				<p:inputText placeholder="CIDADE : "
+					value="#{clienteMB.cliente.cidade}" />
+				<br />
+				<p:selectOneMenu id="categoria"
+					value="#{clienteMB.cliente.categoria.id}" style="width:150px">
+					<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
+						noSelectionOption="true" />
+					<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
+						itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
+				</p:selectOneMenu>
+				<p:commandButton icon="ui-icon-plus" ajax="true"
+					onclick="PF('newCT').show();" />
+				<br />
+				<p:commandButton value="Aplicar" action="#{clienteMB.editaCliente()}"
+					ajax="true" update="listaCompletaCliente" />
+				<p:commandButton value="Atualizar" action="#{categoriaMB}" />
+			</p:column>
+		</h:form>
+	</p:dialog>
+
+	<p:dialog draggable="true" maximizable="true" closable="true"
+		widgetVar="newCT">
+		<p:ajax listener="#{categoriaMB.att}" update="@all" />
+		<p:inputText placeholder="NOME : "
+			value="#{categoriaMB.categoria.nome}" />
+		<br />
+		<p:commandButton icon="ui-icon-plus" ajax="true"
+			action="#{categoriaMB.novaCategoria}" />
+	</p:dialog>
 </h:body>
 </html>
