@@ -7,6 +7,7 @@ public class Contato {
 	private String email;
 	private ClasseGenerica cliente;
 	private ClasseGenerica cargo;
+	private ClasseGenerica categoria;
 	
 	public ClasseGenerica getNome() {
 		return nome;
@@ -33,6 +34,7 @@ public class Contato {
 		this.email = email;
 	}
 	public ClasseGenerica getCliente() {
+		
 		return cliente;
 	}
 	public void setCliente(ClasseGenerica cliente) {
@@ -42,7 +44,7 @@ public class Contato {
 		return cargo;
 	}
 	public void setCargo(ClasseGenerica cargo) {
-		this.cargo = cargo;
+		this.cargo = cargo; 
 	}
 
 	

@@ -15,6 +15,7 @@ import crmonline.Entidade.Cliente;
 public class ClienteMB {
 	
 	private Cliente cliente;
+	private Cliente clienteEdita;
 	private ArrayList<Categoria> categorias;
 	private ArrayList<Cliente> clientes;
 	ClienteDAO cDao;
@@ -61,6 +62,25 @@ public class ClienteMB {
 		else clientes = cDao.listaCategoriaCliente(codigo);
 		
 	}
+	public void editaCliente(Cliente c) {
+		try {
+			if(cDao.updateCliente(c)) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Alterado com sucesso!"));
+			}else {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Problema ao Alterar cliente!"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void buscaEditaCliente() {
+		cliente = cDao.editaCliente(cliente);
+		System.out.println("Edita Cliente Acessado!");
+	} 
+	
 	public void apagaCliente(Cliente c) {
 		try {
 			cDao.deletaCliente(c.getCodigo().toString());
@@ -90,7 +110,7 @@ public class ClienteMB {
 	}
 	
 	/* GET and SET*/
-	public Cliente getCliente() {
+	public Cliente clienteEdita() {
 		return cliente;
 	}
 
@@ -137,8 +157,19 @@ public class ClienteMB {
 	public void setCategoriaEscolhida(String categoriaEscolhida) {
 		this.categoriaEscolhida = categoriaEscolhida;
 	}
+
+	public Cliente getClienteEdita() {
+		return clienteEdita;
+	}
+
+	public void setClienteEdita(Cliente clienteEdita) {
+		this.clienteEdita = clienteEdita;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
 	
-	
-	/*            */
-	
+
+	/*           */
 }
