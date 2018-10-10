@@ -37,17 +37,21 @@
 						<p:inputText placeholder="E-mail" size="40"
 							styleClass="input_normal" value="#{cadMB.usuario.email}" />
 
-						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
-							<f:selectItem itemLabel="Selecionar Cliente" />
-							<f:selectItems value="#{clienteMB.clientes}" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-						</p:selectOneMenu>
+						
 						
 						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 							<f:selectItem itemLabel="Selecionar Cargo" />
 							<f:selectItems value="#{clienteMB.clientes}" var="c"
 								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 						</p:selectOneMenu>
+						 
+						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
+							<f:selectItem itemLabel="Selecionar Cliente" />
+							<f:selectItems value="#{clienteMB.clientes}" var="c"
+								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
+						</p:selectOneMenu>
+						
+						
 						<p:selectOneMenu id="categoria"
 						value="#{clienteMB.cliente.categoria.id}" style="width:150px">
 						<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
