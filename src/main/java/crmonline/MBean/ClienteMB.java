@@ -62,9 +62,9 @@ public class ClienteMB {
 		else clientes = cDao.listaCategoriaCliente(codigo);
 		
 	}
-	public void editaCliente(Cliente c) {
+	public void editaCliente() {
 		try {
-			if(cDao.updateCliente(c)) {
+			if(cDao.updateCliente(cliente)) {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Alterado com sucesso!"));
 			}else {

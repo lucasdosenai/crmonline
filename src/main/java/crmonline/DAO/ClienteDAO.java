@@ -148,6 +148,7 @@ public class ClienteDAO {
 
 			while (rs.next()) {
 				Cliente c = new Cliente();
+				c.setCodigo(rs.getInt("ID"));
 				c.setNome(rs.getString("NOME"));
 				c.setNumeroFuncionario(rs.getString("N_FUNCIONARIO"));
 				c.setCnjp(rs.getString("CNPJ"));
@@ -155,7 +156,6 @@ public class ClienteDAO {
 				c.setEmail(rs.getString("EMAIL"));
 				c.setLogradouro(rs.getString("LOGRADOURO"));
 				c.setCidade(rs.getString("CIDADE"));
-				c.setCodigo(rs.getInt("ID"));
 				c.getCategoria().setId(rs.getInt("ID_CATEGORIA"));
 				c.getCategoria().setNome(rs.getString("nomeCategoria"));
 				clientes.add(c);

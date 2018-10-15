@@ -28,10 +28,15 @@ public class CategoriaMB {
 		categorias = cDao.todasCategorias();
 	}
 	public void novaCategoria() {
+		if(categoria.getNome() != "") {
 		if(cDao.novaCategoria(categoria)) {
 			categorias = cDao.todasCategorias();
 			FacesContext.getCurrentInstance().addMessage(null, 
 					new FacesMessage(categoria.getNome() + " INSERIDO COM SUCESSO!"));
+		}
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("PROBLEMA AO INSERIR !"));
 		}
 	}
 

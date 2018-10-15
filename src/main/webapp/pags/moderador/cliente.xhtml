@@ -234,7 +234,7 @@ li a:hover {
 
 	<p:dialog draggable="true" maximizable="true" closable="true"
 		widgetVar="newCT">
-		<p:ajax listener="#{categoriaMB.att}" update="@all" />
+		<p:ajax listener="#{categoriaMB.att}" update="dialog" />
 		<p:inputText placeholder="NOME : "
 			value="#{categoriaMB.categoria.nome}" />
 		<br />
