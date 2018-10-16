@@ -2,10 +2,13 @@ package crmonline.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Agenda;
@@ -46,5 +49,39 @@ public class AgendaDAO {
 
 		return ps.executeUpdate() > 0;
 	}
-
+	
+	public List<Agenda> listarAgenda() {
+		
+		List<Agenda> agenda = new ArrayList<>();
+		
+		String sql = "SELECT * FROM AGENDA";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				Agenda a = new Agenda();
+				a.setCodigo(rs.getInt("ID"));
+				a.setNome(rs.getString("NOME"));
+				a.setAtendente(rs.getString("ATENDENTE"));
+				a.setData(rs.getDate("DATAV"));
+				a.setHora(rs.getString("HORARIO"));
+				a.setEstadovisita(rs.getInt("ESTADOS"));
+				a.setClassificacao(rs.getString("CLASSIFICACOES"));
+				a.setObservacao(rs.getString("OBSERVACOES"));
+				a.setAtendente(rs.getString("ID_VISITANTE"));
+				a.setId_cliente(rs.getInt("ID_CLIENTE"));
+				a.setCurso(rs.getInt("ID_CURSO"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
 }

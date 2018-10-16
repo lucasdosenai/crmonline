@@ -42,15 +42,15 @@
 							<p:ajax event="cancel" listener="#{ratingView.oncancel}"
 								update="messages" />
 						</p:rating>
-
-
+					
 						<h3 style="margin-top: 0">Descrição</h3>
 						<p:inputTextarea rows="6" cols="33"
 							value="#{agendaMB.agenda.observacao}" />
-						<p:selectOneMenu>
+							
+						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 							<f:selectItem itemLabel="Selecionar Cliente" />
-							<f:selectItems value="#{clienteMB.clientes}" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
+							<f:selectItems value="#{clienteMB.clientes}" var="cli"
+								itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
 						</p:selectOneMenu>
 
 
