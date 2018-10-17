@@ -71,15 +71,15 @@ public class AgendaDAO {
 				a.setAtendente(rs.getString("ID_VISITANTE"));
 				a.setId_cliente(rs.getInt("ID_CLIENTE"));
 				a.setCurso(rs.getInt("ID_CURSO"));
+				
+				agenda.add(a);
 			}
+			return agenda;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+		return null;
 	}
 	
 	
