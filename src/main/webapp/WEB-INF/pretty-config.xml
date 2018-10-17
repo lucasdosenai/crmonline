@@ -9,7 +9,7 @@ xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
 	</url-mapping>
 	
 	<url-mapping id="cliente">
-		<pattern value="/cliente.com.br"/>
+		<pattern value="/cliente"/>
 		<view-id value="/pags/moderador/cliente.xhtml"/>
 	</url-mapping>
 	

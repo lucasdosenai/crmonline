@@ -26,27 +26,37 @@ public class ClienteDAO {
 		return ps.executeUpdate() > 0;
 	}
 
-	public boolean updateCliente(Cliente c) throws SQLException {
+	public boolean updateCliente(Cliente c)  {
+		System.out.println("UpdateCliente()");
 		String SQL = "UPDATE CLIENTE "
 					+ "SET NOME = ? "  
-					+ "SET N_FUNCIONARIOS = ? " 
-					+ "SET CPNJ = ? "
-					+ "SET TELEFONE = ? "
-					+ "SET EMAIL = ? "
-					+ "SET LOGRADOURO = ? "
-					+ "SET CIDADE = ? "
-					+ "SET ID_CATEGORIA = ? WHERE ID = ?";
-		PreparedStatement ps = con.prepareStatement(SQL);
-		ps.setString(1, c.getNome());
-		ps.setString(2, c.getNumeroFuncionario());
-		ps.setString(3, c.getCnjp());
-		ps.setString(4, c.getTelefone());
-		ps.setString(5, c.getEmail());
-		ps.setString(6, c.getLogradouro());
-		ps.setString(7, c.getCidade());
-		
-		ps.setInt(8, c.getCodigo());
-		return ps.executeUpdate() > 0;
+					+ ",N_FUNCIONARIO = ? " 
+					+ ",CNPJ = ? "
+					+ ",TELEFONE = ? "
+					+ ",EMAIL = ? "
+					+ ",LOGRADOURO = ? "
+					+ ",CIDADE = ? "
+					+ ",ID_CATEGORIA = ? WHERE ID = ?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, c.getNome());
+			ps.setString(2, c.getNumeroFuncionario());
+			ps.setString(3, c.getCnjp());
+			ps.setString(4, c.getTelefone());
+			ps.setString(5, c.getEmail());
+			ps.setString(6, c.getLogradouro());
+			ps.setString(7, c.getCidade());
+			ps.setInt(8, c.getCategoria().getId());
+			ps.setInt(9, c.getCodigo());
+			
+			System.out.println(ps.toString());
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public Cliente editaCliente(Cliente codigo) {
