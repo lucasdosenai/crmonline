@@ -101,7 +101,7 @@ li a:hover {
 			<p:dialog id="dialog" header="NOVO CLIENTE" widgetVar="newC"
 				minHeight="40">
 				<p:column headerText="Novo Cliente">
-					
+
 					<p:inputText placeholder="NOME : "
 						value="#{clienteMB.cliente.nome}" />
 					<br />
@@ -226,21 +226,23 @@ li a:hover {
 				<p:commandButton icon="ui-icon-plus" ajax="true"
 					onclick="PF('newCT').show();" />
 				<br />
-				<p:commandButton value="Aplicar" action="#{clienteMB.editaCliente()}"
-					ajax="true" update="listaCompletaCliente" />
+				<p:commandButton value="Aplicar"
+					action="#{clienteMB.editaCliente()}" ajax="true"
+					update="listaCompletaCliente" />
 				<p:commandButton value="Atualizar" action="#{categoriaMB}" />
 			</p:column>
 		</h:form>
 	</p:dialog>
-
-	<p:dialog draggable="true" maximizable="true" closable="true"
-		widgetVar="newCT">
-		<p:ajax listener="#{categoriaMB.att}" update="dialog" />
-		<p:inputText placeholder="NOME : "
-			value="#{categoriaMB.categoria.nome}" />
-		<br />
-		<p:commandButton icon="ui-icon-plus" ajax="true"
-			action="#{categoriaMB.novaCategoria}" />
-	</p:dialog>
+	<h:form>
+		<p:dialog draggable="true" maximizable="true" closable="true"
+			widgetVar="newCT">
+			<p:ajax listener="#{categoriaMB.att}" update="@all" />
+			<p:inputText placeholder="NOME : "
+				value="#{categoriaMB.categoria.nome}" />
+			<br />
+			<p:commandButton icon="ui-icon-plus" ajax="true"
+				action="#{categoriaMB.novaCategoria}" />
+		</p:dialog>
+	</h:form>
 </h:body>
 </html>
