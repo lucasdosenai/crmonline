@@ -44,7 +44,7 @@
 							<f:selectItems value="#{clienteMB.clientes}" var="c"
 								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 						</p:selectOneMenu>
-						 
+						  
 						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 							<f:selectItem itemLabel="Selecionar Cliente" />
 							<f:selectItems value="#{clienteMB.clientes}" var="c"
@@ -52,13 +52,6 @@
 						</p:selectOneMenu>
 						
 						
-						<p:selectOneMenu id="categoria"
-						value="#{clienteMB.cliente.categoria.id}" style="width:150px">
-						<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
-							itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
-					</p:selectOneMenu>
 
 						<p:panelGrid columns="2">
 							<h:commandButton value="Cadastrar" styleClass="btn"
@@ -66,8 +59,7 @@
 							<h:commandButton value="Cancelar" styleClass="btn" />
 						</p:panelGrid>
 					</p:panelGrid>
-
-
+					
 				</h:form>
 
 			</h:panelGrid>
