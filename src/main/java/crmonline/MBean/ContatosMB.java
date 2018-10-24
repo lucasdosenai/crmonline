@@ -40,7 +40,4 @@ public class ContatosMB {
 		this.clientes = clientes;
 	}
 	
-	
-	
-
 }

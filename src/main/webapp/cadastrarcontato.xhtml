@@ -20,7 +20,8 @@
 		<h:panelGrid columns="2" styleClass="centro">
 
 			<h:panelGrid styleClass="centro">
-				<h3>Novo Usuário</h3>
+			
+				<h3>Novo Usuário</h3>    
 
 				<h:form>
 					<p:growl>
@@ -35,13 +36,13 @@
 						<p:inputText placeholder="Celular" size="40"
 							styleClass="input_normal" value="#{cadMB.usuario.nome}" />
 						<p:inputText placeholder="E-mail" size="40"
-							styleClass="input_normal" value="#{cadMB.usuario.email}" />
+							styleClass="input_normal" value="#{cadMB.usuario.email}" /> 
 
 						
 						
 						<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 							<f:selectItem itemLabel="Selecionar Cargo" />
-							<f:selectItems value="#{clienteMB.clientes}" var="c"
+							<f:selectItems value="#{ContatosMB.cargo}" var="c"
 								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 						</p:selectOneMenu>
 						  
@@ -49,9 +50,8 @@
 							<f:selectItem itemLabel="Selecionar Cliente" />
 							<f:selectItems value="#{clienteMB.clientes}" var="c"
 								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-						</p:selectOneMenu>
-						
-						
+						</p:selectOneMenu>				
+				
 
 						<p:panelGrid columns="2">
 							<h:commandButton value="Cadastrar" styleClass="btn"
