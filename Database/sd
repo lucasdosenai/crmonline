@@ -88,6 +88,27 @@ create table RECUPERA_USUARIO(
     FOREIGN KEY (ID_USER) REFERENCES USUARIO(ID)
 );
 
+create table cargo(
+id int primary key auto_increment not null,
+nome VARCHAR(64)
+);
+
+
+create table CONTATOS(
+ID Int primary key auto_increment not null,
+nome VARCHAR(64),
+telefone VARCHAR(64),
+celular VARCHAR(64),
+email VARCHAR(64),
+id_cargo Int,
+id_cliente int,
+
+FOREIGN KEY (id_cargo) REFERENCES CARGO(ID),
+FOREIGN KEY (id_cliente) REFERENCES CLIENTE(ID)
+
+);
+
+
 CREATE TABLE `cidade` (
   `id` int(11) NOT NULL,
   `nome` varchar(120) DEFAULT NULL,

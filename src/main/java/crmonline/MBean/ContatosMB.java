@@ -13,14 +13,14 @@ import crmonline.Entidade.Contato;
 public class ContatosMB {
 	
 	private Contato contato;
-	private List<Cliente> clientes;
+	private List<Contato> contatos;
 	private ClienteDAO cDao;
 	
 	public ContatosMB() {
 		contato = new Contato();
-		clientes = new ArrayList<>();
+		contatos = new ArrayList<>();
 		cDao = new ClienteDAO();
-		clientes = cDao.listaCliente();
+	
 		
 	}
 
@@ -32,12 +32,21 @@ public class ContatosMB {
 		this.contato = contato;
 	}
 
-	public List<Cliente> getClientes() {
-		return clientes;
+	public List<Contato> getContatos() {
+		return contatos;
 	}
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
 	}
+
+	public ClienteDAO getcDao() {
+		return cDao;
+	}
+
+	public void setcDao(ClienteDAO cDao) {
+		this.cDao = cDao;
+	}
+
 	
 }

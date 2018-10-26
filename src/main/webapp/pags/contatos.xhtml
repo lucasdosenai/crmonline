@@ -39,7 +39,7 @@
 		<f:facet name="left" >
 			<p:commandButton value="Novo Contato"/>
 			<p:dialog widgetVar="newCT">
-						<p:ajax listener="#{categoriaMB.att}" update="categoria" />
+						
 						<p:inputText placeholder="NOME : "
 							value="#{categoriaMB.categoria.nome}" />
 						<br />
@@ -48,7 +48,7 @@
 					</p:dialog>
 			<h:panelGrid columns="8" style="margin-bottom:10px"  cellpadding="5">
 				<p:outputLabel for="console" value="Filtrar" />
-				<p:selectOneMenu id="console" value="#{selectOneMenuView.console}"
+				<p:selectOneMenu id="console" 
 					style="width:125px">
 					<f:selectItem itemLabel="Selecione" itemValue="" />
 					<f:selectItem itemLabel="Até uma semana atrás" itemValue="Xbox One" />
@@ -57,7 +57,7 @@
 					
 				</p:selectOneMenu>
 					<p:outputLabel for="a" value="Filtrar" />
-				<p:selectOneMenu id="a" value="#{selectOneMenuView.console}"
+				<p:selectOneMenu id="a" 
 					style="width:125px" >
 					<f:selectItem itemLabel="Selecione" itemValue="" />
 					<f:selectItem itemLabel="Até uma semana atrás" itemValue="Xbox One" />
@@ -66,7 +66,7 @@
 					
 				</p:selectOneMenu>
 				<p:outputLabel for="b" value="Filtrar" />
-				<p:selectOneMenu id="b" value="#{selectOneMenuView.console}"
+				<p:selectOneMenu id="b" value=""
 					style="width:125px">
 					<f:selectItem itemLabel="Selecione" itemValue="" />
 					<f:selectItem itemLabel="Até uma semana atrás" itemValue="Xbox One" />
@@ -79,11 +79,19 @@
 		
 	</p:toolbar>
 	
-	<p:dataTable var="Data" value="#{dtBasicView.cars}">
-		<p:column headerText="Contatos">
-			<h:outputText value="" />
-		</p:column>
-
+	<p:panelGrid columns="1" style="vertical-align: top;">
+			<p:dataTable style="vertical-align: top;" var="visita"
+				value="#{contatosMB.clientes}">
+				<p:column headerText="VISITA">
+					<h:outputText value="#{visita.nome}" style="font-weight: bold" />
+				</p:column>
+				<p:column headerText="DATA">
+					<h:outputText value="#{visita.nif}" style="font-weight: bold" />
+				</p:column>
+				<p:column headerText="STATU">
+					<h:outputText value="#{visita.statu}" style="font-weight: bold" />
+				</p:column>
 			</p:dataTable>
+		</p:panelGrid>
 </h:body>
 </html>
