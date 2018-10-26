@@ -45,16 +45,6 @@ public class ClienteMB {
 	public void removeBean(String bean){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(bean);
     }
-	// Limpa método
-	public Cliente limpaObj(Cliente c) {
-		c.setCategoria(null);
-		c.setCidade(null);
-		c.setCnjp(null);
-		c.setCodigo(null);
-		c.setEmail(null);
-		return c;
-		
-	}
 	public void testando() {
 		listaCategorias(categoriaEscolhida);
 	}
@@ -65,17 +55,12 @@ public class ClienteMB {
 		
 	}
 	public void editaCliente() {
-		try {
-			if(cDao.updateCliente(cliente)) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("Alterado com sucesso!"));
-			}else {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("Problema ao Alterar cliente!"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(cDao.updateCliente(cliente)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Alterado com sucesso!"));
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Problema ao Alterar cliente!"));
 		}
 	}
 	public void buscaEditaCliente() {

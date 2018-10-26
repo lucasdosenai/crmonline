@@ -4,14 +4,12 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" />
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 </h:head>
 
 <h:body>
-
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
 	<nav class="nav-extended" style="background-color: black">
 		<div class="nav-content">
 			<ul class="tabs tabs-transparent">
@@ -30,16 +28,16 @@
 
 	<p:toolbar>
 		<f:facet name="left">
-			<p:commandButton action="cadCliente?faces-redirect=true"
+			<p:commandButton onclick="PF('novaVisita').show();"
 				value="Nova Visita" icon="ui-icon-plus" />
 		</f:facet>
+
 
 		<f:facet name="right">
 
 			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 				<p:outputLabel for="console" value="Filtrar" />
-				<p:selectOneMenu id="console" value="#{selectOneMenuView.console}"
-					style="width:125px">
+				<p:selectOneMenu id="console" style="width:125px">
 					<f:selectItem itemLabel="Selecione" itemValue="" />
 					<f:selectItem itemLabel="Cu" itemValue="Xbox One" />
 					<f:selectItem itemLabel="PS4" itemValue="PS4" />
@@ -48,23 +46,97 @@
 			</h:panelGrid>
 		</f:facet>
 	</p:toolbar>
+	<h:form id="formTabela">
+		<p:dataTable id="tabela" value="#{agendaMB.visitas}" var="a">
+			<p:column headerText="Nome da Visita">
+				<h:outputText value="#{a.nome}" />
+			</p:column>
+			<p:column headerText="Atendente">
+				<h:outputText value="#{a.atendente}" />
+			</p:column>
+			<p:column headerText="Data e Hora da Visita">
+				<h:outputText value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
+			</p:column>
+			<p:column headerText="Editar">
+				<p:commandButton styleClass="btn" value="Excluir"
+					onclick="PF('deletaVisitaPendente').show();" />
+				<p:commandButton styleClass="btn" value="Editar" />
+				<p:commandButton styleClass="btn" value="Realizar" />
+				<p:commandButton styleClass="btn" value="Visualizar" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<h:form id="formNovaVisita">
+		<p:dialog id="dialog" header="NOVO VISITA" widgetVar="novaVisita"
+			minHeight="40">
+			<p:column headerText="Nova Visita">
+				<p:inputText placeholder="NOME : " value="#{agendaMB.agenda.nome}" />
+				<br />
+				<p:inputText placeholder="ATENDENTE : "
+					value="#{agendaMB.agenda.atendente}" />
+				<br />
+				<p:calendar value="#{agendaMB.agenda.data}" showOn="button"
+					placeholder="Dia da Visita" mask="true" pattern="dd/MM/yyyy" />
+				<br />
 
-	<p:dataTable var="Data/Hora" value="#{dtBasicView.cars}">
-		<p:column headerText="Data/Hora">
-			<h:outputText value="" />
-		</p:column>
+				<p:inputMask placeholder="Horário da Visita" size="40"
+					styleClass="input_normal" mask="99:99"
+					value="#{agendaMB.agenda.hora}" />
 
-		<p:column headerText="Local">
-			<h:outputText value="" />
-		</p:column>
+				<p:panelGrid columns="2">
+					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
+						<f:selectItem itemLabel="Selecionar Cliente" />
+						<f:selectItems value="#{clienteMB.clientes}" var="cli"
+							itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
+					</p:selectOneMenu>
+					<h:panelGrid columns="2">
+						<p:selectOneMenu id="cursos" value="#{agendaMB.agenda.curso}">
+							<f:selectItem itemLabel="Selecionar Curso" />
+							<f:selectItems var="c" value="#{cursoMB.cursos}"
+								itemLabel="#{c.nome}" itemValue="#{c.id}" />
+						</p:selectOneMenu>
+						<p:commandButton value="+" onclick="PF('Add').show();" />
+					</h:panelGrid>
+				</p:panelGrid>
 
-		<p:column headerText="Quem">
-			<h:outputText value="" />
-		</p:column>
+				<br/>
+				<p:commandButton value="Adicionar"
+					actionListener="#{agendaMB.agendar}" ajax="true" 
+					update=":formTabela:tabela" event="click"/>
+			</p:column>
+		</p:dialog>
+	</h:form>
 
-		<p:column headerText="Editar">
-			<p:commandButton styleClass="btn" value="Editar" />
-		</p:column>
-	</p:dataTable>
+	<p:dialog widgetVar="deletaVisitaPendente"
+		header="Você tem certeza que gostaria de apagar essa visita ?">
+		<p:commandButton value="SIM" />
+		<p:commandButton value="NÃO" />
+	</p:dialog>
+
+	<p:dialog widgetVar="Add">
+		<h:form>
+			<center>
+				<p:panelGrid columns="1">
+					<p:inputText placeholder="Nome" value="#{agendaMB.curso.nome}"/>
+					<p:inputText placeholder="Vagas"
+						value="#{agendaMB.curso.VAGAS_TOTAL}" />
+					<p:inputText placeholder="Descrição"
+						value="#{agendaMB.curso.DESCRI}" />
+					<p:inputText placeholder="Duração"
+						value="#{agendaMB.curso.DURACAO}" />
+
+					<p:selectOneMenu id="cursos" value="#{agendaMB.curso.CATEGORIA.id}"
+						required="true" requiredMessage="Uma categoria é necessaria !">
+						<f:selectItem itemLabel="Selecionar Categoria" itemValue="" />
+						<f:selectItems var="c" value="#{agendaMB.categorias}"
+							itemLabel="#{c.nome}" itemValue="#{c.id}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+				<br />
+				<p:commandButton value="Salvar novo curso !" action="#{agendaMB.salvarCurso}" 
+								 ajax="true" update=":formNovaVisita:cursos" event="click"/>
+			</center>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>

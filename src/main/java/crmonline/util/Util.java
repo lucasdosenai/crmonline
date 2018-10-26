@@ -6,6 +6,9 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class Util {
+	public String irCadastrarNovaVisita(){
+		return "agendar?faces-redirect=true";
+	}
 	public String irCadastrar() {
 		return "pretty:cadastro";
 	}

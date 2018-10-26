@@ -22,8 +22,6 @@ public class Agenda {
 
 	
 	
-	
-	
 	public String getNome() {
 		return nome;
 	}
@@ -47,15 +45,25 @@ public class Agenda {
 	public void setAtendente(String atendente) {
 		this.atendente = atendente;
 	}
-
+	
+	
+	
 	public Date getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setData(Date date) {
+		this.data = date;
+	}/*
+	
+	public String getData() {
+		return data;
 	}
 
+	public void setData(String string) {
+		this.data = string;
+	}
+*/
 	public String getHora() {
 		return hora;
 	}
@@ -112,4 +120,9 @@ public class Agenda {
 		this.curso = curso;
 	}
 
+	public void setData(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
