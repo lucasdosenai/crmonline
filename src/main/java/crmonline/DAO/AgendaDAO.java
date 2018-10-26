@@ -13,12 +13,12 @@ import java.util.List;
 
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Agenda;
+import crmonline.MBean.LoginMB;
 import sun.security.jca.GetInstance;
 
 public class AgendaDAO {
 
 	private Connection con;
-
 	public AgendaDAO() {
 		con = ConDB.getConnection();
 
@@ -30,12 +30,12 @@ public class AgendaDAO {
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, agenda.getNome());
 		ps.setString(2, agenda.getAtendente());
-		
+
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = Calendar.getInstance();
 		String x = format.format(agenda.getData());
 		ps.setString(3, x);
-		
+
 		ps.setString(4, agenda.getHora());
 		ps.setInt(5, agenda.getEstadovisita());
 		ps.setInt(6, agenda.getId_visitante());
@@ -44,14 +44,14 @@ public class AgendaDAO {
 		System.out.println(ps.toString());
 		return ps.executeUpdate() > 0;
 	}
-	
+
 	public Boolean deletaVisita(Integer id) throws SQLException {
 		String SQL = "DELETE FROM AGENDA WHERE ID = ?";
 		PreparedStatement ps = con.prepareStatement(SQL);
 		ps.setInt(1, id);
 		return ps.executeUpdate() > 0;
 	}
-	
+
 	public List<Agenda> listarAgenda() {
 		List<Agenda> agenda = new ArrayList<>();
 		String sql = "SELECT * FROM AGENDA";
@@ -70,7 +70,7 @@ public class AgendaDAO {
 				a.setEstadovisita(rs.getInt("ESTADOS"));
 				a.setClassificacao(rs.getString("CLASSFICACOES"));
 				a.setObservacao(rs.getString("OBSERVACOES"));
-				a.setAtendente(rs.getString("ID_VISITANTE"));
+				a.setId_visitante(rs.getInt("ID_VISITANTE"));
 				a.setId_cliente(rs.getInt("ID_CLIENTE"));
 				a.setCurso(rs.getInt("ID_CURSO"));
 				agenda.add(a);

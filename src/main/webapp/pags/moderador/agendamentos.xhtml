@@ -55,7 +55,8 @@
 				<h:outputText value="#{a.atendente}" />
 			</p:column>
 			<p:column headerText="Data e Hora da Visita">
-				<h:outputText value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
+				<h:outputText
+					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
 				<p:commandButton styleClass="btn" value="Excluir"
@@ -92,17 +93,17 @@
 					<h:panelGrid columns="2">
 						<p:selectOneMenu id="cursos" value="#{agendaMB.agenda.curso}">
 							<f:selectItem itemLabel="Selecionar Curso" />
-							<f:selectItems var="c" value="#{cursoMB.cursos}"
+							<f:selectItems var="c" value="#{agendaMB.cursos}"
 								itemLabel="#{c.nome}" itemValue="#{c.id}" />
 						</p:selectOneMenu>
 						<p:commandButton value="+" onclick="PF('Add').show();" />
 					</h:panelGrid>
 				</p:panelGrid>
 
-				<br/>
+				<br />
 				<p:commandButton value="Adicionar"
-					actionListener="#{agendaMB.agendar}" ajax="true" 
-					update=":formTabela:tabela" event="click"/>
+					actionListener="#{agendaMB.agendar}" ajax="true"
+					update=":formTabela:tabela" event="click" />
 			</p:column>
 		</p:dialog>
 	</h:form>
@@ -117,7 +118,7 @@
 		<h:form>
 			<center>
 				<p:panelGrid columns="1">
-					<p:inputText placeholder="Nome" value="#{agendaMB.curso.nome}"/>
+					<p:inputText placeholder="Nome" value="#{agendaMB.curso.nome}" />
 					<p:inputText placeholder="Vagas"
 						value="#{agendaMB.curso.VAGAS_TOTAL}" />
 					<p:inputText placeholder="Descrição"
@@ -133,8 +134,9 @@
 					</p:selectOneMenu>
 				</p:panelGrid>
 				<br />
-				<p:commandButton value="Salvar novo curso !" action="#{agendaMB.salvarCurso}" 
-								 ajax="true" update=":formNovaVisita:cursos" event="click"/>
+				<p:commandButton value="Salvar novo curso !"
+					action="#{agendaMB.salvarCurso}" ajax="true"
+					update=":formNovaVisita:cursos" event="click" />
 			</center>
 		</h:form>
 	</p:dialog>

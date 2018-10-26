@@ -2,18 +2,20 @@ package crmonline.Entidade;
 
 import java.util.Date;
 
-public class Agenda {
+import crmonline.MBean.LoginMB;
 
+public class Agenda {
 	public Agenda() {
 		
 	}
+
 
 	private Integer codigo;
 	private String nome;
 	private String atendente;
 	private Date data;
 	private String hora;
-	private Integer id_visitante = 1;
+	private Integer id_visitante =1 ;
 	private Integer estadovisita = 0;
 	private String classificacao;
 	private String observacao;

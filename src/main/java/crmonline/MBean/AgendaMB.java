@@ -30,7 +30,7 @@ public class AgendaMB {
 	ClasseGenericaDao classeGenericaDao;
 	List<ClasseGenerica> categorias;
 	CursoDAO cDao = new CursoDAO();
-
+	LoginMB u;
 	List<Agenda> visitas;
 
 	public AgendaMB() {
@@ -43,6 +43,7 @@ public class AgendaMB {
 		visitas = new ArrayList<>();
 		visitas = aDao.listarAgenda();
 		try {
+			cursos = classeGenericaDao.listarCurso();
 			categorias = classeGenericaDao.buscaCategoria();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -131,6 +132,7 @@ public class AgendaMB {
 
 		try {
 			if (cDao.salvarCurso(curso)) {
+				cursos = classeGenericaDao.listarCurso();
 				Mensagem.make("Curso " + curso.getNome() + " inserido com sucesso !");
 			} else {
 				Mensagem.make("Falha ao salvar curso !");
