@@ -39,13 +39,15 @@
 							styleClass="input_normal" value="#{cadMB.usuario.email}" />
 
 
-
-						<p:selectOneMenu value="#{ContatosMB.Contato.id_cliente}">
-							<f:selectItem itemLabel="Selecionar Cargo" />
-							<f:selectItems value="#{ContatosMB.cargo}" var="c"
-								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-						</p:selectOneMenu>
-
+						<p:growl id="messages" showDetail="true" />
+						<p:panelGrid columns="2">
+							<p:selectOneMenu value="#{ContatosMB.Contato.id_cliente}">
+								<f:selectItem itemLabel="Selecionar Cargo" />
+								<f:selectItems value="#{ContatosMB.cargo}" var="c"
+									itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
+							</p:selectOneMenu>
+							<p:commandButton value="+" onclick="PF('Add').show();" />
+						</p:panelGrid>
 						<p:selectOneMenu value="#{ContatosMB.Contato.id_cliente}">
 							<f:selectItem itemLabel="Selecionar Cliente" />
 							<f:selectItems value="#{clienteMB.clientes}" var="c"
@@ -56,12 +58,21 @@
 						<p:panelGrid columns="2">
 							<h:commandButton value="Cadastrar" styleClass="btn"
 								action="#{ContatosMB.verifica}" />
+
 							<h:commandButton value="Cancelar" styleClass="btn" />
 						</p:panelGrid>
 					</p:panelGrid>
 
 				</h:form>
-
+				<p:dialog widgetVar="Add">
+					<h:form>
+						<center>
+							<p:inputText placeholder="Nome" />
+							<p:commandButton value="Salvar novo cargo !" action="#{cargoMB.salvarCargo}"
+								/> 
+						</center>
+					</h:form>
+				</p:dialog>
 			</h:panelGrid>
 		</h:panelGrid>
 	</h:panelGrid>

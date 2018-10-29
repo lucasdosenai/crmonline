@@ -18,6 +18,13 @@ public class ContatoDAO {
 		con = ConDB.getConnection();
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	public boolean inserircontato (Contato contato) throws SQLException{
 		String sql = "INSERT INTO CONTATOS(nome,telefone,celular,email,cliente,cargo,categoria)"
     			+ " VALUES (                ?,   ?,       ?,     ?,    ? ,     ?,     ?)";

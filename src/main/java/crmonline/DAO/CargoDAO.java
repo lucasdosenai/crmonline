@@ -52,5 +52,15 @@ public class CargoDAO {
 		}
     	return null;
     }
+
+	public Cargo listarCargo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean salvarCargo(Cargo cargo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

@@ -1,11 +1,15 @@
 package crmonline.MBean;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import crmonline.DAO.ClienteDAO;
+import crmonline.Entidade.Cargo;
 import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Contato;
 
@@ -15,6 +19,8 @@ public class ContatosMB {
 	private Contato contato;
 	private List<Contato> contatos;
 	private ClienteDAO cDao;
+
+	
 	
 	public ContatosMB() {
 		contato = new Contato();
@@ -23,6 +29,10 @@ public class ContatosMB {
 	
 		
 	}
+	
+	
+	
+	
 
 	public Contato getContato() {
 		return contato;
