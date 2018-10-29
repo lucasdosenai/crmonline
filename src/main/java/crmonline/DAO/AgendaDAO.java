@@ -34,8 +34,8 @@ public class AgendaDAO {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = Calendar.getInstance();
 		String x = format.format(agenda.getData());
+		
 		ps.setString(3, x);
-
 		ps.setString(4, agenda.getHora());
 		ps.setInt(5, agenda.getEstadovisita());
 		ps.setInt(6, agenda.getId_visitante());

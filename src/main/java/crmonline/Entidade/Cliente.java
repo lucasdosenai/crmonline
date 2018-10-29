@@ -14,7 +14,17 @@ public class Cliente {
 	private String email;
 	private String logradouro;
 	private String cidade;
+	private Integer statu;
 	private ClasseGenerica categoria;
+
+	
+	public Integer getStatu() {
+		return statu;
+	}
+
+	public void setStatu(Integer statu) {
+		this.statu = statu;
+	}
 
 	public Integer getCodigo() {
 		return codigo;

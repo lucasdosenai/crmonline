@@ -27,6 +27,7 @@ public class CategoriaMB {
 	public void att() {
 		categorias = cDao.todasCategorias();
 	}
+	
 	public void novaCategoria() {
 		if(categoria.getNome() != "") {
 		if(cDao.novaCategoria(categoria)) {

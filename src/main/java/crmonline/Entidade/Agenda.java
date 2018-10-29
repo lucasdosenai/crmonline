@@ -8,8 +8,6 @@ public class Agenda {
 	public Agenda() {
 		
 	}
-
-
 	private Integer codigo;
 	private String nome;
 	private String atendente;
@@ -22,8 +20,6 @@ public class Agenda {
 	private Integer id_cliente;
 	private Integer curso;
 
-	
-	
 	public String getNome() {
 		return nome;
 	}
@@ -47,8 +43,6 @@ public class Agenda {
 	public void setAtendente(String atendente) {
 		this.atendente = atendente;
 	}
-	
-	
 	
 	public Date getData() {
 		return data;
@@ -126,5 +120,4 @@ public class Agenda {
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

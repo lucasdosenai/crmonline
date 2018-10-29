@@ -45,9 +45,23 @@ public class ClienteMB {
 	public void removeBean(String bean){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(bean);
     }
+	public void desativados() {
+		clientes = cDao.listaDesativados();
+	}
 	public void testando() {
 		listaCategorias(categoriaEscolhida);
 	}
+	public void desativarCliente(Cliente c) throws SQLException {
+		if(cDao.desativarAtivarUsuario(c)) {
+			if(c.getStatu() == 0) FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario " + c.getNome() + " Desativado com sucesso!"));
+			else FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario " + c.getNome() + " Ativado com sucesso!"));
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("Usuario " + c.getNome() + " Usuario não desativado"));
+		}
+		clientes = cDao.listaCliente();
+	}
+	
 	public void listaCategorias(String codigo) {
 		if(codigo.equals("TODAS")) 
 		clientes = cDao.listaCliente();
