@@ -8,6 +8,7 @@ public class Contato {
 	private ClasseGenerica cliente;
 	private ClasseGenerica cargo;
 	private ClasseGenerica categoria;
+			
 	public String getNome() {
 		return nome;
 	}
