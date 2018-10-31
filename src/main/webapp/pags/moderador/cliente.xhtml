@@ -84,7 +84,7 @@ li a:hover {
 				<p:panel id="listaCategoria">
 					<p:selectOneMenu id="categoria2" style="width:150px"
 						value="#{clienteMB.categoriaEscolhida}">
-						<f:selectItem itemLabel="Busca Ramos" itemValue="TODAS"
+						<f:selectItem itemLabel="Todos" itemValue="TODAS"
 							noSelectionOption="true" />
 						<f:selectItems var="buscaCategoria"
 							value="#{categoriaMB.categorias}"
@@ -93,11 +93,11 @@ li a:hover {
 						<p:ajax listener="#{clienteMB.testando()}"
 							update="listaCompletaCliente" />
 					</p:selectOneMenu>
-					<p:selectOneMenu id="statuCliente" style="width:150px">
-						<f:selectItem itemLabel="Buscar Clientes "/>
+					<p:selectOneMenu id="statuCliente" style="width:150px"
+					value="#{clienteMB.selectOneMenu_Ativados_e_Desativados}">
 						<f:selectItem itemLabel="Ativados" itemValue="0"/>
 						<f:selectItem itemLabel="Desativados" itemValue="1"/>
-						<p:ajax listener="#{clienteMB.desativados()}"
+						<p:ajax listener="#{clienteMB.SelectOneMenuAtivosDesativados()}"
 							update="listaCompletaCliente" />
 					</p:selectOneMenu>
 				</p:panel>
@@ -173,7 +173,7 @@ li a:hover {
 				</p:column>
 
 				<p:column>
-					<p:commandButton action="#{clienteMB.desativarCliente(cliente)}" value="Desativar" update="listaCompletaCliente"/>
+					<p:commandButton action="#{clienteMB.desativarCliente(cliente)}" value="#{clienteMB.selectOneMenu_nome_btn}" update="listaCompletaCliente"/>
 			
 					<p:commandButton icon="ui-icon-pencil" value="Informações" update="dialog" oncomplete="PF('editC').show();">
 						<f:setPropertyActionListener value="#{cliente}" target="#{clienteMB.cliente}" />

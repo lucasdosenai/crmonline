@@ -18,17 +18,10 @@ public class ContatoDAO {
 		con = ConDB.getConnection();
 	}
 
-	
-	
-	
-	
-	
-	
-	
 	public boolean inserircontato (Contato contato) throws SQLException{
 		String sql = "INSERT INTO CONTATOS(nome,telefone,celular,email,cliente,cargo,categoria)"
     			+ " VALUES (                ?,   ?,       ?,     ?,    ? ,     ?,     ?)";
-    	
+  
 		PreparedStatement ps = con.prepareStatement(sql);
     	ps.setString(1, contato.getNome());
     	ps.setString(2, contato.getTelefone());
@@ -48,26 +41,16 @@ public class ContatoDAO {
 	    	try {
 	    	PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			
 			while(rs.next()){
 				Contato c = new Contato();
 				c.setNome(rs.getString("nome"));
-				
-				contato.add(c);
-				
+				contato.add(c);	
 			}
-			
-			return contato;
-				
+			return contato;	
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    	return null;
 	    }
-	
-	
-	
-	
-	
 }

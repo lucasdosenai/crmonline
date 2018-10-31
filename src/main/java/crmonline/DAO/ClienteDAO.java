@@ -99,7 +99,7 @@ public class ClienteDAO {
 
 	public ArrayList<Cliente> listaCategoriaCliente(String codigo) {
 		ArrayList<Cliente> clientes = new ArrayList<>();
-		String SQL = "SELECT * FROM CLIENTE AS C INNER JOIN CATEGORIA AS CT ON C.ID_CATEGORIA = ? AND CT.ID = ?";
+		String SQL = "SELECT * FROM CLIENTE AS C INNER JOIN CATEGORIA AS CT ON C.ID_CATEGORIA = ? AND C.STATU = 1 AND CT.ID = ? ";
 		try {
 			PreparedStatement ps = con.prepareStatement(SQL);
 			ps.setString(1, codigo);
