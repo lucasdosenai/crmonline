@@ -19,6 +19,7 @@ import sun.security.jca.GetInstance;
 public class AgendaDAO {
 
 	private Connection con;
+
 	public AgendaDAO() {
 		con = ConDB.getConnection();
 
@@ -34,7 +35,7 @@ public class AgendaDAO {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = Calendar.getInstance();
 		String x = format.format(agenda.getData());
-		
+
 		ps.setString(3, x);
 		ps.setString(4, agenda.getHora());
 		ps.setInt(5, agenda.getEstadovisita());
@@ -52,6 +53,8 @@ public class AgendaDAO {
 		return ps.executeUpdate() > 0;
 	}
 
+	
+	/*x*/
 	public List<Agenda> listarAgenda() {
 		List<Agenda> agenda = new ArrayList<>();
 		String sql = "SELECT * FROM AGENDA";
