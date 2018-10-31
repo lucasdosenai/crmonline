@@ -10,6 +10,7 @@ import java.util.List;
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Categoria;
 import crmonline.Entidade.Cliente;
+import crmonline.Entidade.Contato;
 
 public class ClienteDAO {
 
@@ -219,6 +220,11 @@ public class ClienteDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public boolean inserirContato(Contato contato) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
