@@ -37,7 +37,6 @@ public class ClienteMB {
 	//  Retorna uma lista de categorias preenchida 
 		// categorias = cDao.listaCategorias();
 		clientes = cDao.listaCliente();
-		
 	}
 	
 	/*

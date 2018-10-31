@@ -30,13 +30,15 @@ public class ClienteDAO {
 		String SQL = "UPDATE CLIENTE SET STATU = ? WHERE ID = ?";
 		PreparedStatement ps;
 
-		if (c.getStatu() != 0) c.setStatu(0);
-		else c.setStatu(1);
+		if (c.getStatu() != 0)
+			c.setStatu(0);
+		else
+			c.setStatu(1);
 
 		ps = con.prepareStatement(SQL);
 		ps.setInt(1, c.getStatu());
 		ps.setInt(2, c.getCodigo());
-		
+
 		return ps.executeUpdate() > 0;
 	}
 
@@ -186,11 +188,11 @@ public class ClienteDAO {
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Cliente> listaCliente() {
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String SQL = "SELECT c.*, cat.NOME as nomeCategoria FROM CLIENTE AS c "
-				+ "INNER JOIN CATEGORIA as cat ON cat.id = c.ID_CATEGORIA AND c.STATU = 1;";
+				+ "INNER JOIN CATEGORIA as cat ON cat.id = c.ID_AREA AND c.STATU = 1;";
 
 		try {
 			PreparedStatement ps = con.prepareStatement(SQL);
