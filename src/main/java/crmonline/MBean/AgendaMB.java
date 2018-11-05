@@ -41,7 +41,7 @@ public class AgendaMB {
 		curso = new Curso();
 		cursos = new ArrayList<>();
 		visitas = new ArrayList<>();
-		visitas = aDao.listarAgenda();
+		visitas = aDao.listarAgenda("0");
 		try {
 			cursos = classeGenericaDao.listarCurso();
 			categorias = classeGenericaDao.buscaCategoria();
@@ -54,7 +54,7 @@ public class AgendaMB {
 
 	public String agendar() throws SQLException {
 		if (aDao.inserir(agenda)) {
-			visitas = aDao.listarAgenda();
+			visitas = aDao.listarAgenda("0");
 				FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Agora você tem uma nova visita agendada"));
 		}else {
