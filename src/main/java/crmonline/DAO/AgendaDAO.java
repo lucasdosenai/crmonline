@@ -56,11 +56,12 @@ public class AgendaDAO {
 
 	
 	/*x*/
-	public List<Agenda> listarAgenda() {
+	public List<Agenda> listarAgenda(String codigo) {
 		List<Agenda> agenda = new ArrayList<>();
-		String sql = "SELECT * FROM AGENDA";
+		String sql = "SELECT * FROM AGENDA WHERE ESTADOS = ?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, codigo);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Agenda a = new Agenda();
@@ -89,6 +90,7 @@ public class AgendaDAO {
 		}
 		return null;
 	}
+	
 
 	
 	
