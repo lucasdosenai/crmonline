@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import crmonline.DAO.CargoDAO;
 import crmonline.DAO.ClienteDAO;
+import crmonline.DAO.ContatoDAO;
 import crmonline.Entidade.Cargo;
 import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Contato;
@@ -18,61 +19,22 @@ import crmonline.Entidade.Contato;
 @ManagedBean
 @ViewScoped
 public class ContatosMB {
-
+ClienteDAO cDAO;
 	private Contato contato;
-	private Cliente usuario;
-	private List<Contato> contatos;
-	private ClienteDAO cDao;
-	private ArrayList<Cliente> clientes;
-	private List<Cargo> listaCargo;
-	private CargoDAO aDAO;
-
+	private List<Cargo> cargos;
+	private List<Cliente> clientes;
+	Integer cogigocliente;
+	
+	
+	
 	public ContatosMB() {
+		cDAO = new ClienteDAO();
 		contato = new Contato();
-		usuario = new Cliente();
-		contatos = new ArrayList<>();
-		cDao = new ClienteDAO();
-		listaCargo = new ArrayList<>();
-		aDAO = new CargoDAO();
-		clientes = new ArrayList<>();
-
-		listaCargo("TODAS");
+		CargoDAO carDao = new CargoDAO();
+		cargos = carDao.listarcargo();
+		clientes = cDAO.listaCliente();
 	}
 
-	public void listaCargo(String codigo) {
-		if (codigo.equals("TODAS"))
-			listaCargo = aDAO.listarcargo();
-		else
-			clientes = cDao.listaCategoriaCliente(codigo);
-
-	}
-
-	public void inserirContato() {
-		if(contato != null) {
-			if(cDao.inserirContato(contato)) {
-				FacesContext.getCurrentInstance().addMessage("ALERTA" , 
-						new FacesMessage(contato.getNome() + " ADICIONADO COM SUCESSO!"));
-				clientes.add(contato);
-				
-			}else {
-				FacesContext.getCurrentInstance().addMessage("ALERTA", 
-						new FacesMessage("FALHA AO INSERIR"));
-			}
-			contato = inserirContato();
-			
-		}else {
-			FacesContext.getCurrentInstance().addMessage("ALERTA" , 
-					new FacesMessage("Cliente vazio"));
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	public Contato getContato() {
 		return contato;
 	}
@@ -81,36 +43,37 @@ public class ContatosMB {
 		this.contato = contato;
 	}
 
-	public List<Contato> getContatos() {
-		return contatos;
+	public List<Cargo> getCargos() {
+		return cargos;
 	}
 
-	public void setContatos(List<Contato> contatos) {
-		this.contatos = contatos;
+	public void setCargos(List<Cargo> cargos) {
+		this.cargos = cargos;
 	}
 
-	public ClienteDAO getcDao() {
-		return cDao;
+	public ClienteDAO getcDAO() {
+		return cDAO;
 	}
 
-	public void setcDao(ClienteDAO cDao) {
-		this.cDao = cDao;
+	public void setcDAO(ClienteDAO cDAO) {
+		this.cDAO = cDAO;
 	}
 
-	public List<Cargo> getListaCargo() {
-		return listaCargo;
+	public List<Cliente> getClientes() {
+		return clientes;
 	}
 
-	public void setListaCargo(List<Cargo> listaCargo) {
-		this.listaCargo = listaCargo;
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
-	public Cliente getUsuario() {
-		return usuario;
+	public Integer getCogigocliente() {
+		return cogigocliente;
 	}
 
-	public void setUsuario(Cliente usuario) {
-		this.usuario = usuario;
+	public void setCogigocliente(Integer cogigocliente) {
+		this.cogigocliente = cogigocliente;
 	}
-
+	
+	
 }

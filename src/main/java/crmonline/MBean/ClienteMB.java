@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import crmonline.DAO.ClienteDAO;
 import crmonline.Entidade.Categoria;
 import crmonline.Entidade.Cliente;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class ClienteMB {
 	
@@ -24,8 +23,6 @@ public class ClienteMB {
 	ClienteDAO cDao;
 	String categoria;
 	private String categoriaEscolhida;
-	private String selectOneMenu_nome_btn = "Desativar";
-	private Integer selectOneMenu_Ativados_e_Desativados = 0;
 	
 	public ClienteMB() {
 		cliente    = new Cliente();
@@ -47,20 +44,8 @@ public class ClienteMB {
 	public void removeBean(String bean){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(bean);
     }
-	public void SelectOneMenuAtivosDesativados() {
-		switch(selectOneMenu_Ativados_e_Desativados) {
-			case 1:
-				selectOneMenu_nome_btn = "Ativar";
-				clientes = cDao.listaDesativados();
-				break;
-			case 2:
-				clientes = cDao.listaCliente();
-				selectOneMenu_nome_btn = "Desativar";
-				break;
-			default :
-				clientes = cDao.listaCliente();
-				selectOneMenu_nome_btn = "Desativar";
-		}
+	public void desativados() {
+		clientes = cDao.listaDesativados();
 	}
 	public void testando() {
 		listaCategorias(categoriaEscolhida);
@@ -77,7 +62,6 @@ public class ClienteMB {
 	}
 	
 	public void listaCategorias(String codigo) {
-		selectOneMenu_nome_btn = "Desativar";
 		if(codigo.equals("TODAS")) 
 		clientes = cDao.listaCliente();
 		else clientes = cDao.listaCategoriaCliente(codigo);
@@ -184,22 +168,6 @@ public class ClienteMB {
 
 	public Cliente getCliente() {
 		return cliente;
-	}
-
-	public Integer getSelectOneMenu_Ativados_e_Desativados() {
-		return selectOneMenu_Ativados_e_Desativados;
-	}
-
-	public void setSelectOneMenu_Ativados_e_Desativados(Integer selectOneMenu_Ativados_e_Desativados) {
-		this.selectOneMenu_Ativados_e_Desativados = selectOneMenu_Ativados_e_Desativados;
-	}
-
-	public String getSelectOneMenu_nome_btn() {
-		return selectOneMenu_nome_btn;
-	}
-
-	public void setSelectOneMenu_nome_btn(String selectOneMenu_nome_btn) {
-		this.selectOneMenu_nome_btn = selectOneMenu_nome_btn;
 	}
 	
 

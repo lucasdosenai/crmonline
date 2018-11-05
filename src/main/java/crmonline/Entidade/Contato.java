@@ -5,9 +5,8 @@ public class Contato {
 	private String telefone;
 	private String celular;
 	private String email;
-	private ClasseGenerica cliente;
-	private ClasseGenerica cargo;
-	private ClasseGenerica categoria;
+	private ClasseGenerica cliente = new ClasseGenerica();
+	private ClasseGenerica cargo = new ClasseGenerica();
 			
 	public String getNome() {
 		return nome;
@@ -45,13 +44,6 @@ public class Contato {
 	public void setCargo(ClasseGenerica cargo) {
 		this.cargo = cargo;
 	}
-	public ClasseGenerica getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(ClasseGenerica categoria) {
-		this.categoria = categoria;
-	}
-	
 
 	
 

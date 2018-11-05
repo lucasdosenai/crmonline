@@ -20,7 +20,7 @@
 		<h:panelGrid columns="2" styleClass="centro">
 
 			<h:panelGrid styleClass="centro">
-
+ 
 				<h3>Novo Usuário</h3>
 
 				<h:form>
@@ -29,36 +29,36 @@
 					</p:growl>
 					<p:panelGrid columns="1">
 						<p:inputText placeholder="Nome" size="40"
-							styleClass="input_normal" value="#{contatosMB.usuario.nome}" />
+							styleClass="input_normal" value="#{contatosMB.contato.nome}" />
 						<p:inputMask placeholder="Telefone" size="40"
 							styleClass="input_normal" mask="9999-9999"
-							value="#{contatosMB.usuario.nif}" />
+							value="#{contatosMB.contato.telefone}"/>
 						<p:inputMask placeholder="Celular" size="40"
 							styleClass="input_normal" mask="(99)9 9999-9999"
-							value="#{contatosMB.usuario.nome}" />
+							value="#{contatosMB.contato.celular}" />
 						<p:inputText placeholder="E-mail" size="40"
-							styleClass="input_normal" value="#{cadMB.usuario.email}" />
+							styleClass="input_normal" value="#{contatosMB.contato.email}" />
 
 
 						<p:growl id="messages" showDetail="true" />
 						<p:panelGrid columns="2">
-							<p:selectOneMenu value="#{contatosMB.contato.cliente}">
+							<p:selectOneMenu value="#{contatosMB.contato.cargo.id}">
 								<f:selectItem itemLabel="Selecionar Cargo" />
-								<f:selectItems value="#{contatosMB.listaCargo}" var="c"
+								<f:selectItems value="#{contatosMB.cargos}" var="c"
 									itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 							</p:selectOneMenu>
 							<p:commandButton value="+" onclick="PF('Add').show();" />
 						</p:panelGrid>
-						<p:selectOneMenu value="#{contatosMB.contato.cliente}">
+						<p:selectOneMenu value="#{contatosMB.cogigocliente}">
 							<f:selectItem itemLabel="Selecionar Cliente" />
-							<f:selectItems value="#{clienteMB.clientes}" var="c"
+							<f:selectItems value="#{contatosMB.clientes}" var="c"
 								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 						</p:selectOneMenu>
 
 
 						<p:panelGrid columns="2">
 							<h:commandButton value="Cadastrar" styleClass="btn"
-								action="#{contatosMB.verifica}" />
+								 />
 
 							<h:commandButton value="Cancelar" styleClass="btn" />
 						</p:panelGrid>
@@ -70,7 +70,7 @@
 						<center>
 							<p:inputText placeholder="Nome" />
 							<p:commandButton value="Salvar novo cargo !"
-								action="#{cargoMB.salvarCargo}" />
+								/>
 						</center>
 					</h:form>
 				</p:dialog>
