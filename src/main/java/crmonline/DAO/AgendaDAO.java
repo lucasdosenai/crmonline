@@ -91,7 +91,30 @@ public class AgendaDAO {
 		return null;
 	}
 	
+	public boolean updateVisita(Agenda a) {
+		System.out.println("UpdateVisita()");
+		String SQL = "UPDATE AGENDA " + "SET NOME = ? " + ",ATENDENTE = ? " + ",DATAV = ? " + ",HORARIO = ? "
+				+ ",ID_CLIENTE = ? + ,ID_CURSO = ?  WHERE ID = ?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, a.getNome());
+			ps.setString(2, a.getAtendente());
+			ps.setDate(3, new java.sql.Date(a.getData().getTime()));
+			ps.setString(4, a.getHora());
+			ps.setInt(5, a.getId_cliente());
+			ps.setInt(6, a.getCurso() != -1 ? a.getCurso() : 0);
+			
+			
 
+			System.out.println(ps.toString());
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 
