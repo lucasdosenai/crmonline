@@ -38,9 +38,12 @@ public class CargoMB {
 	}
 
 
+
+
 	public void setcDao(CargoDAO cDao) {
 		this.cDao = cDao;
 	}
+
 
 
 
@@ -59,6 +62,15 @@ public class CargoMB {
 	public void setListarCargos(List<Cargo> listarCargos) {
 		this.listarCargos = listarCargos;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

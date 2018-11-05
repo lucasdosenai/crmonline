@@ -41,7 +41,7 @@ public class AgendaMB {
 		curso = new Curso();
 		cursos = new ArrayList<>();
 		visitas = new ArrayList<>();
-		visitas = aDao.listarAgenda();
+		visitas = aDao.listarAgenda("0");
 		try {
 			cursos = classeGenericaDao.listarCurso();
 			categorias = classeGenericaDao.buscaCategoria();
@@ -54,7 +54,7 @@ public class AgendaMB {
 
 	public String agendar() throws SQLException {
 		if (aDao.inserir(agenda)) {
-			visitas = aDao.listarAgenda();
+			visitas = aDao.listarAgenda("0");
 				FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Agora você tem uma nova visita agendada"));
 		}else {
@@ -64,6 +64,28 @@ public class AgendaMB {
 		return "";
 	}
 
+	public void editaVisita() {
+		if (aDao.updateVisita(agenda)) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
+		}
+	}
+	
+	public void realizaVisita() {
+		try {
+			if(aDao.realizaVisita(agenda)) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+		}
+		
+		
+	}
+	
 	public AgendaDAO getaDao() {
 		return aDao;
 	}

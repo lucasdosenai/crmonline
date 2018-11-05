@@ -13,12 +13,14 @@ import java.util.List;
 
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Agenda;
+import crmonline.Entidade.Cliente;
 import crmonline.MBean.LoginMB;
 import sun.security.jca.GetInstance;
 
 public class AgendaDAO {
 
 	private Connection con;
+
 	public AgendaDAO() {
 		con = ConDB.getConnection();
 
@@ -34,7 +36,7 @@ public class AgendaDAO {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = Calendar.getInstance();
 		String x = format.format(agenda.getData());
-		
+
 		ps.setString(3, x);
 		ps.setString(4, agenda.getHora());
 		ps.setInt(5, agenda.getEstadovisita());
@@ -52,11 +54,14 @@ public class AgendaDAO {
 		return ps.executeUpdate() > 0;
 	}
 
-	public List<Agenda> listarAgenda() {
+	
+	/*x*/
+	public List<Agenda> listarAgenda(String codigo) {
 		List<Agenda> agenda = new ArrayList<>();
-		String sql = "SELECT * FROM AGENDA";
+		String sql = "SELECT * FROM AGENDA WHERE ESTADOS = ?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, codigo);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Agenda a = new Agenda();
@@ -85,5 +90,43 @@ public class AgendaDAO {
 		}
 		return null;
 	}
+	
+	public boolean updateVisita(Agenda a) {
+		System.out.println("UpdateVisita()");
+		String SQL = "UPDATE AGENDA " + "SET NOME = ? " + ",ATENDENTE = ? " + ",DATAV = ? " + ",HORARIO = ? "
+				+ ",ID_CLIENTE = ? + ,ID_CURSO = ?  WHERE ID = ?";
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(SQL);
+			ps.setString(1, a.getNome());
+			ps.setString(2, a.getAtendente());
+			ps.setDate(3, new java.sql.Date(a.getData().getTime()));
+			ps.setString(4, a.getHora());
+			ps.setInt(5, a.getId_cliente());
+			ps.setInt(6, a.getCurso() != -1 ? a.getCurso() : 0);
+			
+			
+
+			System.out.println(ps.toString());
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean realizaVisita(Agenda a) throws SQLException {
+		String SQL = "UPDATE AGENDA SET ESTADOS = 1 WHERE ID = ?";
+		PreparedStatement ps;
+		ps = con.prepareStatement(SQL);
+		
+		ps.setInt(1, a.getCodigo());
+		
+		return ps.executeUpdate() > 0;
+		
+		
+	}
+
 
 }

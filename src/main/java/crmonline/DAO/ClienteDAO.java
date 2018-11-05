@@ -30,15 +30,13 @@ public class ClienteDAO {
 		String SQL = "UPDATE CLIENTE SET STATU = ? WHERE ID = ?";
 		PreparedStatement ps;
 
-		if (c.getStatu() != 0)
-			c.setStatu(0);
-		else
-			c.setStatu(1);
+		if (c.getStatu() != 0) c.setStatu(0);
+		else c.setStatu(1);
 
 		ps = con.prepareStatement(SQL);
 		ps.setInt(1, c.getStatu());
 		ps.setInt(2, c.getCodigo());
-
+		
 		return ps.executeUpdate() > 0;
 	}
 
@@ -96,13 +94,13 @@ public class ClienteDAO {
 		return null;
 	}
 
-	public ArrayList<Cliente> listaCategoriaCliente(String codigo) {
+	public ArrayList<Cliente> listaCategoriaCliente(Integer codigo,Integer statu) {
 		ArrayList<Cliente> clientes = new ArrayList<>();
-		String SQL = "SELECT * FROM CLIENTE AS C INNER JOIN CATEGORIA AS CT ON C.ID_CATEGORIA = ? AND CT.ID = ?";
+		String SQL = "SELECT * FROM CLIENTE AS C INNER JOIN CATEGORIA AS CT ON C.ID_CATEGORIA = CT.ID AND C.STATU = ? WHERE C.ID_CATEGORIA = ?  ";
 		try {
 			PreparedStatement ps = con.prepareStatement(SQL);
-			ps.setString(1, codigo);
-			ps.setString(2, codigo);
+			ps.setInt(1, statu);
+			ps.setInt(2, codigo);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Cliente c = new Cliente();
@@ -188,14 +186,15 @@ public class ClienteDAO {
 		}
 		return null;
 	}
-
-	public ArrayList<Cliente> listaCliente() {
+	
+	public ArrayList<Cliente> listaCliente(Integer statu) {
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String SQL = "SELECT c.*, cat.NOME as nomeCategoria FROM CLIENTE AS c "
-				+ "INNER JOIN CATEGORIA as cat ON cat.id = c.ID_AREA AND c.STATU = 1;";
+				+ "INNER JOIN CATEGORIA as cat ON cat.id = c.ID_CATEGORIA AND c.STATU = ?;";
 
 		try {
 			PreparedStatement ps = con.prepareStatement(SQL);
+			ps.setInt(1, statu);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

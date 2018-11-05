@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="estilo.css" />
+
+</h:head>
+<h:body styleClass="teste">
+	<p:growl autoUpdate="true">
+	</p:growl>
+	<div align="center" style="width: 1000px">
+		<h:graphicImage library="img" name="logo.png" width="200px"
+			height="200px" />
+	</div>
+
+	<h:panelGrid id="pagina">
+		<p:dataList value="#{relatorioMB.visitaRealizada}" var="visitasRealizada" type="ordered" 	 >
+			<f:facet name="header"> Relatório de visitas </f:facet>
+			<h:outputText value="#{visitasRealizada.nome}" style="display:inline-block; font-weight: bold;" /><br/>
+			<h:outputText value="Dia : #{relatorioMB.converteDate(visitasRealizada.data)} - Hora : #{visitasRealizada.hora}" style="display:inline-block" /><br/>
+			<h:outputText value="Empresa : #{visitasRealizada.id_cliente}"/>
+		</p:dataList>
+			
+	</h:panelGrid>
+</h:body>
+</html>
