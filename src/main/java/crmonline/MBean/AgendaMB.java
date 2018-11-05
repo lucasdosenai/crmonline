@@ -72,6 +72,19 @@ public class AgendaMB {
 		}
 	}
 	
+	public void realizaVisita() {
+		try {
+			if(aDao.realizaVisita(agenda)) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+		}
+		
+		
+	}
 	
 	public AgendaDAO getaDao() {
 		return aDao;
