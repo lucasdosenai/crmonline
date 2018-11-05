@@ -7,7 +7,7 @@
 </h:head>
 
 <h:body>
-	<p:growl>
+	<p:growl id="messages" showDetail="true" >
 		<p:autoUpdate />
 	</p:growl>
 	<nav class="nav-extended" style="background-color: black">
@@ -31,8 +31,6 @@
 			<p:commandButton onclick="PF('novaVisita').show();"
 				value="Nova Visita" icon="ui-icon-plus" />
 		</f:facet>
-
-
 		<f:facet name="right">
 
 			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
@@ -61,8 +59,12 @@
 			<p:column headerText="Editar">
 				<p:commandButton styleClass="btn" value="Excluir"
 					onclick="PF('deletaVisitaPendente').show();" />
-				<p:commandButton styleClass="btn" value="Editar" />
-				<p:commandButton styleClass="btn" value="Realizar" />
+				<p:commandButton icon="ui-icon-pencil" value="Editar"
+						update="dialog22" oncomplete="PF('edite').show();">
+						<f:setPropertyActionListener value="#{agenda}"
+							target="#{agendaMB.agenda}" />
+					</p:commandButton>
+				<p:commandButton onclstyleClass="btn" value="Realizar" onclick="PF('realizar').show();"/>
 				<p:commandButton styleClass="btn" value="Visualizar" />
 			</p:column>
 		</p:dataTable>
@@ -140,5 +142,74 @@
 			</center>
 		</h:form>
 	</p:dialog>
+	
+	
+	<p:dialog id="dialog22" draggable="true" maximizable="true"
+		header="EDITA CLIENTE" widgetVar="edite" minHeight="40">
+		<h:form>
+			<p:column headerText="Editar Cliente">
+				<p:inputText placeholder="NOME : " value="#{agendaMB.agenda.nome}" />
+				<br />
+				<p:inputText placeholder="ATENDENTE : "
+					value="#{agendaMB.agenda.atendente}" />
+				<br />
+				<p:calendar value="#{agendaMB.agenda.data}" showOn="button"
+					placeholder="Dia da Visita" mask="true" pattern="dd/MM/yyyy" />
+				<br />
+
+				<p:inputMask placeholder="Horário da Visita" size="40"
+					styleClass="input_normal" mask="99:99"
+					value="#{agendaMB.agenda.hora}" />
+
+				<p:panelGrid columns="2">
+					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
+						<f:selectItem itemLabel="Selecionar Cliente" />
+						<f:selectItems value="#{clienteMB.clientes}" var="cli"
+							itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
+					</p:selectOneMenu>
+					<h:panelGrid columns="2">
+						<p:selectOneMenu id="cursos" value="#{agendaMB.agenda.curso}">
+							<f:selectItem itemLabel="Selecionar Curso" />
+							<f:selectItems var="c" value="#{agendaMB.cursos}"
+								itemLabel="#{c.nome}" itemValue="#{c.id}" />
+						</p:selectOneMenu>
+						<p:commandButton value="+" onclick="PF('Add').show();" />
+					</h:panelGrid>
+				</p:panelGrid>
+
+				<br />
+				<p:commandButton value="Aplicar"
+					action="#{agendaMB.editaVisita()}" ajax="true" />
+				
+			</p:column>
+		</h:form>
+		
+	</p:dialog>
+	
+	<p:dialog widgetVar="realizar">
+	<h:form>
+	 <h:outputText value="Ajax Rate:" />
+        <p:rating value="#{ratingView.rating3}">
+            <p:ajax event="rate" listener="#{ratingView.onrate}" update="messages"/>
+            <p:ajax event="cancel" listener="#{ratingView.oncancel}" update="messages"/>
+        </p:rating>
+	
+	
+	
+	 <h3>AutoResize</h3>
+    <p:inputTextarea rows="6" cols="33" />
+    
+     <p:commandButton value="Visita Concluída"
+					 ajax="true" />
+	</h:form>
+	</p:dialog>
+	
+	<p:dialog header="Values" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+        <h:panelGrid id="display" columns="2" cellpadding="5">
+         <h:outputText value="Rating 3:" />
+            <h:outputText value="#{ratingView.rating3}" />
+        </h:panelGrid>
+        </p:dialog>
+
 </h:body>
 </html>
