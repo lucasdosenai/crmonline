@@ -64,6 +64,15 @@ public class AgendaMB {
 		return "";
 	}
 
+	public void editaVisita() {
+		if (aDao.updateVisita(agenda)) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
+		}
+	}
+	
+	
 	public AgendaDAO getaDao() {
 		return aDao;
 	}
