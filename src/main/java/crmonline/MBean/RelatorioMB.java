@@ -27,6 +27,10 @@ public class RelatorioMB {
 		return s.format(date);
 	}
 	
+	public String mostraCliente() {
+		
+	}
+	
 	public List<Agenda> getVisitaRealizada() {
 		return visitaRealizada;
 	}
