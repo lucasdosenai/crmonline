@@ -39,11 +39,6 @@ public class ClienteMB {
 
 	}
 
-	/*
-	 * categoria = cDao.categoriaCliente(cliente.getCod_categoria().toString());
-	 * cliente.setCategoriaNome(categoria);
-	 */
-
 	public void removeBean(String bean) {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(bean);
 	}
@@ -54,12 +49,7 @@ public class ClienteMB {
 		} else {
 			clientes = cDao.listaCliente(selectOneMenu_Ativados_e_Desativados);
 		}
-		/*
-		 * switch(selectOneMenu_Ativados_e_Desativados) { case 1: selectOneMenu_nome_btn
-		 * = "Ativar"; clientes = cDao.listaDesativados(); break; case 2: clientes =
-		 * cDao.listaCliente(); selectOneMenu_nome_btn = "Desativar"; break; default :
-		 * clientes = cDao.listaCliente(); selectOneMenu_nome_btn = "Desativar"; }
-		 */
+
 	}
 
 	public void testando() {

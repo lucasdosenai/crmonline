@@ -29,6 +29,7 @@ public class RelatorioMB {
 	
 	public String mostraCliente() {
 		
+		return "";
 	}
 	
 	public List<Agenda> getVisitaRealizada() {
