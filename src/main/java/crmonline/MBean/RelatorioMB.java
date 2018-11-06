@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import crmonline.DAO.AgendaDAO;
+import crmonline.DAO.RelatorioDAO;
 import crmonline.Entidade.Agenda;
 
 @ManagedBean
@@ -16,6 +17,7 @@ public class RelatorioMB {
 	
 	private List<Agenda> visitaRealizada;
 	AgendaDAO aDao;
+	RelatorioDAO rDao;
 	
 	public RelatorioMB() {
 		aDao = new AgendaDAO();
@@ -27,9 +29,10 @@ public class RelatorioMB {
 		return s.format(date);
 	}
 	
-	public String mostraCliente() {
-		
-		return "";
+	public String mostraCliente(Integer codigo) {
+		String cod = codigo.toString();
+		String nomeDoCliente;;
+		return nomeDoCliente = rDao.clienteConverte(cod);
 	}
 	
 	public List<Agenda> getVisitaRealizada() {
@@ -47,5 +50,12 @@ public class RelatorioMB {
 	public void setaDao(AgendaDAO aDao) {
 		this.aDao = aDao;
 	}
-	
+
+	public RelatorioDAO getrDao() {
+		return rDao;
+	}
+
+	public void setrDao(RelatorioDAO rDao) {
+		this.rDao = rDao;
+	}
 }

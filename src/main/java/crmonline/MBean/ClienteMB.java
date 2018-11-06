@@ -79,8 +79,7 @@ public class ClienteMB {
 			clientes = cDao.listaCategoriaCliente(codigo, selectOneMenu_Ativados_e_Desativados);
 
 	}
-
-	
+    
 	public void editaCliente() {
 		if (cDao.updateCliente(cliente)) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));

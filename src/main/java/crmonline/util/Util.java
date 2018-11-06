@@ -10,7 +10,7 @@ public class Util {
 		return "agendar?faces-redirect=true";
 	}
 	public String irCadastrar() {
-		return "pretty:cadastro";
+		return "cadastro?faces-redirect=true";
 	}
 	public String irRecuperar() {
 		return "recupera?faces-redirect=true";

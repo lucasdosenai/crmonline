@@ -19,7 +19,7 @@
 			<f:facet name="header"> Relatório de visitas </f:facet>
 			<h:outputText value="#{visitasRealizada.nome}" style="display:inline-block; font-weight: bold;" /><br/>
 			<h:outputText value="Dia : #{relatorioMB.converteDate(visitasRealizada.data)} - Hora : #{visitasRealizada.hora}" style="display:inline-block" /><br/>
-			<h:outputText value="Empresa : #{visitasRealizada.id_cliente}"/>
+			<h:outputText value="Empresa : #{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}"/>
 		</p:dataList>
 			
 	</h:panelGrid>
