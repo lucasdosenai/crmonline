@@ -20,12 +20,14 @@ public class ContatosMB {
 	private List<Cargo> cargos;
 	private List<Cliente> clientes;
 	private Contato contato;
+	ClienteDAO cDAO;
+	CargoDAO carDAO;
 	
 	public ContatosMB() {
-		ClienteDAO cDAO = new ClienteDAO();
+		cDAO = new ClienteDAO();
 		contato = new Contato();
-		CargoDAO carDao = new CargoDAO();
-		cargos = carDao.listarcargo();
+		carDAO = new CargoDAO();
+		cargos = carDAO.listarcargo();
 		clientes = cDAO.listaCliente(1);
 	}
 
