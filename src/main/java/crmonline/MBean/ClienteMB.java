@@ -80,6 +80,7 @@ public class ClienteMB {
 
 	}
 
+	
 	public void editaCliente() {
 		if (cDao.updateCliente(cliente)) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
