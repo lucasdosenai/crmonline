@@ -22,7 +22,8 @@ public class ContatosMB {
 	private Contato contato;
 	ClienteDAO cDAO;
 	CargoDAO carDAO;
-	
+
+
 	public ContatosMB() {
 		cDAO = new ClienteDAO();
 		contato = new Contato();
@@ -44,7 +45,7 @@ public class ContatosMB {
 	}
 
 	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+		this.clientes = clientes;        
 	}
 
 	public Contato getContato() {
@@ -53,8 +54,5 @@ public class ContatosMB {
 
 	public void setContato(Contato contato) {
 		this.contato = contato;
-	}
-	
-	
-
+	}	
 }
