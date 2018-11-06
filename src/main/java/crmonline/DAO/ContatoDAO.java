@@ -14,7 +14,7 @@ import crmonline.Entidade.Contato;
 public class ContatoDAO {
 	
 	private Connection con;
-	private ContatoDAO () {
+	public ContatoDAO () {
 		con = ConDB.getConnection();
 	}
 
@@ -27,7 +27,7 @@ public class ContatoDAO {
 	
 	public boolean inserircontato (Contato contato) throws SQLException{
 		String sql = "INSERT INTO CONTATOS(nome,telefone,celular,email,cliente,cargo,categoria)"
-    			+ " VALUES (                ?,   ?,       ?,     ?,    ? ,     ?,     ?)";
+    			+ " VALUES (                ?,   ?,       ?,     ?,    ? ,     ?)";
     	
 		PreparedStatement ps = con.prepareStatement(sql);
     	ps.setString(1, contato.getNome());
@@ -36,7 +36,6 @@ public class ContatoDAO {
     	ps.setString(4, contato.getEmail());
     	ps.setInt(5, contato.getCliente().getId());
     	ps.setInt(6, contato.getCargo().getId());
-    	ps.setInt(7, contato.getCategoria().getId());
     
     	return ps.executeUpdate() > 0;
 	}
@@ -65,9 +64,5 @@ public class ContatoDAO {
 			}
 	    	return null;
 	    }
-	
-	
-	
-	
-	
+		
 }

@@ -116,7 +116,17 @@ public class AgendaDAO {
 		return false;
 	}
 	
-	
+	public boolean realizaVisita(Agenda a) throws SQLException {
+		String SQL = "UPDATE AGENDA SET ESTADOS = 1 WHERE ID = ?";
+		PreparedStatement ps;
+		ps = con.prepareStatement(SQL);
+		
+		ps.setInt(1, a.getCodigo());
+		
+		return ps.executeUpdate() > 0;
+		
+		
+	}
 
 
 }
