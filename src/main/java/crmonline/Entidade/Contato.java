@@ -5,15 +5,9 @@ public class Contato {
 	private String telefone;
 	private String celular;
 	private String email;
-<<<<<<< HEAD
 	private ClasseGenerica cliente = new ClasseGenerica();
 	private ClasseGenerica cargo = new ClasseGenerica();
 			
-=======
-	private ClasseGenerica cliente;
-	private ClasseGenerica cargo;
-	private ClasseGenerica categoria;
->>>>>>> 4cc0ba4e64aee3ccdcbf03ec82c75b8f85211174
 	public String getNome() {
 		return nome;
 	}

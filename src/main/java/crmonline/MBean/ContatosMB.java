@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import crmonline.DAO.CargoDAO;
 import crmonline.DAO.ClienteDAO;
 import crmonline.DAO.ContatoDAO;
 import crmonline.Entidade.Cargo;
@@ -16,48 +17,16 @@ import crmonline.Entidade.Contato;
 
 @ManagedBean
 public class ContatosMB {
-<<<<<<< HEAD
-ClienteDAO cDAO;
-	private Contato contato;
 	private List<Cargo> cargos;
 	private List<Cliente> clientes;
-	Integer cogigocliente;
-	
-=======
-	
 	private Contato contato;
-	private List<Contato> contatos;
-	private ClienteDAO cDao;
-
->>>>>>> 4cc0ba4e64aee3ccdcbf03ec82c75b8f85211174
-	
 	
 	public ContatosMB() {
-		cDAO = new ClienteDAO();
+		ClienteDAO cDAO = new ClienteDAO();
 		contato = new Contato();
-<<<<<<< HEAD
 		CargoDAO carDao = new CargoDAO();
 		cargos = carDao.listarcargo();
-		clientes = cDAO.listaCliente();
-	}
-=======
-		contatos = new ArrayList<>();
-		cDao = new ClienteDAO();
-	
-		
-	}
-	
-	
-	
-	
->>>>>>> 4cc0ba4e64aee3ccdcbf03ec82c75b8f85211174
-
-	public Contato getContato() {
-		return contato;
-	}
-
-	public void setContato(Contato contato) {
-		this.contato = contato;
+		clientes = cDAO.listaCliente(1);
 	}
 
 	public List<Cargo> getCargos() {
@@ -68,15 +37,6 @@ ClienteDAO cDAO;
 		this.cargos = cargos;
 	}
 
-	public ClienteDAO getcDAO() {
-		return cDAO;
-	}
-
-	public void setcDAO(ClienteDAO cDAO) {
-		this.cDAO = cDAO;
-	}
-
-<<<<<<< HEAD
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
@@ -85,15 +45,14 @@ ClienteDAO cDAO;
 		this.clientes = clientes;
 	}
 
-	public Integer getCogigocliente() {
-		return cogigocliente;
+	public Contato getContato() {
+		return contato;
 	}
 
-	public void setCogigocliente(Integer cogigocliente) {
-		this.cogigocliente = cogigocliente;
+	public void setContato(Contato contato) {
+		this.contato = contato;
 	}
 	
-=======
->>>>>>> 4cc0ba4e64aee3ccdcbf03ec82c75b8f85211174
 	
+
 }
