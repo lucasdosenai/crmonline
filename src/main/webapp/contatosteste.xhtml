@@ -14,12 +14,18 @@
 			height="200px" />
 	</div>
 
-	<h:panelGrid id="pagina">
+	<h:panelGrid id="pagina" style="width:90%;margin:0 auto;">
 		<p:dataList value="#{relatorioMB.visitaRealizada}" var="visitasRealizada" type="ordered" 	 >
-			<f:facet name="header"> Relatório de visitas </f:facet>
-			<h:outputText value="#{visitasRealizada.nome}" style="display:inline-block; font-weight: bold;" /><br/>
-			<h:outputText value="Dia : #{relatorioMB.converteDate(visitasRealizada.data)} - Hora : #{visitasRealizada.hora}" style="display:inline-block" /><br/>
-			<h:outputText value="Empresa : #{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}"/>
+		<h:form>
+			<h:commandLink>
+			<p:panel>
+			<f:facet name="header"> #{visitasRealizada.nome} </f:facet>
+			<h:outputText value="Dia : " style="display:inline-block; font-weight: bold;" /><h:outputText value="#{relatorioMB.converteDate(visitasRealizada.data)} - Hora : #{visitasRealizada.hora}"/> <br/>
+			<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}"/>
+			</p:panel>
+			</h:commandLink>
+		</h:form>
+			<hr/>
 		</p:dataList>
 			
 	</h:panelGrid>

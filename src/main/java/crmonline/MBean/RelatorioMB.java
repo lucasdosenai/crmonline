@@ -21,6 +21,7 @@ public class RelatorioMB {
 	
 	public RelatorioMB() {
 		aDao = new AgendaDAO();
+		rDao = new RelatorioDAO();
 		visitaRealizada = aDao.listarAgenda("0");
 	}
 	
@@ -30,8 +31,8 @@ public class RelatorioMB {
 	}
 	
 	public String mostraCliente(Integer codigo) {
+		String nomeDoCliente = "";
 		String cod = codigo.toString();
-		String nomeDoCliente;;
 		return nomeDoCliente = rDao.clienteConverte(cod);
 	}
 	
