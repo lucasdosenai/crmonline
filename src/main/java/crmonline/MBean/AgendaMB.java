@@ -55,11 +55,10 @@ public class AgendaMB {
 	public String agendar() throws SQLException {
 		if (aDao.inserir(agenda)) {
 			visitas = aDao.listarAgenda("0");
-				FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Agora você tem uma nova visita agendada"));
-		}else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Problema ao inserir nova visita!"));
+					new FacesMessage("Agora você tem uma nova visita agendada"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir nova visita!"));
 		}
 		return "";
 	}
@@ -71,10 +70,11 @@ public class AgendaMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
 		}
 	}
-	
+
 	public void realizaVisita() {
 		try {
-			if(aDao.realizaVisita(agenda)) {
+			if (aDao.realizaVisita(agenda)) {
+				visitas = aDao.listarAgenda("0");
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
 			}
 		} catch (SQLException e) {
@@ -82,10 +82,18 @@ public class AgendaMB {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
-		
-		
 	}
-	
+
+	public void excluiVisita() throws SQLException {
+		if (aDao.excluiVisita(agenda.getCodigo())) {
+			visitas = aDao.listarAgenda("0");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluido com Sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Excluir!"));
+		}
+
+	}
+
 	public AgendaDAO getaDao() {
 		return aDao;
 	}

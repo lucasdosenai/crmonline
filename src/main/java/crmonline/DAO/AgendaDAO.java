@@ -117,16 +117,21 @@ public class AgendaDAO {
 	}
 	
 	public boolean realizaVisita(Agenda a) throws SQLException {
-		String SQL = "UPDATE AGENDA SET ESTADOS = 1 WHERE ID = ?";
+		String SQL = "UPDATE AGENDA SET ESTADOS = 1, CLASSFICACOES = ?, OBSERVACOES = ? WHERE ID = ?";
 		PreparedStatement ps;
 		ps = con.prepareStatement(SQL);
 		
-		ps.setInt(1, a.getCodigo());
+		ps.setString(1, a.getClassificacao());
+		ps.setString(2, a.getObservacao());
+		ps.setInt(3, a.getCodigo());
 		
-		return ps.executeUpdate() > 0;
-		
-		
+		return ps.executeUpdate() > 0;	
 	}
 
-
+	public boolean excluiVisita(Integer codigo) throws SQLException {
+		String SQL = "DELETE FROM AGENDA WHERE ID = ? ";
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ps.setInt(1, codigo);
+		return ps.executeUpdate() > 0;
+	}
 }

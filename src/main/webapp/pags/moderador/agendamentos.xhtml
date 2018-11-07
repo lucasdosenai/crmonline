@@ -7,7 +7,7 @@
 </h:head>
 
 <h:body>
-	<p:growl id="messages" showDetail="true" >
+	<p:growl id="messages" showDetail="true">
 		<p:autoUpdate />
 	</p:growl>
 	<nav class="nav-extended" style="background-color: black">
@@ -57,14 +57,26 @@
 					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-				<p:commandButton styleClass="btn" value="Excluir"
-					onclick="PF('deletaVisitaPendente').show();" />
+				<p:commandButton ajax="true" event="onclick" update="tabela"
+					action="#{agendaMB.excluiVisita}" styleClass="btn" value="Excluir">
+					<f:setPropertyActionListener value="#{a}"
+						target="#{agendaMB.agenda}" />
+					<p:confirm header="Confirma ?" message="Deseja excluir a visita ?"
+						icon="ui-icon-alert" />
+				</p:commandButton>
+
 				<p:commandButton icon="ui-icon-pencil" value="Editar"
-						update="dialog22" oncomplete="PF('edite').show();">
-						<f:setPropertyActionListener value="#{agenda}"
-							target="#{agendaMB.agenda}" />
-					</p:commandButton>
-				<p:commandButton onclstyleClass="btn" value="Realizar" onclick="PF('realizar').show();"/>
+					update=":formEditar" oncomplete="PF('edite').show();">
+					<f:setPropertyActionListener value="#{a}"
+						target="#{agendaMB.agenda}" />
+				</p:commandButton>
+				<p:commandButton onclstyleClass="btn" value="Realizar"
+					onclick="PF('realizar').show();">
+					<f:setPropertyActionListener value="#{a}"
+						target="#{agendaMB.agenda}" />
+					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
+						icon="ui-icon-alert" />
+				</p:commandButton>
 				<p:commandButton styleClass="btn" value="Visualizar" />
 			</p:column>
 		</p:dataTable>
@@ -110,11 +122,7 @@
 		</p:dialog>
 	</h:form>
 
-	<p:dialog widgetVar="deletaVisitaPendente"
-		header="Você tem certeza que gostaria de apagar essa visita ?">
-		<p:commandButton value="SIM" />
-		<p:commandButton value="NÃO" />
-	</p:dialog>
+
 
 	<p:dialog widgetVar="Add">
 		<h:form>
@@ -142,11 +150,11 @@
 			</center>
 		</h:form>
 	</p:dialog>
-	
-	
+
+
 	<p:dialog id="dialog22" draggable="true" maximizable="true"
 		header="EDITA CLIENTE" widgetVar="edite" minHeight="40">
-		<h:form>
+		<h:form id="formEditar">
 			<p:column headerText="Editar Cliente">
 				<p:inputText placeholder="NOME : " value="#{agendaMB.agenda.nome}" />
 				<br />
@@ -178,38 +186,47 @@
 				</p:panelGrid>
 
 				<br />
-				<p:commandButton value="Aplicar"
-					action="#{agendaMB.editaVisita()}" ajax="true" />
-				
+				<p:commandButton value="Aplicar" action="#{agendaMB.editaVisita()}"
+					ajax="true" />
+
 			</p:column>
 		</h:form>
-		
+
 	</p:dialog>
-	
+
 	<p:dialog widgetVar="realizar">
-	<h:form>
-	 <h:outputText value="Ajax Rate:" />
-        <p:rating value="#{ratingView.rating3}">
-            <p:ajax event="rate" listener="#{ratingView.onrate}" update="messages"/>
-            <p:ajax event="cancel" listener="#{ratingView.oncancel}" update="messages"/>
-        </p:rating>
-	
-	
-	
-	 <h3>AutoResize</h3>
-    <p:inputTextarea rows="6" cols="33" />
-    
-     <p:commandButton value="Visita Concluída"
-					 ajax="true" actionListener="#{agendaMB.realizaVisita}"/>
-	</h:form>
+		<h:form>
+			<h:outputText value="Ajax Rate:" />
+			<p:rating value="#{agendaMB.agenda.classificacao}">
+
+			</p:rating>
+
+
+
+			<h3>AutoResize</h3>
+			<p:inputTextarea value="#{agendaMB.agenda.observacao}" rows="6"
+				cols="33" />
+
+			<p:commandButton value="Visita Concluída" ajax="true"
+				actionListener="#{agendaMB.realizaVisita}"
+				oncomplete="PF('realizar').hide();" />
+		</h:form>
 	</p:dialog>
-	
-	<p:dialog header="Values" widgetVar="dlg" showEffect="fade" hideEffect="fade">
-        <h:panelGrid id="display" columns="2" cellpadding="5">
-         <h:outputText value="Rating 3:" />
-            <h:outputText value="#{ratingView.rating3}" />
-        </h:panelGrid>
-        </p:dialog>
+
+	<p:dialog header="Values" widgetVar="dlg" showEffect="fade"
+		hideEffect="fade">
+		<h:panelGrid id="display" columns="2" cellpadding="5">
+			<h:outputText value="Rating 3:" />
+			<h:outputText value="#{ratingView.rating3}" />
+		</h:panelGrid>
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sim" type="button"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="Não" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
 
 </h:body>
 </html>
