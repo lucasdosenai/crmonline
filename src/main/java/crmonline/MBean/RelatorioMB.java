@@ -1,5 +1,7 @@
 package crmonline.MBean;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,11 +20,15 @@ public class RelatorioMB {
 	private List<Agenda> visitaRealizada;
 	AgendaDAO aDao;
 	RelatorioDAO rDao;
+	String buscaDataAtualizandoALista;
 	
 	public RelatorioMB() {
 		aDao = new AgendaDAO();
 		rDao = new RelatorioDAO();
 		visitaRealizada = aDao.listarAgenda("0");
+	}
+	public void listaPorData() throws SQLException, ParseException {
+		visitaRealizada = rDao.listaAgendaKeyDown(buscaDataAtualizandoALista);
 	}
 	
 	public String converteDate(Date date) {
@@ -58,5 +64,13 @@ public class RelatorioMB {
 
 	public void setrDao(RelatorioDAO rDao) {
 		this.rDao = rDao;
+	}
+
+	public String getBuscaDataAtualizandoALista() {
+		return buscaDataAtualizandoALista;
+	}
+
+	public void setBuscaDataAtualizandoALista(String buscaDataAtualizandoALista) {
+		this.buscaDataAtualizandoALista = buscaDataAtualizandoALista;
 	}
 }

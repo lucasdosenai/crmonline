@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="estilo.css" />	
+</h:head>
+<h:body styleClass="teste">
+	<p:growl autoUpdate="true">
+	</p:growl>
+	<div align="center" style="width: 1000px">
+		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
+	</div>
+	<h:panelGrid columns="10"> 
+	<h:form>
+		<p:inputText placeholder="Busca por data" value="#{relatorioMB.buscaDataAtualizandoALista}">
+			<p:ajax event="keyup" listener="#{relatorioMB.listaPorData}" update="dataList"/> 
+		</p:inputText>
+	</h:form>
+	</h:panelGrid>
+	<h:panelGrid columns="3" id="pagina" style="width:90%;margin:0 auto;border: none !important;">
+		<p:dataList id="dataList" value="#{relatorioMB.visitaRealizada}" var="visitasRealizada" type="ordered" style=" border: none !important;"	 >
+		<h:form>
+			<p:panel style=" border: none !important;">
+			<f:facet name="header" style="font-weight: blod;border: none !important;"> #{visitasRealizada.nome} </f:facet>
+			<h:outputText value="Dia : " style="display:inline-block; font-weight: bold;" /><h:outputText value="#{relatorioMB.converteDate(visitasRealizada.data)} - "/> 
+			<h:outputText value="  Hora : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{visitasRealizada.hora}"/> <br/>
+			<h:outputText value="Atendente : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{visitasRealizada.atendente}"/> <br/>
+			<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}"/>
+			</p:panel>	
+		</h:form> <hr/>
+		</p:dataList>
+	</h:panelGrid>
+</h:body>
+</html>

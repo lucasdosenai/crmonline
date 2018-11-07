@@ -84,54 +84,23 @@ li a:hover {
 		</p:toolbar>
 	</h:form>
 
-	<p:panelGrid columns="2" style="width:100%;">
-
-		<p:panelGrid columns="1" style="width:450px !important;">
+	<p:panelGrid columns="1" style="width:100%;">
+			<h1 style="margin:0 auto;">VISITAS PENDENTE</h1>
+			<h:panelGrid id="pagina" style="width:70% !important; margin:0 auto;">
+			<p:dataList value="#{relatorioMB.visitaRealizada}" var="visitasRealizada" type="ordered" 	 >
 			<h:form>
-				<p:dataTable var="cliente" value="#{userMB.clientes}">
-					<p:column headerText="Cliente">
-						<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
-					</p:column>
-					<p:overlayPanel id="imagePanel" for="testeBTN" hideEffect="fade">
-						<p:panelGrid columns="1">
-							<p:outputLabel value="ID : #{cliente.codigo}" />
-							<p:outputLabel value="NIF : #{cliente.nif}" />
-							<p:outputLabel value="EMAIL : #{cliente.email}" />
-							<p:outputLabel value="SEXO : #{cliente.sexo}" />
-							<p:outputLabel value="STATU : #{cliente.statu}" />
-						</p:panelGrid>
-					</p:overlayPanel>
-					<p:dialog for="testeBTN" header="NOME : #{cliente.nome}"
-						widgetVar="infor" />
-					<p:column headerText="Ações">
-						<p:commandButton id="testeBTN" value="I" icon="fa-list-ul" />
-					</p:column>
-
-					<p:overlayPanel id="moviePanel" for="testeBTN" hideEffect="fade"
-						dynamic="true" style="width:600px">
-						<p:outputLabel value="NOME : #{cliente.nome}"></p:outputLabel>
-					</p:overlayPanel>
-				</p:dataTable>
-
+				<h:commandLink>
+				<p:panel>
+				<f:facet name="header"> #{visitasRealizada.nome} </f:facet>
+				<h:outputText value="Dia : " style="display:inline-block; font-weight: bold;" /><h:outputText value="#{relatorioMB.converteDate(visitasRealizada.data)}"/> <br/>
+				<h:outputText value="Hora : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{visitasRealizada.hora}"/> <br/>
+				<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}"/>
+				</p:panel>
+				</h:commandLink>
 			</h:form>
-		</p:panelGrid>
-
-		<p:panelGrid columns="1" style="vertical-align: top;">
-			<p:dataTable style="vertical-align: top;" var="visita"
-				value="#{userMB.clientes}">
-				<p:column headerText="VISITA">
-					<h:outputText value="#{visita.nome}" style="font-weight: bold" />
-				</p:column>
-				<p:column headerText="DATA">
-					<h:outputText value="#{visita.nif}" style="font-weight: bold" />
-				</p:column>
-				<p:column headerText="STATU">
-					<h:outputText value="#{visita.statu}" style="font-weight: bold" />
-				</p:column>
-			</p:dataTable>
-		</p:panelGrid>
-
+				<hr/>
+			</p:dataList>
+		</h:panelGrid>
 	</p:panelGrid>
-
 </h:body>
 </html>
