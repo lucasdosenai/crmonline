@@ -19,24 +19,21 @@ public class ContatoDAO {
 	}
 
 	
-	
-	
-	
-	
-	
-	
 	public boolean inserircontato (Contato contato) throws SQLException{
-		String sql = "INSERT INTO CONTATOS(nome,telefone,celular,email,cliente,cargo,categoria)"
-    			+ " VALUES (                ?,   ?,       ?,     ?,    ? ,     ?)";
+		String sql = "INSERT INTO CONTATOS VALUES (0,?,?,?,?,?,?)";
     	
 		PreparedStatement ps = con.prepareStatement(sql);
+		
     	ps.setString(1, contato.getNome());
     	ps.setString(2, contato.getTelefone());
     	ps.setString(3, contato.getCelular());
     	ps.setString(4, contato.getEmail());
-    	ps.setInt(5, contato.getCliente().getId());
-    	ps.setInt(6, contato.getCargo().getId());
+    	ps.setInt(5, contato.getCargo().getId());
+    	ps.setInt(6, contato.getCliente().getId());
+    	
     
+    	System.out.println(ps.toString());
+    	
     	return ps.executeUpdate() > 0;
 	}
 	

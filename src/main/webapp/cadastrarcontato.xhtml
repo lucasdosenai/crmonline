@@ -22,8 +22,8 @@
 			<h:panelGrid styleClass="centro">
 
 				<h3>Novo Usuário</h3>
-
-				<h:form>
+ 
+				<h:form id="form">
 					<p:growl>
 						<p:autoUpdate />
 					</p:growl>
@@ -57,7 +57,7 @@
 
 
 						<p:panelGrid columns="2">
-							<h:commandButton value="Cadastrar" styleClass="btn" />
+							<h:commandButton value="Cadastrar" styleClass="btn" actionListener="#{contatosMB.inserircontato}" />
 
 							<h:commandButton value="Cancelar" styleClass="btn" />
 						</p:panelGrid>
@@ -67,8 +67,11 @@
 				<p:dialog widgetVar="Add">
 					<h:form>
 						<center>
-							<p:inputText placeholder="Nome" />
-							<p:commandButton value="Salvar novo cargo !" />
+						<p:panelGrid columns="1">
+							<p:inputText placeholder="Nome" value="#{contatosMB.cargo.nome}"   />
+							<p:commandButton value="Salvar novo cargo !" actionListener="#{contatosMB.salvarCargo}"
+								update=":form" onsuccess="PF('Add').hide();"/>
+							</p:panelGrid>
 						</center>
 					</h:form>
 				</p:dialog>
