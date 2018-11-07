@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import crmonline.DAO.CargoDAO;
 import crmonline.Entidade.Cargo;
 import crmonline.util.Mensagem;
 
+@ManagedBean
 public class CargoMB {
 
 	private Cargo cargo;
