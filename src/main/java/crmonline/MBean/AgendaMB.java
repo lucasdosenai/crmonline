@@ -29,11 +29,12 @@ public class AgendaMB {
 
 	ClasseGenericaDao classeGenericaDao;
 	List<ClasseGenerica> categorias;
-	CursoDAO cDao = new CursoDAO();
+	CursoDAO cDao;
 	LoginMB u;
 	List<Agenda> visitas;
 
 	public AgendaMB() {
+		cDao = new CursoDAO();
 		aDao = new AgendaDAO();
 		agenda = new Agenda();
 		classeGenericaDao = new ClasseGenericaDao();
@@ -64,7 +65,8 @@ public class AgendaMB {
 	}
 
 	public void editaVisita() {
-		if (aDao.updateVisita(agenda)) {
+		if (aDao.updateVisita(agenda)){
+			visitas = aDao.listarAgenda("0");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
@@ -178,6 +180,14 @@ public class AgendaMB {
 	public String getDate(Date date) {
 		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
 		return s.format(date);
+	}
+
+	public LoginMB getU() {
+		return u;
+	}
+
+	public void setU(LoginMB u) {
+		this.u = u;
 	}
 
 }
