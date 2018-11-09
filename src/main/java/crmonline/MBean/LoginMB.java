@@ -12,7 +12,7 @@ import javax.xml.crypto.Data;
 import crmonline.DAO.UserDAO;
 import crmonline.Entidade.Usuario;
 
-@ManagedBean
+@ManagedBean(eager = true)
 @SessionScoped
 public class LoginMB {
 	private String usuario = "";
@@ -34,19 +34,17 @@ public class LoginMB {
 		if (userAtual == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario não encontrado!"));
 		} else {
-			if(userAtual.getStatu() != 0) {
+			if (userAtual.getStatu() != 0) {
 				return "pags/moderador/index?faces-redirect=true";
-			}else {
-				FacesContext.getCurrentInstance().addMessage(null, 
-						new FacesMessage("Usuario DESATIVADO." + "/n"+
-				        " Entre em contato com o ADMINISTRADOR"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Usuario DESATIVADO." + "/n" + " Entre em contato com o ADMINISTRADOR"));
 				return null;
 			}
 		}
 		return null;
 	}
 
-	
 // -------------------------------------------------------------------------------------------------
 
 	public String getUsuario() {
