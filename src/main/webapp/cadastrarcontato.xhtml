@@ -7,8 +7,8 @@
 
 </h:head>
 <h:body styleClass="teste">
-	<p:growl autoUpdate="true">
-	</p:growl>
+
+
 	<div align="center" style="width: 1000px">
 		<h:graphicImage library="img" name="logo.png" width="200px"
 			height="200px" />
@@ -22,34 +22,40 @@
 			<h:panelGrid styleClass="centro">
 
 				<h3>Novo Usuário</h3>
- 
+
 				<h:form id="form">
-					<p:growl>
-						<p:autoUpdate />
-					</p:growl>
-					<p:panelGrid columns="1">
-						<p:inputText placeholder="Nome" size="40"
-							styleClass="input_normal" value="#{contatosMB.contato.nome}" />
-						<p:inputMask placeholder="Telefone" size="40"
+
+					<p:panelGrid id="panel" columns="1">
+						<p:inputText placeholder="Nome" size="40" required="true"
+							requiredMessage="O nome é necessário" styleClass="input_normal"
+							value="#{contatosMB.contato.nome}" />
+						<p:inputMask placeholder="Telefone" size="40" required="true"
+							requiredMessage="O telefone é necessário"
 							styleClass="input_normal" mask="9999-9999"
 							value="#{contatosMB.contato.telefone}" />
-						<p:inputMask placeholder="Celular" size="40"
+						<p:inputMask placeholder="Celular" size="40" required="true"
+							requiredMessage="O celular é necessário"
 							styleClass="input_normal" mask="(99)9 9999-9999"
 							value="#{contatosMB.contato.celular}" />
-						<p:inputText placeholder="E-mail" size="40"
-							styleClass="input_normal" value="#{contatosMB.contato.email}" />
+						<p:inputText placeholder="E-mail" size="40" required="true"
+							requiredMessage="O e-mail é necessário" styleClass="input_normal"
+							value="#{contatosMB.contato.email}">
+						</p:inputText>
 
 
 						<p:growl id="messages" showDetail="true" />
 						<p:panelGrid columns="2">
-							<p:selectOneMenu value="#{contatosMB.contato.cargo.id}">
+							<p:selectOneMenu value="#{contatosMB.contato.cargo.id}"
+								required="true" requiredMessage="O cargo é necessário">
 								<f:selectItem itemLabel="Selecionar Cargo" />
 								<f:selectItems value="#{contatosMB.cargos}" var="c"
 									itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 							</p:selectOneMenu>
 							<p:commandButton value="+" onclick="PF('Add').show();" />
 						</p:panelGrid>
-						<p:selectOneMenu id="clientes" value="#{contatosMB.contato.cliente.id}">
+						<p:selectOneMenu id="clientes"
+							value="#{contatosMB.contato.cliente.id}" required="true"
+							requiredMessage="O cliente é necessário">
 							<f:selectItem itemLabel="Selecionar Cliente" />
 							<f:selectItems value="#{contatosMB.clientes}" var="c"
 								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
@@ -57,9 +63,11 @@
 
 
 						<p:panelGrid columns="2">
-							<h:commandButton value="Cadastrar" styleClass="btn" actionListener="#{contatosMB.inserircontato}" />
+							<h:commandButton value="Cadastrar" styleClass="btn"
+								actionListener="#{contatosMB.inserircontato}" />
 
-							<h:commandButton value="Cancelar" styleClass="btn" />
+							<h:commandButton value="Cancelar" type="reset" styleClass="btn"
+								ajax="true" event="click" update=":form:panel" />
 						</p:panelGrid>
 					</p:panelGrid>
 
@@ -67,10 +75,11 @@
 				<p:dialog widgetVar="Add">
 					<h:form>
 						<center>
-						<p:panelGrid columns="1">
-							<p:inputText placeholder="Nome" value="#{contatosMB.cargo.nome}"   />
-							<p:commandButton value="Salvar novo cargo !" actionListener="#{contatosMB.salvarCargo}"
-								update=":form" onsuccess="PF('Add').hide();"/>
+							<p:panelGrid columns="1">
+								<p:inputText placeholder="Nome" value="#{contatosMB.cargo.nome}" />
+								<p:commandButton value="Salvar novo cargo !"
+									actionListener="#{contatosMB.salvarCargo}" update=":form"
+									onsuccess="PF('Add').hide();" />
 							</p:panelGrid>
 						</center>
 					</h:form>
@@ -78,5 +87,27 @@
 			</h:panelGrid>
 		</h:panelGrid>
 	</h:panelGrid>
+	<script type="text/javascript">
+		//<![CDATA[
+		/**
+		 * Faces Validator
+		 */
+		PrimeFaces.validator['custom.emailValidator'] = {
+
+			pattern : /\S+@\S+/,
+
+			validate : function(element, value) {
+				//use element.data() to access validation metadata, in this case there is none.
+				if (!this.pattern.test(value)) {
+					throw {
+						summary : 'Validation Error',
+						detail : value + ' is not a valid email.'
+					}
+				}
+			}
+		};
+
+		//]]>
+	</script>
 </h:body>
 </html>
