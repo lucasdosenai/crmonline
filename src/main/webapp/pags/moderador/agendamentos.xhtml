@@ -71,13 +71,16 @@
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
 				<p:commandButton onclstyleClass="btn" value="Realizar"
-					onclick="PF('realizar').show();">
+					onclick="PF('realizar').show();"  >
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
 						icon="ui-icon-alert" />
 				</p:commandButton>
-				<p:commandButton styleClass="btn" value="Visualizar" onclick="PF('visualizar').show();" />
+				<p:commandButton styleClass="btn" value="Visualizar" update=":visu"
+					onclick="PF('visualizar').show();" >
+					<f:setPropertyActionListener value="#{a}" target="#{agendaMB.agenda}"/>
+					</p:commandButton>
 			</p:column>
 		</p:dataTable>
 	</h:form>
@@ -187,7 +190,7 @@
 
 				<br />
 				<p:commandButton value="Aplicar" action="#{agendaMB.editaVisita()}"
-					ajax="true" onclick="PF('dialog22').hide();" update="tabela" />
+					ajax="true" onclick="PF('dialog22').hide();" update=":formTabela:tabela" />
 
 			</p:column>
 		</h:form>
@@ -196,20 +199,20 @@
 
 	<p:dialog widgetVar="realizar">
 		<h:form>
-			<h:outputText value="Ajax Rate:" />
+			<h:outputText value="Classificação da Visita:" />
 			<p:rating value="#{agendaMB.agenda.classificacao}">
 
 			</p:rating>
 
 
 
-			<h3>AutoResize</h3>
+			<h3>Observações</h3>
 			<p:inputTextarea value="#{agendaMB.agenda.observacao}" rows="6"
 				cols="33" />
 
 			<p:commandButton value="Visita Concluída" ajax="true"
 				actionListener="#{agendaMB.realizaVisita}"
-				oncomplete="PF('realizar').hide();" />
+				oncomplete="PF('realizar').hide();" update=":formTabela:tabela"/>
 		</h:form>
 	</p:dialog>
 
@@ -221,11 +224,11 @@
 		</h:panelGrid>
 	</p:dialog>
 
-	
 
-	<p:dialog widgetVar="visualizar">
-		<h:form>
-		<h2>Nome da Visita</h2>
+
+	<p:dialog widgetVar="visualizar" draggable="true" maximizable="true" >
+		<h:form id="visu">
+			<h2>Nome da Visita</h2>
 			<h:outputText value="#{agendaMB.agenda.nome}" />
 			<h2>Atendente</h2>
 			<h:outputText value="#{agendaMB.agenda.atendente}" />
@@ -233,7 +236,13 @@
 			<h:outputText value="#{agendaMB.agenda.data}" />
 			<h2>Hora</h2>
 			<h:outputText value="#{agendaMB.agenda.hora}" />
-			<p:commandButton value="Voltar" ajax="true"/>
+			<h2>Cliente</h2>
+			<h:outputText value="#{agendaMB.agenda.cliente.nome}" />
+			<h2>Curso</h2>
+			<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
+			<br>
+			</br>
+			<p:commandButton value="Voltar" ajax="true" />
 		</h:form>
 	</p:dialog>
 
