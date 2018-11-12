@@ -73,12 +73,11 @@ public class RelatorioDAO {
 	}
 	
 	public List<Agenda> listaAgendaKeyDown(String busca) {
-		String SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE" +" 12%";
+		String SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE '"+busca+"%'";
 		List<Agenda> listaCompleta = new ArrayList<>();
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(SQL);
-			//ps.setString(1, busca);
 			ResultSet rs = ps.executeQuery();
 		
 			while(rs.next()) {
@@ -92,8 +91,9 @@ public class RelatorioDAO {
 					a.setData(b.parse(data));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
+					a.setData(new Date(10));
 					e.printStackTrace();
-					a.setData(new Date(0));
+					
 				}
 				a.setHora(rs.getString("HORARIO"));
 				a.setEstadovisita(rs.getInt("ESTADOS"));
