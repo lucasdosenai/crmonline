@@ -7,11 +7,23 @@
 </h:head>
 
 <h:body>
-
-	<p:selectOneMenu>
-		<f:selectItem itemLabel="selecione o item" itemValue="" />
-		<f:selectItems value="#{contatosMB.contatos}" var="c" itemLabel="#{c.nome}" itemValue="#{c.id}"/>
-	</p:selectOneMenu>
-
+   
+   <h:form id="formTabela">
+		<p:dataTable id="tabela" value="#{contatosMB.contatos}" var="c">
+			<p:column headerText="Nome">
+				<h:outputText value="#{c.nome}" />
+			</p:column>
+			<p:column headerText="Telefone">
+				<h:outputText value="#{c.telefone}" />
+			</p:column>
+			<p:column headerText="Celular">
+				<h:outputText value="#{c.celular}" />
+			</p:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{c.email}" />
+			</p:column>
+				
+			</p:dataTable>
+				</h:form>
 </h:body>
 </html>
