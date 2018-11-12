@@ -25,13 +25,14 @@ public class ContatosMB {
 	ContatoDAO cDAO;
 	Cargo cargo = new Cargo();
 	CargoDAO carDAO = new CargoDAO();
-	
 
+	private List<Contato> contatos;
 
 	public ContatosMB() {
 		cDAO = new ContatoDAO();
 		contato = new Contato();
 		carDAO = new CargoDAO();
+		contatos = cDAO.listarcontato();
 		cargos = carDAO.listarcargo();
 		ClienteDAO cliDao = new ClienteDAO();
 		clientes = cliDao.listaCliente(1);
@@ -39,24 +40,22 @@ public class ContatosMB {
 
 	public void inserircontato() throws SQLException {
 		if (cDAO.inserircontato(contato)) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Contato cadastrado"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Contato cadastrado"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir!"));
 		}
 
 	}
-	
+
 	public void salvarCargo() throws SQLException {
 		if (carDAO.inserircargo(cargo)) {
 			cargos = carDAO.listarcargo();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Cargo cadastrado"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cargo cadastrado"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir!"));
 		}
 	}
-	
+
 	public List<Cargo> getCargos() {
 		return cargos;
 	}
@@ -70,7 +69,15 @@ public class ContatosMB {
 	}
 
 	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;        
+		this.clientes = clientes;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
 	}
 
 	public Contato getContato() {
@@ -103,6 +110,6 @@ public class ContatosMB {
 
 	public void setCarDAO(CargoDAO carDAO) {
 		this.carDAO = carDAO;
-	}	
-	
+	}
+
 }
