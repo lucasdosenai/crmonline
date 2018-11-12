@@ -3,33 +3,74 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="css" name="estilo.css" />	
+	<h:outputStylesheet library="css" name="estilo.css" />
 </h:head>
 <h:body styleClass="teste">
-	<p:growl autoUpdate="true">
+	<p:growl>
+		<p:autoUpdate/>
 	</p:growl>
 	<div align="center" style="width: 1000px">
-		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
+		<h:graphicImage library="img" name="logo.png" width="200px"
+			height="200px" />
 	</div>
-	<h:panelGrid columns="10"> 
-	<h:form>
-		<p:inputText placeholder="Busca por data" value="#{relatorioMB.buscaDataAtualizandoALista}">
-			<p:ajax event="keyup" listener="#{relatorioMB.listaPorData}" update="dataList"/> 
-		</p:inputText>
-	</h:form>
-	</h:panelGrid>
-	<h:panelGrid columns="3" id="pagina" style="width:90%;margin:0 auto;border: none !important;">
-		<p:dataList id="dataList" value="#{relatorioMB.visitaRealizada}" var="visitasRealizada" type="ordered" style=" border: none !important;"	 >
-		<h:form>
-			<p:panel style=" border: none !important;">
-			<f:facet name="header" style="font-weight: blod;border: none !important;"> #{visitasRealizada.nome} </f:facet>
-			<h:outputText value="Dia : " style="display:inline-block; font-weight: bold;" /><h:outputText value="#{relatorioMB.converteDate(visitasRealizada.data)} - "/> 
-			<h:outputText value="  Hora : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{visitasRealizada.hora}"/> <br/>
-			<h:outputText value="Atendente : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{visitasRealizada.atendente}"/> <br/>
-			<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}"/>
-			</p:panel>	
-		</h:form> <hr/>
+	<p:toolbar>
+
+		<f:facet name="left">
+			<p:commandButton action="cadCliente?faces-redirect=true"
+				value="Imprimir Relatório" icon="ui-icon-plus" />
+			<p:commandButton value="Buscar Data" onclick="PF('buscaData').show();"/>
+			<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
+				<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
+	            <f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}" var="c" value="#{relatorioMB.listaClientesDropDown}">
+	            	
+	            </f:selectItems>
+			</p:selectOneMenu>			
+		</f:facet>
+		<f:facet name="right">
+			<h:form>
+				<p:inputText placeholder="Busca por data"
+					value="#{relatorioMB.buscaDataAtualizandoALista}">
+					<p:ajax event="keyup" listener="#{relatorioMB.listaPorData}"
+						update=":dataList" />
+				</p:inputText>
+			</h:form>
+		</f:facet>
+	</p:toolbar>
+
+	<h:panelGrid columns="3" 
+		style="width:90%;margin:0 auto;border: none !important;">
+		<p:dataList id="dataList" value="#{relatorioMB.visitaRealizada}"
+			var="visitasRealizada" type="ordered"
+			style=" border: none !important;">
+			<h:form>
+				<p:panel style=" border: none !important;">
+					<f:facet name="header"
+						style="font-weight: blod;border: none !important;"> #{visitasRealizada.nome} </f:facet>
+					<h:outputText value="Dia : "
+						style="display:inline-block; font-weight: bold;" />
+					<h:outputText
+						value="#{relatorioMB.converteDate(visitasRealizada.data)} - " />
+					<h:outputText value="  Hora : "
+						style="display:inline-block; font-weight: bold;" />
+					<h:outputText value="#{visitasRealizada.hora}" />
+					<br />
+					<h:outputText value="Atendente : "
+						style="display:inline-block; font-weight: bold;" />
+					<h:outputText value="#{visitasRealizada.atendente}" />
+					<br />
+					<h:outputText value="Empresa : "
+						style="display:inline-block; font-weight: bold;" />
+					<h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}" />
+				</p:panel>
+			</h:form>
+			<hr />
 		</p:dataList>
 	</h:panelGrid>
+	<p:dialog widgetVar="buscaData">
+		<h:form>
+			<p:inputText placeholder="Ex. 12/03/2019" value="#{relatorioMB.dataParaBuscarNoBancoDeDados}"/>
+			<p:commandButton value="BUSCAR" actionListener="#{relatorioMB.x}" update="dataList"/>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>

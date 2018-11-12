@@ -14,6 +14,7 @@ import java.util.List;
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Agenda;
 import crmonline.Entidade.Cliente;
+import crmonline.Entidade.Curso;
 import crmonline.MBean.LoginMB;
 import sun.security.jca.GetInstance;
 
@@ -58,7 +59,11 @@ public class AgendaDAO {
 	/*x*/
 	public List<Agenda> listarAgenda(String codigo) {
 		List<Agenda> agenda = new ArrayList<>();
-		String sql = "SELECT * FROM AGENDA WHERE ESTADOS = ?";
+		String sql = "SELECT a.*, c.nome as cliente, cs.nome as curso  "
+				+ " FROM AGENDA a "
+				+ " INNER JOIN cliente c ON a.id_cliente = c.id"
+				+ " INNER JOIN curso cs ON a.id_curso = cs.id"
+				+ " WHERE ESTADOS = ?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, codigo);
@@ -68,6 +73,7 @@ public class AgendaDAO {
 				a.setCodigo(rs.getInt("ID"));
 				a.setNome(rs.getString("NOME"));
 				a.setAtendente(rs.getString("ATENDENTE"));
+				
 				String data = rs.getString("DATAV");
 				SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
 				a.setData(b.parse(data));
@@ -77,7 +83,18 @@ public class AgendaDAO {
 				a.setObservacao(rs.getString("OBSERVACOES"));
 				a.setId_visitante(rs.getInt("ID_VISITANTE"));
 				a.setId_cliente(rs.getInt("ID_CLIENTE"));
+				
+				Cliente c = new Cliente();
+				c.setCodigo(rs.getInt("id_cliente"));
+				c.setNome(rs.getString("cliente"));
+				a.setCliente(c);
+				
+				Curso cs = new Curso();
+				cs.setNome(rs.getString("curso"));
+				a.setCursoObj(cs);
 				a.setCurso(rs.getInt("ID_CURSO"));
+				
+				
 				agenda.add(a);
 			}
 			return agenda;

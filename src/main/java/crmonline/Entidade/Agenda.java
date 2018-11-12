@@ -18,7 +18,18 @@ public class Agenda {
 	private String classificacao;
 	private String observacao;
 	private Integer id_cliente;
+	private Cliente cliente;
+	private Curso cursoObj;
 	private Integer curso;
+
+	
+	public Curso getCursoObj() {
+		return cursoObj;
+	}
+
+	public void setCursoObj(Curso cursoObj) {
+		this.cursoObj = cursoObj;
+	}
 
 	public String getNome() {
 		return nome;
@@ -119,5 +130,13 @@ public class Agenda {
 	public void setData(String string) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }

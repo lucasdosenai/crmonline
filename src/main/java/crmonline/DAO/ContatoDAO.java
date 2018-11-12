@@ -20,7 +20,7 @@ public class ContatoDAO {
 
 	
 	public boolean inserircontato (Contato contato) throws SQLException{
-		String sql = "INSERT INTO CONTATOS VALUES (0,?,?,?,?,?,?)";
+		String sql = "INSERT INTO CONTATO VALUES (0,?,?,?,?,?,?)";
     	
 		PreparedStatement ps = con.prepareStatement(sql);
 		
@@ -50,7 +50,6 @@ public class ContatoDAO {
 				c.setNome(rs.getString("nome"));
 				
 				contato.add(c);
-				
 			}
 			
 			return contato;

@@ -53,11 +53,10 @@
 				<h:outputText value="#{a.atendente}" />
 			</p:column>
 			<p:column headerText="Data e Hora da Visita">
-				<h:outputText
-					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
+				<h:outputText value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-				<p:commandButton ajax="true" event="onclick" update="tabela"
+				<p:commandButton ajax="true" event="onclick" 
 					action="#{agendaMB.excluiVisita}" styleClass="btn" value="Excluir">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
@@ -66,7 +65,7 @@
 				</p:commandButton>
 
 				<p:commandButton icon="ui-icon-pencil" value="Editar"
-					update=":formEditar" oncomplete="PF('edite').show();">
+					 oncomplete="PF('edite').show();">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
@@ -77,7 +76,10 @@
 					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
 						icon="ui-icon-alert" />
 				</p:commandButton>
-				<p:commandButton styleClass="btn" value="Visualizar" onclick="PF('visualizar').show();" />
+				<p:commandButton styleClass="btn" value="Visualizar" update="dlgVisu" oncomplete="PF('visualizar').show();" >
+					<f:setPropertyActionListener value="#{a}"
+						target="#{agendaMB.agenda}" />
+				</p:commandButton>
 			</p:column>
 		</p:dataTable>
 	</h:form>
@@ -187,7 +189,7 @@
 
 				<br />
 				<p:commandButton value="Aplicar" action="#{agendaMB.editaVisita()}"
-					ajax="true" onclick="PF('dialog22').hide();" update="tabela" />
+					ajax="true" onclick="PF('dialog22').hide();" />
 
 			</p:column>
 		</h:form>
@@ -223,8 +225,7 @@
 
 	
 
-	<p:dialog widgetVar="visualizar">
-		<h:form>
+	<p:dialog id="dlgVisu" widgetVar="visualizar">
 		<h2>Nome da Visita</h2>
 			<h:outputText value="#{agendaMB.agenda.nome}" />
 			<h2>Atendente</h2>
@@ -233,8 +234,7 @@
 			<h:outputText value="#{agendaMB.agenda.data}" />
 			<h2>Hora</h2>
 			<h:outputText value="#{agendaMB.agenda.hora}" />
-			<p:commandButton value="Voltar" ajax="true"/>
-		</h:form>
+			<p:commandButton value="Voltar"/>
 	</p:dialog>
 
 
