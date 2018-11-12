@@ -16,6 +16,7 @@ import crmonline.DAO.ClasseGenericaDao;
 import crmonline.DAO.CursoDAO;
 import crmonline.Entidade.Agenda;
 import crmonline.Entidade.ClasseGenerica;
+import crmonline.Entidade.Contato;
 import crmonline.Entidade.Curso;
 import crmonline.util.Mensagem;
 
@@ -23,10 +24,13 @@ import crmonline.util.Mensagem;
 @ViewScoped
 public class AgendaMB {
 	AgendaDAO aDao;
-	Agenda agenda;
+	Agenda agenda = new Agenda();
 	Curso curso;
 	List<Curso> cursos;
-
+	
+    Contato contato;
+    List<Contato> contatos;
+    
 	ClasseGenericaDao classeGenericaDao;
 	List<ClasseGenerica> categorias;
 	CursoDAO cDao;
@@ -36,11 +40,12 @@ public class AgendaMB {
 	public AgendaMB() {
 		cDao = new CursoDAO();
 		aDao = new AgendaDAO();
-		agenda = new Agenda();
 		classeGenericaDao = new ClasseGenericaDao();
 		categorias = new ArrayList<>();
 		curso = new Curso();
 		cursos = new ArrayList<>();
+		contato = new Contato();
+		contatos = new ArrayList<>();
 		visitas = new ArrayList<>();
 		visitas = aDao.listarAgenda("0");
 		try {
@@ -56,6 +61,7 @@ public class AgendaMB {
 	public String agendar() throws SQLException {
 		if (aDao.inserir(agenda)) {
 			visitas = aDao.listarAgenda("0");
+			agenda = new Agenda();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Agora você tem uma nova visita agendada"));
 		} else {
@@ -67,6 +73,7 @@ public class AgendaMB {
 	public void editaVisita() {
 		if (aDao.updateVisita(agenda)){
 			visitas = aDao.listarAgenda("0");
+			agenda = new Agenda();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
@@ -77,6 +84,7 @@ public class AgendaMB {
 		try {
 			if (aDao.realizaVisita(agenda)) {
 				visitas = aDao.listarAgenda("0");
+				agenda = new Agenda();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
 			}
 		} catch (SQLException e) {
@@ -89,6 +97,7 @@ public class AgendaMB {
 	public void excluiVisita() throws SQLException {
 		if (aDao.excluiVisita(agenda.getCodigo())) {
 			visitas = aDao.listarAgenda("0");
+			agenda = new Agenda();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluido com Sucesso!"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Excluir!"));
