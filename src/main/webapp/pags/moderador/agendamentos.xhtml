@@ -56,12 +56,15 @@
 				<h:outputText value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-				<p:commandButton ajax="true" event="onclick" 
+				<p:commandButton ajax="true" event="onclick"
 					action="#{agendaMB.excluiVisita}" styleClass="btn" value="Excluir">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
+					
 					<p:confirm header="Confirma ?" message="Deseja excluir a visita ?"
-						icon="ui-icon-alert" />
+						icon="ui-icon-alert" >
+						<p:ajax update=":formTabela:tabela"/>
+						</p:confirm>
 				</p:commandButton>
 
 				<p:commandButton icon="ui-icon-pencil" value="Editar" update="dialog22"
@@ -196,11 +199,11 @@
 
 	<p:dialog widgetVar="realizar">
 		<h:form>
-			<h:outputText value="Ajax Rate:" />
+			<h:outputText value="Classificação:" />
 			<p:rating value="#{agendaMB.agenda.classificacao}">
 
 			</p:rating>
-			<h3>AutoResize</h3>
+			<h3>Observações:</h3>
 			<p:inputTextarea value="#{agendaMB.agenda.observacao}" rows="6"
 				cols="33" />
 
@@ -235,14 +238,14 @@
 			<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
 			<br>
 			</br>
-			<p:commandButton value="Voltar" ajax="true" />
+			<p:commandButton value="Voltar" ajax="true" onclick="PF('visualizar').hide();" />
 	</p:dialog>
 
 
 
 
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		<p:commandButton value="Sim" type="button"
+		<p:commandButton value="Sim" type="button" 
 			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 		<p:commandButton value="Não" type="button"
 			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
