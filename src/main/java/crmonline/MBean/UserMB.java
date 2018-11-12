@@ -55,7 +55,7 @@ public class UserMB {
 		visitaRealizada = aDao.listarAgenda("0");
 
 		lista = new ArrayList<>();
-		lista = rMB.visitaRealizada;
+		lista = rMB.getVisitaRealizada();
 	}
 
 	
@@ -148,5 +148,4 @@ public class UserMB {
 	public void setUsuarioLog(Usuario usuarioLog) {
 		this.usuarioLog = usuarioLog;
 	}
-
 }

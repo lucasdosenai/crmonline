@@ -46,8 +46,13 @@
 			<artifactId>black-tie</artifactId>
 			<version>1.0.10</version>
 		</dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.2.2</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 	<repositories>
 		<repository>
 			<id>prime-repo</id>

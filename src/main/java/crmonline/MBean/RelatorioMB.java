@@ -6,29 +6,68 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import crmonline.DAO.AgendaDAO;
+import crmonline.DAO.ClienteDAO;
 import crmonline.DAO.RelatorioDAO;
 import crmonline.Entidade.Agenda;
+import crmonline.Entidade.Cliente;
 
 @ManagedBean
 @ViewScoped
 public class RelatorioMB {
 	
 	private List<Agenda> visitaRealizada;
-	AgendaDAO aDao;
-	RelatorioDAO rDao;
-	String buscaDataAtualizandoALista;
+	private List<Cliente> listaClientesDropDown;
 	
+	AgendaDAO aDao;
+	ClienteDAO cDao;
+	RelatorioDAO rDao;
+	
+	String buscaDataAtualizandoALista;
+	String dataParaBuscarNoBancoDeDados;
+	
+	Cliente clienteSelecionadoParaBusca;
 	public RelatorioMB() {
 		aDao = new AgendaDAO();
 		rDao = new RelatorioDAO();
+		cDao = new ClienteDAO();
+		
+		clienteSelecionadoParaBusca = new Cliente();
 		visitaRealizada = aDao.listarAgenda("0");
+		listaClientesDropDown = cDao.listaCliente(1);
 	}
-	public void listaPorData() throws SQLException, ParseException {
-		visitaRealizada = rDao.listaAgendaKeyDown(buscaDataAtualizandoALista);
+	
+	
+	public void x() {
+		System.out.println("Entrou no método de listaPorData");
+	
+			if(rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados).size() > 1) {
+				visitaRealizada = rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados);
+				FacesContext.getCurrentInstance().addMessage("VISITAS ATUALIZADAS",
+						new FacesMessage("ATUALIZADO"));
+			}else {
+				visitaRealizada = null;
+				FacesContext.getCurrentInstance().addMessage("PROBLEMAS COM VISITAS",
+						new FacesMessage("PROBLEMAS"));
+			}
+	}
+	
+	public void listaPorData() throws SQLException, ParseException {	
+		System.out.println("Entrou no método de listaPorData");
+		if(rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados).size() > 1) {
+			visitaRealizada = rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados);
+			FacesContext.getCurrentInstance().addMessage("VISITAS ATUALIZADAS",
+					new FacesMessage("ATUALIZADO"));
+		}else {
+			visitaRealizada = null;
+			FacesContext.getCurrentInstance().addMessage("PROBLEMAS COM VISITAS",
+					new FacesMessage("PROBLEMAS"));
+		}
 	}
 	
 	public String converteDate(Date date) {
@@ -73,4 +112,35 @@ public class RelatorioMB {
 	public void setBuscaDataAtualizandoALista(String buscaDataAtualizandoALista) {
 		this.buscaDataAtualizandoALista = buscaDataAtualizandoALista;
 	}
+	public String getDataParaBuscarNoBancoDeDados() {
+		return dataParaBuscarNoBancoDeDados;
+	}
+	public void setDataParaBuscarNoBancoDeDados(String dataParaBuscarNoBancoDeDados) {
+		this.dataParaBuscarNoBancoDeDados = dataParaBuscarNoBancoDeDados;
+	}
+
+	public List<Cliente> getListaClientesDropDown() {
+		return listaClientesDropDown;
+	}
+
+	public void setListaClientesDropDown(List<Cliente> listaClientesDropDown) {
+		this.listaClientesDropDown = listaClientesDropDown;
+	}
+
+	public ClienteDAO getcDao() {
+		return cDao;
+	}
+
+	public void setcDao(ClienteDAO cDao) {
+		this.cDao = cDao;
+	}
+
+	public Cliente getClienteSelecionadoParaBusca() {
+		return clienteSelecionadoParaBusca;
+	}
+
+	public void setClienteSelecionadoParaBusca(Cliente clienteSelecionadoParaBusca) {
+		this.clienteSelecionadoParaBusca = clienteSelecionadoParaBusca;
+	}
+	
 }

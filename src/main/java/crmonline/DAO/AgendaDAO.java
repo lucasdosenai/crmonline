@@ -73,6 +73,7 @@ public class AgendaDAO {
 				a.setCodigo(rs.getInt("ID"));
 				a.setNome(rs.getString("NOME"));
 				a.setAtendente(rs.getString("ATENDENTE"));
+				
 				String data = rs.getString("DATAV");
 				SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
 				a.setData(b.parse(data));
