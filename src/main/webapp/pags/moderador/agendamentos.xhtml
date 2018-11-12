@@ -56,22 +56,10 @@
 				<h:outputText value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-<<<<<<< HEAD
-				<p:commandButton ajax="true" event="onclick"
-					action="#{agendaMB.excluiVisita}" styleClass="btn" value="Excluir">
-					<f:setPropertyActionListener value="#{a}"
-						target="#{agendaMB.agenda}" />
-					
-					<p:confirm header="Confirma ?" message="Deseja excluir a visita ?"
-						icon="ui-icon-alert" >
-						<p:ajax update=":formTabela:tabela"/>
-						</p:confirm>
-=======
 				<p:commandButton ajax="true" event="onclick" 
 					 styleClass="btn" value="Excluir" onclick="PF('confirmaExcluir').show();">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />	
->>>>>>> f5263836535c6ac8d8cd28d33a225713fe8bf42f
 				</p:commandButton>
 
 				<p:commandButton icon="ui-icon-pencil" value="Editar" update="dialog22"
@@ -206,11 +194,11 @@
 
 	<p:dialog widgetVar="realizar">
 		<h:form>
-			<h:outputText value="Classificação:" />
+			<h:outputText value="Ajax Rate:" />
 			<p:rating value="#{agendaMB.agenda.classificacao}">
 
 			</p:rating>
-			<h3>Observações:</h3>
+			<h3>AutoResize</h3>
 			<p:inputTextarea value="#{agendaMB.agenda.observacao}" rows="6"
 				cols="33" />
 
@@ -245,22 +233,16 @@
 			<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
 			<br>
 			</br>
-			<p:commandButton value="Voltar" ajax="true" onclick="PF('visualizar').hide();" />
+			<p:commandButton value="Voltar" ajax="true" />
 	</p:dialog>
 
 
 
 
-<<<<<<< HEAD
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		<p:commandButton value="Sim" type="button" 
-			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-=======
 	<p:dialog widgetVar="confirmaExcluir" header="Gostaria de excluir essa visita ?" >
 	<p:column headerText="">
 		<p:commandButton value="Sim" 
 			action="#{agendaMB.excluiVisita}" ajax="true" update=":formTabela:tabela" />
->>>>>>> f5263836535c6ac8d8cd28d33a225713fe8bf42f
 		<p:commandButton value="Não" type="button"
 			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 	</p:column>
