@@ -64,10 +64,9 @@
 						icon="ui-icon-alert" />
 				</p:commandButton>
 
-				<p:commandButton icon="ui-icon-pencil" value="Editar"
+				<p:commandButton icon="ui-icon-pencil" value="Editar" update="dialog22"
 					 oncomplete="PF('edite').show();">
-					<f:setPropertyActionListener value="#{a}"
-						target="#{agendaMB.agenda}" />
+					<f:setPropertyActionListener value="#{a}" target="#{agendaMB.agenda}" />
 				</p:commandButton>
 				<p:commandButton onclstyleClass="btn" value="Realizar"
 					onclick="PF('realizar').show();">
@@ -77,8 +76,7 @@
 						icon="ui-icon-alert" />
 				</p:commandButton>
 				<p:commandButton styleClass="btn" value="Visualizar" update="dlgVisu" oncomplete="PF('visualizar').show();" >
-					<f:setPropertyActionListener value="#{a}"
-						target="#{agendaMB.agenda}" />
+					<f:setPropertyActionListener value="#{a}" target="#{agendaMB.agenda}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
@@ -202,16 +200,13 @@
 			<p:rating value="#{agendaMB.agenda.classificacao}">
 
 			</p:rating>
-
-
-
 			<h3>AutoResize</h3>
 			<p:inputTextarea value="#{agendaMB.agenda.observacao}" rows="6"
 				cols="33" />
 
 			<p:commandButton value="Visita Concluída" ajax="true"
 				actionListener="#{agendaMB.realizaVisita}"
-				oncomplete="PF('realizar').hide();" />
+				oncomplete="PF('realizar').hide();"  update="formTabela:tabela"/>
 		</h:form>
 	</p:dialog>
 
@@ -234,7 +229,13 @@
 			<h:outputText value="#{agendaMB.agenda.data}" />
 			<h2>Hora</h2>
 			<h:outputText value="#{agendaMB.agenda.hora}" />
-			<p:commandButton value="Voltar"/>
+			<h2>Cliente</h2>
+			<h:outputText value="#{agendaMB.agenda.cliente.nome}" />
+			<h2>Curso</h2>
+			<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
+			<br>
+			</br>
+			<p:commandButton value="Voltar" ajax="true" />
 	</p:dialog>
 
 

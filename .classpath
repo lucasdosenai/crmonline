@@ -24,15 +24,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/nepo/.m2/repository/org/jboss/weld/servlet/weld-servlet/3.0.0.Alpha1/weld-servlet-3.0.0.Alpha1.jar" sourcepath="C:/Users/nepo/.m2/repository/org/jboss/weld/servlet/weld-servlet/3.0.0.Alpha1/weld-servlet-3.0.0.Alpha1-sources.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="org.eclipse.jst.component.archivename" value="weld-servlet-3.0.0.Alpha1.jar"/>
-			<attribute name="maven.groupId" value="org.jboss.weld.servlet"/>
-			<attribute name="maven.artifactId" value="weld-servlet"/>
-			<attribute name="maven.version" value="3.0.0.Alpha1"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
