@@ -14,7 +14,6 @@
 			height="200px" />
 	</div>
 	<p:toolbar>
-
 		<f:facet name="left">
 			<p:commandButton action="cadCliente?faces-redirect=true"
 				value="Imprimir Relatório" icon="ui-icon-plus" />
@@ -22,14 +21,16 @@
 			<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
 				<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
 	            <f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}" var="c" value="#{relatorioMB.listaClientesDropDown}">
-	            	
-	            </f:selectItems>
+	            	<f:setPropertyActionListener value="#{c}" target="#{relatorioMB.clienteSelecionadoParaBusca}"/>
+	            	<f:setPropertyActionListener value="cliente" target="#{relatorioMB.acao}"/>
+	            	<p:ajax update=":dataList" listener="#{relatorioMB.buscarRelatorios}"/>
+	           </f:selectItems>
 			</p:selectOneMenu>			
 		</f:facet>
 		<f:facet name="right">
 			<h:form>
 				<p:inputText placeholder="Busca por data"
-					value="#{relatorioMB.buscaDataAtualizandoALista}">
+					value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
 					<p:ajax event="keyup" listener="#{relatorioMB.listaPorData}"
 						update=":dataList" />
 				</p:inputText>
