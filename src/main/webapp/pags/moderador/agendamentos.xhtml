@@ -57,11 +57,9 @@
 			</p:column>
 			<p:column headerText="Editar">
 				<p:commandButton ajax="true" event="onclick" 
-					action="#{agendaMB.excluiVisita}" styleClass="btn" value="Excluir">
+					 styleClass="btn" value="Excluir" onclick="PF('confirmaExcluir').show();">
 					<f:setPropertyActionListener value="#{a}"
-						target="#{agendaMB.agenda}" />
-					<p:confirm header="Confirma ?" message="Deseja excluir a visita ?"
-						icon="ui-icon-alert" />
+						target="#{agendaMB.agenda}" />	
 				</p:commandButton>
 
 				<p:commandButton icon="ui-icon-pencil" value="Editar" update="dialog22"
@@ -241,12 +239,14 @@
 
 
 
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		<p:commandButton value="Sim" type="button"
-			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	<p:dialog widgetVar="confirmaExcluir" header="Gostaria de excluir essa visita ?" >
+	<p:column headerText="">
+		<p:commandButton value="Sim" 
+			action="#{agendaMB.excluiVisita}" ajax="true" update=":formTabela:tabela" />
 		<p:commandButton value="Não" type="button"
 			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-	</p:confirmDialog>
+	</p:column>
+	</p:dialog>
 
 </h:body>
 </html>

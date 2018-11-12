@@ -73,12 +73,11 @@ public class RelatorioDAO {
 	}
 	
 	public List<Agenda> listaAgendaKeyDown(String busca) {
-		String SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE" +" 12%";
+		String SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE '" + busca + "%'";
 		List<Agenda> listaCompleta = new ArrayList<>();
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(SQL);
-			//ps.setString(1, busca);
 			ResultSet rs = ps.executeQuery();
 		
 			while(rs.next()) {

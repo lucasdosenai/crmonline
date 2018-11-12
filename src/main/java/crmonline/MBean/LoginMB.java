@@ -12,7 +12,7 @@ import javax.xml.crypto.Data;
 import crmonline.DAO.UserDAO;
 import crmonline.Entidade.Usuario;
 
-@ManagedBean(eager = true)
+@ManagedBean
 @SessionScoped
 public class LoginMB {
 	private String usuario = "";
