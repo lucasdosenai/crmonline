@@ -23,7 +23,7 @@
 	            <f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}" var="c" value="#{relatorioMB.listaClientesDropDown}">
 	            	<f:setPropertyActionListener value="#{c}" target="#{relatorioMB.clienteSelecionadoParaBusca}"/>
 	            	<f:setPropertyActionListener value="cliente" target="#{relatorioMB.acao}"/>
-	            	
+	            	<p:ajax update=":dataList" listener="#{relatorioMB.buscarRelatorios}"/>
 	           </f:selectItems>
 			</p:selectOneMenu>			
 		</f:facet>
