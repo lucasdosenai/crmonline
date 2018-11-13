@@ -28,13 +28,10 @@ public class RelatorioMB {
 	ClienteDAO cDao;
 	RelatorioDAO rDao;
 	
-	String acao = "";
-	
 	String buscaDataAtualizandoALista;
 	String dataParaBuscarNoBancoDeDados;
 	
 	Cliente clienteSelecionadoParaBusca;
-	
 	public RelatorioMB() {
 		aDao = new AgendaDAO();
 		rDao = new RelatorioDAO();
@@ -45,18 +42,6 @@ public class RelatorioMB {
 		listaClientesDropDown = cDao.listaCliente(1);
 	}
 	
-	public void buscarRelatorios() {
-		try {
-			visitaRealizada = rDao.listaRelatorioPorTipo(clienteSelecionadoParaBusca.getCodigo(), acao);
-			if(visitaRealizada.size() > -1){
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("BUSCA REALIZADA"));
-			}
-		} catch (SQLException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	} 
 	
 	public void x() {
 		System.out.println("Entrou no método de listaPorData");
@@ -74,12 +59,12 @@ public class RelatorioMB {
 	
 	public void listaPorData() throws SQLException, ParseException {	
 		System.out.println("Entrou no método de listaPorData");
-		if(rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados).size() > -1) {
+		if(rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados).size() > 1) {
 			visitaRealizada = rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados);
 			FacesContext.getCurrentInstance().addMessage("VISITAS ATUALIZADAS",
 					new FacesMessage("ATUALIZADO"));
 		}else {
-			// visitaRealizada = null;
+			visitaRealizada = null;
 			FacesContext.getCurrentInstance().addMessage("PROBLEMAS COM VISITAS",
 					new FacesMessage("PROBLEMAS"));
 		}
@@ -156,14 +141,6 @@ public class RelatorioMB {
 
 	public void setClienteSelecionadoParaBusca(Cliente clienteSelecionadoParaBusca) {
 		this.clienteSelecionadoParaBusca = clienteSelecionadoParaBusca;
-	}
-
-	public String getAcao() {
-		return acao;
-	}
-
-	public void setAcao(String acao) {
-		this.acao = acao;
 	}
 	
 }
