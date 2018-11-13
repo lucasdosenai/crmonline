@@ -30,28 +30,30 @@
 		<f:facet name="left">
 			<p:commandButton onclick="PF('novaVisita').show();"
 				value="Nova Visita" icon="ui-icon-plus" />
-			
+
 			<p:commandButton value="Buscar Data" />
-			
-			<p:commandButton value="Buscar Hora"/>
-			
-			<p:selectOneMenu value="#{agendaMB.curso}" >
-			<f:selectItem itemLabel="Buscar p/ Curso" itemValue=""/>
-			<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}" value="#{agendaMB.cursos}" var="c"/>
-			
+
+			<p:commandButton value="Buscar Hora" />
+
+			<p:selectOneMenu value="#{agendaMB.curso}">
+				<f:selectItem itemLabel="Buscar p/ Curso" itemValue="" />
+				<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
+					value="#{agendaMB.cursos}" var="c" />
+
 			</p:selectOneMenu>
-			
+
 			<p:selectOneMenu>
-		<f:selectItem itemLabel="Buscar p/ Contato" itemValue="" />
-		<f:selectItems value="#{contatosMB.contatos}" var="c" itemLabel="#{c.nome}" itemValue="#{c.id}"/>
-	</p:selectOneMenu>
-			
+				<f:selectItem itemLabel="Buscar p/ Contato" itemValue="" />
+				<f:selectItems value="#{contatosMB.contatos}" var="c"
+					itemLabel="#{c.nome}" itemValue="#{c.id}" />
+			</p:selectOneMenu>
+
 			<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
-						<f:selectItem itemLabel="Buscar p/ Cliente" />
-						<f:selectItems value="#{clienteMB.clientes}" var="cli"
-							itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
-					</p:selectOneMenu>
-			
+				<f:selectItem itemLabel="Buscar p/ Cliente" />
+				<f:selectItems value="#{clienteMB.clientes}" var="cli"
+					itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
+			</p:selectOneMenu>
+
 		</f:facet>
 	</p:toolbar>
 	<h:form id="formTabela">
@@ -67,7 +69,7 @@
 					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-			
+
 				<p:commandButton ajax="true" event="onclick" styleClass="btn"
 					value="Excluir" onclick="PF('confirmaExcluir').show();">
 					<f:setPropertyActionListener value="#{a}"
@@ -86,7 +88,6 @@
 					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
 						icon="ui-icon-alert" />
 				</p:commandButton>
-<!-- <<<<<<< HEAD -->
 
 				<p:commandButton styleClass="btn" value="Visualizar"
 					update="dlgVisu" oncomplete="PF('visualizar').show();">
@@ -139,8 +140,6 @@
 		</p:dialog>
 	</h:form>
 
-
-
 	<p:dialog widgetVar="Add">
 		<h:form>
 			<center>
@@ -167,7 +166,6 @@
 			</center>
 		</h:form>
 	</p:dialog>
-
 
 	<p:dialog id="dialog22" draggable="true" maximizable="true"
 		header="EDITA CLIENTE" widgetVar="edite" minHeight="40">
@@ -203,7 +201,7 @@
 				</p:panelGrid>
 
 				<br />
-				<p:commandButton value="Aplicar" action="#{agendaMB.editaVisita()}"
+				<p:commandButton value="Aplicar" action="#{agendaMB.editaVisita}"
 					ajax="true" onclick="PF('dialog22').hide();" />
 
 			</p:column>
@@ -253,25 +251,29 @@
 		<h2>Curso</h2>
 		<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
 		<br> </br>
-		<p:commandButton value="Voltar" ajax="true" />
+		<p:commandButton value="Voltar" ajax="true"
+			onclick="PF('dlgVisu').hide();" />
 	</p:dialog>
 
 
 	<p:dialog widgetVar="confirmaExcluir"
 		header="Gostaria de excluir essa visita ?">
 		<p:column headerText="">
-			<p:commandButton value="Sim" action="#{agendaMB.excluiVisita}" onclick="PF('confirmaExcluir').hide();"
-				ajax="true" update=":formTabela:tabela" />
+			<p:commandButton value="Sim" action="#{agendaMB.excluiVisita}"
+				onclick="PF('confirmaExcluir').hide();" ajax="true"
+				update=":formTabela:tabela" />
 			<p:commandButton value="Não" type="button"
 				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 		</p:column>
 	</p:dialog>
-	
- <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-    </p:confirmDialog>    
-      
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sim" type="button"
+			styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+		<p:commandButton value="Não" type="button"
+			styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+	</p:confirmDialog>
+
 
 </h:body>
 </html>

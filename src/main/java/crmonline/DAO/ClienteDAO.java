@@ -56,7 +56,7 @@ public class ClienteDAO {
 			ps.setString(7, c.getCidade());
 			ps.setInt(8, c.getCategoria().getId());
 			ps.setInt(9, c.getCodigo());
-
+			
 			System.out.println(ps.toString());
 			return ps.executeUpdate() > 0;
 		} catch (SQLException e) {

@@ -148,6 +148,18 @@ public class AgendaDAO {
 		return ps.executeUpdate() > 0;	
 	}
 
+	public List<Agenda> filtro(Curso curso) throws SQLException {
+		
+		String SQL = "SELECT * FROM AGENDA WHERE ID_CURSO = ?";
+		PreparedStatement ps;
+		ps = con.prepareStatement(SQL);	
+		
+		ps.setInt(1, curso.getId());
+		
+		return ps.executeQuery() > 0;
+		
+	}
+	
 	public boolean excluiVisita(Integer codigo) throws SQLException {
 		String SQL = "DELETE FROM AGENDA WHERE ID = ? ";
 		PreparedStatement ps = con.prepareStatement(SQL);
