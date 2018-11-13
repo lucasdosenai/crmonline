@@ -7,6 +7,26 @@
 </h:head>
 
 <h:body>
+<p:growl id="messages" showDetail="true">
+		<p:autoUpdate />
+	</p:growl>
+	<nav class="nav-extended" style="background-color: black">
+		<div class="nav-content">
+			<ul class="tabs tabs-transparent">
+				<li class="tab"><a href="#"><h:graphicImage library="img"
+							name="logo.png" width="50px" height="50px" /></a></li>
+				<li class="tab"><a href="#test1">AGENDAMENTOS</a></li>
+				<li class="tab"><a href="#test2">CLIENTES</a></li>
+				<li class="tab" style="margin-right: 50%"><a href="#test4">CADASTRO</a></li>
+
+				<li class="tab"><a href="sass.html">Inicio</a></li>
+				<li class="tab"><a href="badges.html">PERFIL</a></li>
+				<li class="tab"><a href="collapsible.html">SAIR</a></li>
+			</ul>
+		</div>
+	</nav>
+   
+   
    
    <h:form id="formTabela">
 		<p:dataTable id="tabela" value="#{contatosMB.contatos}" var="c">
@@ -22,6 +42,10 @@
 			<p:column headerText="Email">
 				<h:outputText value="#{c.email}" />
 			</p:column>
+			<p:column headerText="Cargo">
+				<h:outputText value="#{c.cargo.nome}"/>
+			</p:column>
+			
 				
 			</p:dataTable>
 				</h:form>
