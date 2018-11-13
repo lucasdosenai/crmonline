@@ -24,13 +24,13 @@
 	            <f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}" var="c" value="#{relatorioMB.listaClientesDropDown}">
 	            	
 	            </f:selectItems>
-			</p:selectOneMenu>			
+			</p:selectOneMenu>		
 		</f:facet>
 		<f:facet name="right">
 			<h:form>
 				<p:inputText placeholder="Busca por data"
-					value="#{relatorioMB.buscaDataAtualizandoALista}">
-					<p:ajax event="keyup" listener="#{relatorioMB.listaPorData}"
+					value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
+					<p:ajax event="keyup" listener="#{relatorioMB.x}"
 						update=":dataList" />
 				</p:inputText>
 			</h:form>
