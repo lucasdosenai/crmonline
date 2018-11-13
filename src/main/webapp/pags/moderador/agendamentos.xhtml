@@ -67,18 +67,7 @@
 					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-<<<<<<< HEAD
-				<p:commandButton ajax="true" event="onclick" 
-					action="#{agendaMB.excluiVisita}" styleClass="btn" value="Excluir">
-					<f:setPropertyActionListener value="#{a}"
-						target="#{agendaMB.agenda}" />
-					<p:confirm header="Confirma ?" message="Deseja excluir a visita ?"
-						icon="ui-icon-alert" />
-				</p:commandButton>
-
-				<p:commandButton icon="ui-icon-pencil" value="Editar"
-					 oncomplete="PF('edite').show();">
-=======
+			
 				<p:commandButton ajax="true" event="onclick" styleClass="btn"
 					value="Excluir" onclick="PF('confirmaExcluir').show();">
 					<f:setPropertyActionListener value="#{a}"
@@ -87,7 +76,6 @@
 
 				<p:commandButton icon="ui-icon-pencil" value="Editar"
 					update="dialog22" oncomplete="PF('edite').show();">
->>>>>>> a0b6e3ea33dd8e4ebcd2bcf82cbe06d11bfa218d
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
@@ -98,12 +86,11 @@
 					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
 						icon="ui-icon-alert" />
 				</p:commandButton>
-<<<<<<< HEAD
-				<p:commandButton styleClass="btn" value="Visualizar" update="dlgVisu" oncomplete="PF('visualizar').show();" >
-=======
+<!-- <<<<<<< HEAD -->
+
 				<p:commandButton styleClass="btn" value="Visualizar"
 					update="dlgVisu" oncomplete="PF('visualizar').show();">
->>>>>>> a0b6e3ea33dd8e4ebcd2bcf82cbe06d11bfa218d
+
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
@@ -230,24 +217,15 @@
 			<p:rating value="#{agendaMB.agenda.classificacao}">
 
 			</p:rating>
-<<<<<<< HEAD
-
-
-
-			<h3>AutoResize</h3>
-=======
 			<h3>Observações:</h3>
->>>>>>> a0b6e3ea33dd8e4ebcd2bcf82cbe06d11bfa218d
+
 			<p:inputTextarea value="#{agendaMB.agenda.observacao}" rows="6"
 				cols="33" />
 
 			<p:commandButton value="Visita Concluída" ajax="true"
 				actionListener="#{agendaMB.realizaVisita}"
-<<<<<<< HEAD
-				oncomplete="PF('realizar').hide();" />
-=======
 				oncomplete="PF('realizar').hide();" update="formTabela:tabela" />
->>>>>>> a0b6e3ea33dd8e4ebcd2bcf82cbe06d11bfa218d
+
 		</h:form>
 	</p:dialog>
 
