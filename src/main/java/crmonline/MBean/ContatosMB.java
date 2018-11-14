@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import crmonline.DAO.CargoDAO;
 import crmonline.DAO.ClienteDAO;
 import crmonline.DAO.ContatoDAO;
+import crmonline.Entidade.Agenda;
 import crmonline.Entidade.Cargo;
 import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Contato;
@@ -23,19 +24,24 @@ public class ContatosMB {
 	private List<Cliente> clientes;
 	private Contato contato;
 	ContatoDAO cDAO;
+	List<Contato> listacontato;
 	Cargo cargo = new Cargo();
 	CargoDAO carDAO = new CargoDAO();
-
+	ClienteDAO cliDao ;
+	
 	private List<Contato> contatos;
 
 	public ContatosMB() {
 		cDAO = new ContatoDAO();
 		contato = new Contato();
 		carDAO = new CargoDAO();
+		
 		contatos = cDAO.listarcontato();
 		cargos = carDAO.listarcargo();
-		ClienteDAO cliDao = new ClienteDAO();
+		cliDao = new ClienteDAO();
 		clientes = cliDao.listaCliente(1);
+		listacontato = new ArrayList<>();
+		listacontato = cDAO.listarcontato();
 	}
 
 	public void inserircontato() throws SQLException {
@@ -55,7 +61,27 @@ public class ContatosMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir!"));
 		}
 	}
+	
+	public void editacago() {
+		if (cDAO.editarContato(contato)){
+			
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
+		}
+	}
+	
+	public void excluiVisita() throws SQLException {
+		if (cDAO.excluiVisita(contato.getId())) {
+			contatos = cDAO.listarcontato();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluido com Sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Excluir!"));
+		}
 
+	}
+	
 	public List<Cargo> getCargos() {
 		return cargos;
 	}
@@ -72,7 +98,7 @@ public class ContatosMB {
 		this.clientes = clientes;
 	}
 
-	public List<Contato> getContatos() {
+	public List<Contato> visualizar() {
 		return contatos;
 	}
 
@@ -110,6 +136,26 @@ public class ContatosMB {
 
 	public void setCarDAO(CargoDAO carDAO) {
 		this.carDAO = carDAO;
+	}
+
+	public List<Contato> getListacontato() {
+		return listacontato;
+	}
+
+	public void setListacontato(List<Contato> listacontato) {
+		this.listacontato = listacontato;
+	}
+
+	public ClienteDAO getCliDao() {
+		return cliDao;
+	}
+
+	public void setCliDao(ClienteDAO cliDao) {
+		this.cliDao = cliDao;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
 	}
 
 }

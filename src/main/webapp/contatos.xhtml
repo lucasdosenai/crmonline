@@ -7,7 +7,7 @@
 </h:head>
 
 <h:body>
-<p:growl id="messages" showDetail="true">
+	<p:growl id="messages" showDetail="true">
 		<p:autoUpdate />
 	</p:growl>
 	<nav class="nav-extended" style="background-color: black">
@@ -25,10 +25,25 @@
 			</ul>
 		</div>
 	</nav>
-   
-   
-   
-   <h:form id="formTabela">
+
+<p:dialog id="dlgVisu" widgetVar="visualizar">
+		<h2>Nome</h2>
+		<h:outputText value="#{contatosMB.contato.nome}" />
+		<h2>Telefone</h2>
+		<h:outputText value="#{contatosMB.contato.telefone}" />
+		<h2>Celular</h2>
+		<h:outputText value="#{contatosMB.contato.celular}" />
+		<h2>Email</h2>
+		<h:outputText value="#{contatosMB.contato.email}" />
+		<h2>Cargo</h2>
+	    <h:outputText value="#{contatosMB.contato.cargo.nome}"/>
+	    <h2>Cliente</h2>
+	    <h:outputText value="#{contatosMB.contato.cliente.nome}" /> 
+		<br> </br>
+		<p:commandButton value="Voltar" ajax="true" onclick="PF('visualizar').hide();" />
+	</p:dialog>
+
+	<h:form id="formTabela">
 		<p:dataTable id="tabela" value="#{contatosMB.contatos}" var="c">
 			<p:column headerText="Nome">
 				<h:outputText value="#{c.nome}" />
@@ -43,11 +58,116 @@
 				<h:outputText value="#{c.email}" />
 			</p:column>
 			<p:column headerText="Cargo">
-				<h:outputText value="#{c.cargo.nome}"/>
+				<h:outputText value="#{c.cargo.nome}" />
 			</p:column>
+
+			<p:column>
+				<p:commandButton icon="ui-icon-pencil" value="Editar"
+					oncomplete="PF('edite').show();" update="dialog22">
+					<f:setPropertyActionListener value="#{c}"
+						target="#{contatosMB.contato}" />
+				</p:commandButton>
+		
 			
-				
-			</p:dataTable>
-				</h:form>
+			
+			<p:commandButton ajax="true" event="onclick" styleClass="btn"
+					value="Excluir" onclick="PF('confirmaExcluir').show();">
+					<f:setPropertyActionListener value="#{c}"
+						target="#{contatosMB.contato}" />
+				</p:commandButton>
+			
+			
+			
+			<p:commandButton styleClass="btn" value="Visualizar"
+					update="dlgVisu" oncomplete="PF('visualizar').show();">
+
+					<f:setPropertyActionListener value="#{c}"
+						target="#{contatosMB.contato}" />
+				</p:commandButton>
+		</p:column>
+		</p:dataTable>
+		
+	</h:form>
+
+
+	<p:dialog id="dialog22" draggable="true" maximizable="true"
+		header="EDITA CLIENTE" widgetVar="edite" minHeight="40">
+		<h:form id="formEditar">
+			<p:column headerText="Editar Contato">
+				<p:inputText placeholder="NOME : "
+					value="#{contatosMB.contato.nome}" />
+				<br />
+				<p:inputText placeholder="Telefone : "
+					value="#{contatosMB.contato.telefone}" />
+				<br />
+
+
+				<p:inputMask placeholder="Celular" size="40"
+					styleClass="input_normal" mask="99:9999999"
+					value="#{contatosMB.contato.celular}" />
+
+				<p:inputText placeholder="Email : "
+					value="#{contatosMB.contato.email}" />
+				<br />
+
+				<p:growl id="messages" showDetail="true" />
+				<p:panelGrid columns="2">
+					<p:selectOneMenu value="#{contatosMB.contato.cargo.id}"
+						required="true" requiredMessage="O cargo é necessário">
+						<f:selectItem itemLabel="Selecionar Cargo" />
+						<f:selectItems value="#{contatosMB.cargos}" var="c"
+							itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
+					</p:selectOneMenu>
+					<p:commandButton value="+" onclick="PF('Add').show();" />
+				</p:panelGrid>
+				<p:selectOneMenu id="clientes"
+					value="#{contatosMB.contato.cliente.id}" required="true"
+					requiredMessage="O cliente é necessário">
+					<f:selectItem itemLabel="Selecionar Cliente" />
+					<f:selectItems value="#{contatosMB.clientes}" var="c"
+						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
+				</p:selectOneMenu>
+
+
+				<br />
+				<p:commandButton value="Aplicar" action="#{contatosMB.editacago}"
+					ajax="true" onclick="PF('dialog22').hide();" />
+
+			</p:column>
+		</h:form>
+
+	</p:dialog>
+
+<p:dialog widgetVar="confirmaExcluir"
+		header="Gostaria de excluir essa visita ?">
+		<p:column headerText="">
+			<p:commandButton value="Sim" action="#{contatosMB.excluiVisita}"
+				onsuccess="PF('confirmaExcluir').hide();" ajax="true"
+				update=":formTabela" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:column>
+	</p:dialog>
+
+	<p:dialog widgetVar="Add">
+		<h:form>
+			<center>
+				<p:panelGrid columns="1">
+					<p:inputText placeholder="Nome" value="#{contatosMB.cargo.nome}" />
+					<p:commandButton value="Salvar novo cargo !"
+						actionListener="#{contatosMB.salvarCargo}" update=":formEditar"
+						onsuccess="PF('Add').hide();" />
+				</p:panelGrid>
+			</center>
+		</h:form>
+	</p:dialog>
+
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sim" type="button"
+			styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+		<p:commandButton value="Não" type="button"
+			styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+	</p:confirmDialog>
+
 </h:body>
 </html>
