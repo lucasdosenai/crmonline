@@ -26,6 +26,7 @@ public class AgendaMB {
 	AgendaDAO aDao;
 	Agenda agenda = new Agenda();
 	Curso curso;
+	Curso novoCurso;
 	List<Curso> cursos;
 	
     Contato contato;
@@ -38,6 +39,7 @@ public class AgendaMB {
 	List<Agenda> visitas;
 
 	public AgendaMB() {
+		novoCurso = new Curso();
 		cDao = new CursoDAO();
 		aDao = new AgendaDAO();
 		classeGenericaDao = new ClasseGenericaDao();
@@ -105,6 +107,30 @@ public class AgendaMB {
 
 	}
 
+	public Curso getNovoCurso() {
+		return novoCurso;
+	}
+
+	public void setNovoCurso(Curso novoCurso) {
+		this.novoCurso = novoCurso;
+	}
+
+	public Contato getContato() {
+		return contato;
+	}
+
+	public void setContato(Contato contato) {
+		this.contato = contato;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
+	}
+
 	public AgendaDAO getaDao() {
 		return aDao;
 	}
@@ -170,9 +196,8 @@ public class AgendaMB {
 	}
 
 	public void salvarCurso() {
-
 		try {
-			if (cDao.salvarCurso(curso)) {
+			if (cDao.salvarCurso(novoCurso)) {
 				cursos = classeGenericaDao.listarCurso();
 				Mensagem.make("Curso " + curso.getNome() + " inserido com sucesso !");
 			} else {
@@ -183,7 +208,6 @@ public class AgendaMB {
 			e.printStackTrace();
 			Mensagem.make(e.toString());
 		}
-
 	}
 
 	public String getDate(Date date) {

@@ -27,7 +27,7 @@ public class RelatorioDAO {
 		Agenda a = new Agenda();
 		String SQL = "SELECT * FROM AGENDA";
 		
-		if(acao == "cliente") {
+		if(acao == "0") {
 			SQL = "SELECT * FROM AGENDA AS A INNER JOIN CLIENTE AS C ON "
 					+ "A.ID_CLIENTE = ? AND C.ID = A.ID_CLIENTE "
 					+ "INNER JOIN CURSO AS CG ON CG.ID = A.ID_CURSO";
