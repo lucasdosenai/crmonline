@@ -10,29 +10,31 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	
-	<p:toolbar >
-		<f:facet name="left">
-			<p:commandButton action="cadCliente?faces-redirect=true"
-				value="Imprimir Relatório" icon="ui-icon-plus" />
-			<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
-				<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
-				<f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}" var="c" 
-				value="#{relatorioMB.listaClientesDropDown}"/>
-				<p:ajax update="@all" event="change" listener="#{relatorioMB.filtrarClientes}"/>				
-			</p:selectOneMenu>
-		</f:facet>
-		<f:facet name="right">
-			<h:form>
-				<p:inputText placeholder="Busca por data"
-					value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
-					<p:ajax event="keyup" listener="#{relatorioMB.x}"
-						update=":dataList" />
-				</p:inputText>
-			</h:form>
-		</f:facet>
-	</p:toolbar>
+	<h:form>
+		<p:toolbar>
 
+			<f:facet name="left">
+				<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
+					<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
+					<f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}"
+						var="c" value="#{relatorioMB.listaClientesDropDown}" />
+					<p:ajax update="dataList" listener="#{relatorioMB.filtrarClientes}" />
+				</p:selectOneMenu>
+				<p:commandButton icon="ui-icon-search" ajax="true" update="dataList"
+					listener="#{relatorioMB.filtrarClientes}" />
+			</f:facet>
+
+			<f:facet name="right">
+				<h:form>
+					<p:inputText placeholder="Busca por data"
+						value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
+						<p:ajax event="keyup" listener="#{relatorioMB.x}"
+							update=":dataList" />
+					</p:inputText>
+				</h:form>
+			</f:facet>
+		</p:toolbar>
+	</h:form>
 	<h:panelGrid columns="3"
 		style="width:90%;margin:0 auto;border: none !important;">
 		<p:dataList id="dataList" value="#{relatorioMB.visitaRealizada}"
