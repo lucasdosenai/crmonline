@@ -148,14 +148,15 @@ public class AgendaDAO {
 		return ps.executeUpdate() > 0;	
 	}
 	
-	public List<Agenda> filtroListarCliente(Cliente c){
+	public List<Agenda> filtroListarCliente(Cliente ct) throws SQLException{
 		List<Agenda> agendas = new ArrayList<>();
 		String SQL = "SELECT * FROM AGENDA WHERE ID_CLIENTE = ? AND ESTADOS = 0"
 				+ "INNER JOIN CLIENTE AS C ON C.ID = AGENDA.ID_CLIENTE"
 				+ "INNER JOIN CURSO AS CS ON CS.ID = AGENDA.ID_CURSO";
 		PreparedStatement ps;
-		ps = con.prepareStatement(SQL);	
-		ps.setInt(1, c.getCodigo());
+		ps = con.prepareStatement(SQL);
+			
+		ps.setInt(1, ct.getCodigo());
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			Agenda a = new Agenda();
@@ -165,7 +166,12 @@ public class AgendaDAO {
 			
 			String data = rs.getString("DATAV");
 			SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
-			a.setData(b.parse(data));
+			try {
+				a.setData(b.parse(data));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			a.setHora(rs.getString("HORARIO"));
 			a.setEstadovisita(rs.getInt("ESTADOS"));
 			a.setClassificacao(rs.getString("CLASSFICACOES"));
@@ -182,7 +188,6 @@ public class AgendaDAO {
 			cs.setNome(rs.getString("CS.NOME"));
 			a.setCursoObj(cs);
 			a.setCurso(rs.getInt("ID_CURSO"));
-			
 			
 			agendas.add(a);
 		}

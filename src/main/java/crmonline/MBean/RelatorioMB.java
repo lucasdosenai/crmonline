@@ -31,13 +31,12 @@ public class RelatorioMB {
 	String buscaDataAtualizandoALista;
 	String dataParaBuscarNoBancoDeDados;
 	
-	Cliente clienteSelecionadoParaBusca;
+	Integer clienteSelecionadoParaBusca;
 	public RelatorioMB() {
 		aDao = new AgendaDAO();
 		rDao = new RelatorioDAO();
 		cDao = new ClienteDAO();
 		
-		clienteSelecionadoParaBusca = new Cliente();
 		visitaRealizada = aDao.listarAgenda("0");
 		listaClientesDropDown = cDao.listaCliente(1);
 	}
@@ -62,7 +61,9 @@ public class RelatorioMB {
 					new FacesMessage("PROBLEMAS"));
 		}
 	}
-	
+	public void filtrarClientes() throws SQLException, ParseException {
+		visitaRealizada = rDao.listaRelatorioPorTipo(clienteSelecionadoParaBusca, "0");
+	}
 	public String converteDate(Date date) {
 		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
 		return s.format(date);
@@ -128,11 +129,11 @@ public class RelatorioMB {
 		this.cDao = cDao;
 	}
 
-	public Cliente getClienteSelecionadoParaBusca() {
+	public Integer getClienteSelecionadoParaBusca() {
 		return clienteSelecionadoParaBusca;
 	}
 
-	public void setClienteSelecionadoParaBusca(Cliente clienteSelecionadoParaBusca) {
+	public void setClienteSelecionadoParaBusca(Integer clienteSelecionadoParaBusca) {
 		this.clienteSelecionadoParaBusca = clienteSelecionadoParaBusca;
 	}
 	
