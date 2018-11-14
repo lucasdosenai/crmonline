@@ -119,15 +119,15 @@ public class AgendaDAO {
 			ps.setString(2, a.getAtendente());
 
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			Calendar c = Calendar.getInstance();
+			// Calendar c = Calendar.getInstance();
 			String x = format.format(a.getData());
 			ps.setString(3, x);
 			ps.setString(4, a.getHora());
 			ps.setInt(5, a.getId_cliente());
-			ps.setInt(6, a.getCurso()); //  != -1 ? a.getCurso() : 0
+			ps.setInt(6, a.getCurso()); // == null? 0 : a.getCurso());
 			ps.setInt(7, a.getCodigo());
 
-			ps.executeUpdate();
+			if(ps.executeUpdate() > 0)
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

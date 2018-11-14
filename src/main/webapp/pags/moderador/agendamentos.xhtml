@@ -32,16 +32,14 @@
 				value="Nova Visita" icon="ui-icon-plus" />
 
 			<p:commandButton value="Buscar Data" />
-
 			<p:commandButton value="Buscar Hora" />
 
-			<p:selectOneMenu value="#{agendaMB.curso}">
+			<p:selectOneMenu value="#{agendaMB.curso.id}">
 				<f:selectItem itemLabel="Buscar p/ Curso" itemValue="" />
 				<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
 					value="#{agendaMB.cursos}" var="c" />
-
-			</p:selectOneMenu>
-
+			</p:selectOneMenu>	
+ 			
 			<p:selectOneMenu>
 				<f:selectItem itemLabel="Buscar p/ Contato" itemValue="" />
 				<f:selectItems value="#{contatosMB.contatos}" var="c"
@@ -140,32 +138,7 @@
 		</p:dialog>
 	</h:form>
 
-	<p:dialog widgetVar="Add">
-		<h:form>
-			<center>
-				<p:panelGrid columns="1">
-					<p:inputText placeholder="Nome" value="#{agendaMB.curso.nome}" />
-					<p:inputText placeholder="Vagas"
-						value="#{agendaMB.curso.VAGAS_TOTAL}" />
-					<p:inputText placeholder="Descrição"
-						value="#{agendaMB.curso.DESCRI}" />
-					<p:inputText placeholder="Duração"
-						value="#{agendaMB.curso.DURACAO}" />
 
-					<p:selectOneMenu id="cursos" value="#{agendaMB.curso.CATEGORIA.id}"
-						required="true" requiredMessage="Uma categoria é necessaria !">
-						<f:selectItem itemLabel="Selecionar Categoria" itemValue="" />
-						<f:selectItems var="c" value="#{agendaMB.categorias}"
-							itemLabel="#{c.nome}" itemValue="#{c.id}" />
-					</p:selectOneMenu>
-				</p:panelGrid>
-				<br />
-				<p:commandButton value="Salvar novo curso !"
-					action="#{agendaMB.salvarCurso}" ajax="true"
-					update=":formNovaVisita:cursos" event="click" />
-			</center>
-		</h:form>
-	</p:dialog>
 
 	<p:dialog id="dialog22" draggable="true" maximizable="true"
 		header="EDITA CLIENTE" widgetVar="edite" minHeight="40">
@@ -273,7 +246,33 @@
 		<p:commandButton value="Não" type="button"
 			styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 	</p:confirmDialog>
+	
+	<p:dialog widgetVar="Add">
+		<h:form>
+			<center>
+				<p:panelGrid columns="1">
+					<p:inputText placeholder="Nome" value="#{agendaMB.novoCurso.nome}" />
+					<p:inputText placeholder="Vagas"
+						value="#{agendaMB.novoCurso.VAGAS_TOTAL}" />
+					<p:inputText placeholder="Descrição"
+						value="#{agendaMB.novoCurso.DESCRI}" />
+					<p:inputText placeholder="Duração"
+						value="#{agendaMB.novoCurso.DURACAO}" />
 
+					<p:selectOneMenu id="cursos" value="#{agendaMB.novoCurso.CATEGORIA.id}"
+						required="true" requiredMessage="Uma categoria é necessaria !">
+						<f:selectItem itemLabel="Selecionar Categoria" itemValue="" />
+						<f:selectItems var="c" value="#{agendaMB.categorias}"
+							itemLabel="#{c.nome}" itemValue="#{c.id}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+				<br />
+				<p:commandButton value="Salvar novo curso !"
+					action="#{agendaMB.salvarCurso}" ajax="true"
+					update=":formNovaVisita:cursos" event="click" />
+			</center>
+		</h:form>
+	</p:dialog> 
 
 </h:body>
 </html>
