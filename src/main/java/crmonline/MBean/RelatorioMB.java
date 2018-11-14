@@ -62,7 +62,10 @@ public class RelatorioMB {
 		}
 	}
 	public void filtrarClientes() throws SQLException, ParseException {
-		visitaRealizada = rDao.listaRelatorioPorTipo(clienteSelecionadoParaBusca, "0");
+		if(clienteSelecionadoParaBusca != 0) visitaRealizada = 
+				rDao.listaRelatorioPorTipo(clienteSelecionadoParaBusca, "0");
+		else visitaRealizada = aDao.listarAgenda("0");
+			
 	}
 	public String converteDate(Date date) {
 		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");

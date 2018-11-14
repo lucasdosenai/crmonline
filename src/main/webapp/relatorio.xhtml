@@ -5,33 +5,58 @@
 <h:head>
 	<h:outputStylesheet library="css" name="estilo.css" />
 	<h:outputStylesheet library="css" name="pushy.css" />
+	<h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 <h:body styleClass="teste">
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	
-	<p:toolbar >
-		<f:facet name="left">
-			<p:commandButton action="cadCliente?faces-redirect=true"
-				value="Imprimir Relatório" icon="ui-icon-plus" />
-			<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
-				<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
-				<f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}" var="c" 
-				value="#{relatorioMB.listaClientesDropDown}"/>
-				<p:ajax update="@all" event="change" listener="#{relatorioMB.filtrarClientes}"/>				
-			</p:selectOneMenu>
-		</f:facet>
-		<f:facet name="right">
-			<h:form>
-				<p:inputText placeholder="Busca por data"
-					value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
-					<p:ajax event="keyup" listener="#{relatorioMB.x}"
-						update=":dataList" />
-				</p:inputText>
-			</h:form>
-		</f:facet>
-	</p:toolbar>
+	<div class="menu-lateral transform" id="menu-lateral">
+            <div style="padding: 10px; padding-right: 15px;  text-align: right">
+                <span class="botao-fechar-menu">x</span>
+            </div>
+            <div class="menu-lateral-info-usuario">
+            	<h:graphicImage library="images" name="usuario.svg" width="28px"></h:graphicImage>
+                <span>#{principalMBean.usuario.nome}</span>
+            </div>
+            <div class="menu-lateral-opcoes" style="top: 0">
+            	<div>
+                	<a class="menu-lateral-opcao" href="http://localhost:8080/Giventario/inicio.xhtml" target="conteudo">Início</a>
+                </div>
+                <div>
+                	<a class="menu-lateral-opcao" href="http://localhost:8080/Giventario/itens.xhtml" target="conteudo" id="opcao_itens">Itens</a>
+                	<div style="display:none; background-color: #3D3D3D" id="submenu_itens">
+                		<a class="opcao_submenu" href="http://localhost:8080/Giventario/cadastroItem.xhtml">Cadastrar Item</a>
+                	</div>
+                </div>
+                <a class="menu-lateral-opcao" href="salas.xhtml" target="conteudo">Salas</a>
+                <a class="menu-lateral-opcao" href="conferencias.xhtml" target="conteudo">Conferências</a>
+                <a class="menu-lateral-opcao" href="configuracoes.xhtml" target="conteudo">Configurações</a>
+            </div>
+        </div>
+        
+
+		<p:toolbar>
+			<f:facet name="left">
+			<p:commandButton value="☰" ajax="true" update="dataList" id="botao" />
+			</f:facet>
+
+			<f:facet name="right">
+				<h:form>
+					<p:inputText placeholder="Busca por data"
+						value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
+						<p:ajax event="keyup" listener="#{relatorioMB.x}"
+							update=":dataList" />
+					</p:inputText>
+					<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
+					<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
+					<f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}"
+						var="c" value="#{relatorioMB.listaClientesDropDown}" />
+					<p:ajax update="dataList" listener="#{relatorioMB.filtrarClientes}" />
+				</p:selectOneMenu>
+				</h:form>
+			</f:facet>
+		</p:toolbar>
 
 	<h:panelGrid columns="3"
 		style="width:90%;margin:0 auto;border: none !important;">
@@ -63,5 +88,23 @@
 			<hr />
 		</p:dataList>
 	</h:panelGrid>
+	
 </h:body>
+<script>
+        $("#botao").click(function() {
+            $("#menu-lateral").addClass("menu-aberto");
+        });
+         
+        $(".botao-fechar-menu").click(function() {
+            $("#menu-lateral").removeClass("menu-aberto");
+        });
+         
+        $(".menu-lateral-opcao").click(function() {
+            if (this.id == "opcao_itens") {
+            	$("#submenu_itens").toggleClass("block");
+            }
+        });
+        
+        
+    </script>
 </html>
