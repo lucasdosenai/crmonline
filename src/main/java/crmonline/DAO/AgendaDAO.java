@@ -147,17 +147,86 @@ public class AgendaDAO {
 		
 		return ps.executeUpdate() > 0;	
 	}
-
-	public List<Agenda> filtro(Curso curso) throws SQLException {
-		
-		String SQL = "SELECT * FROM AGENDA WHERE ID_CURSO = ?";
+	
+	public List<Agenda> filtroListarCliente(Cliente c){
+		List<Agenda> agendas = new ArrayList<>();
+		String SQL = "SELECT * FROM AGENDA WHERE ID_CLIENTE = ? AND ESTADOS = 0"
+				+ "INNER JOIN CLIENTE AS C ON C.ID = AGENDA.ID_CLIENTE"
+				+ "INNER JOIN CURSO AS CS ON CS.ID = AGENDA.ID_CURSO";
 		PreparedStatement ps;
 		ps = con.prepareStatement(SQL);	
-		
+		ps.setInt(1, c.getCodigo());
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Agenda a = new Agenda();
+			a.setCodigo(rs.getInt("ID"));
+			a.setNome(rs.getString("NOME"));
+			a.setAtendente(rs.getString("ATENDENTE"));
+			
+			String data = rs.getString("DATAV");
+			SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
+			a.setData(b.parse(data));
+			a.setHora(rs.getString("HORARIO"));
+			a.setEstadovisita(rs.getInt("ESTADOS"));
+			a.setClassificacao(rs.getString("CLASSFICACOES"));
+			a.setObservacao(rs.getString("OBSERVACOES"));
+			a.setId_visitante(rs.getInt("ID_VISITANTE"));
+			a.setId_cliente(rs.getInt("ID_CLIENTE"));
+			
+			Cliente c = new Cliente();
+			c.setCodigo(rs.getInt("id_cliente"));
+			c.setNome(rs.getString("C.NOME"));
+			a.setCliente(c);
+			
+			Curso cs = new Curso();
+			cs.setNome(rs.getString("CS.NOME"));
+			a.setCursoObj(cs);
+			a.setCurso(rs.getInt("ID_CURSO"));
+			
+			
+			agendas.add(a);
+		}
+		return agendas;
+	}
+	public List<Agenda> filtroListarCurso(Curso curso) throws SQLException, ParseException {
+		List<Agenda> agendas = new ArrayList<>();
+		String SQL = "SELECT * FROM AGENDA WHERE ID_CURSO = ? AND ESTADOS = 0"
+				+ "INNER JOIN CLIENTE AS C ON C.ID = AGENDA.ID_CLIENTE"
+				+ "INNER JOIN CURSO AS CS ON CS.ID = AGENDA.ID_CURSO";
+		PreparedStatement ps;
+		ps = con.prepareStatement(SQL);	
 		ps.setInt(1, curso.getId());
-		
-		return ps.executeQuery() > 0;
-		
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			Agenda a = new Agenda();
+			a.setCodigo(rs.getInt("ID"));
+			a.setNome(rs.getString("NOME"));
+			a.setAtendente(rs.getString("ATENDENTE"));
+			
+			String data = rs.getString("DATAV");
+			SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
+			a.setData(b.parse(data));
+			a.setHora(rs.getString("HORARIO"));
+			a.setEstadovisita(rs.getInt("ESTADOS"));
+			a.setClassificacao(rs.getString("CLASSFICACOES"));
+			a.setObservacao(rs.getString("OBSERVACOES"));
+			a.setId_visitante(rs.getInt("ID_VISITANTE"));
+			a.setId_cliente(rs.getInt("ID_CLIENTE"));
+			
+			Cliente c = new Cliente();
+			c.setCodigo(rs.getInt("id_cliente"));
+			c.setNome(rs.getString("C.NOME"));
+			a.setCliente(c);
+			
+			Curso cs = new Curso();
+			cs.setNome(rs.getString("CS.NOME"));
+			a.setCursoObj(cs);
+			a.setCurso(rs.getInt("ID_CURSO"));
+			
+			
+			agendas.add(a);
+		}
+		return agendas;
 	}
 	
 	public boolean excluiVisita(Integer codigo) throws SQLException {
@@ -166,8 +235,4 @@ public class AgendaDAO {
 		ps.setInt(1, codigo);
 		return ps.executeUpdate() > 0;
 	}
-	
-	
-	
-	
 }
