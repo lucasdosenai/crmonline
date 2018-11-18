@@ -11,17 +11,21 @@
 </h:head>
 
 <h:body>
-	<h:form>
-		<p:growl id="messages" />
-	</h:form>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+
 	<div class="menu-lateral transform" id="menu-lateral">
+
 		<div style="padding: 10px; padding-right: 15px; text-align: right">
 			<span class="botao-fechar-menu">x</span>
 		</div>
+
 		<div class="menu-lateral-info-usuario">
 			<h:graphicImage library="images" name="usuario.svg" width="28px"></h:graphicImage>
 			<span>#{principalMBean.usuario.nome}</span>
 		</div>
+
 		<div class="menu-lateral-opcoes" style="top: 0">
 			<div>
 				<a class="menu-lateral-opcao"
@@ -67,8 +71,9 @@
 		<h:panelGrid id="pagina" columns="1"
 			style="width:30% !important; float:left;">
 			<h:form>
-				<p:dataList value="#{relatorioMB.visitaRealizada}"
-					var="visitasRealizada" type="ordered">
+				<p:dataList emptyMessage="Não foram encontradas visitas"
+					value="#{relatorioMB.visitaRealizada}" var="visitasRealizada"
+					type="ordered">
 
 					<p:commandLink ajax="true" update="dialogInformaVisita"
 						oncomplete="PF('informaVisita').show();">
