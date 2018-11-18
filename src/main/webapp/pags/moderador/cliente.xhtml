@@ -5,77 +5,41 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
-	<style>
-.textoID td {
-	background-color: #000;
-	border-color: #fff;
-	width: 100px !important;
-	height: 32px;
-	font-size: 32px;
-}
-
-.clientes {
-	width: 25%;
-	float: left;
-	padding: 0;
-	margin: 0 auto;
-	text-align: center;
-	text-decoration: blink;
-}
-
-body {
-	width: 100%;
-	margin: 0 auto;
-}
-
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #333;
-	position: -webkit-sticky; /* Safari */
-	position: sticky;
-	top: 0;
-}
-
-.li {
-	float: left;
-}
-
-li a {
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-}
-
-li a:hover {
-	background-color: #111;
-}
-
-.active {
-	background-color: #4CAF50;
-}
-</style>
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputStylesheet library="css" name="pushy.css" />
+	<h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 
 <h:body>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<div class="header">
-		<h2>CRM ONLINE</h2>
-		<p>Mais produtividade para geral</p>
+	<div class="menu-lateral transform" id="menu-lateral">
+		<div style="padding: 10px; padding-right: 15px; text-align: right">
+			<span class="botao-fechar-menu">x</span>
+		</div>
+		<div class="menu-lateral-info-usuario">
+			<h:graphicImage library="images" name="usuario.svg" width="28px"></h:graphicImage>
+			<span>#{principalMBean.usuario.nome}</span>
+		</div>
+		<div class="menu-lateral-opcoes" style="top: 0">
+			<div>
+				<a class="menu-lateral-opcao"
+					href="http://localhost:8080/crmonline/pags/moderador/index.xhtml"
+					target="conteudo">Início</a>
+			</div>
+			<div>
+				<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml" target="conteudo" id="opcao_itens">Clientes</a>
+			</div>
+			<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/relatorio.xhtml" target="conteudo">Relatórios</a>
+		 	<a class="opcao_submenu" href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+		 </div>
 	</div>
-
-	<ul>
-		<li><a class="active" href="#home">INICIO</a></li>
-		<li><a href="#news">AGEDAMENTOS</a></li>
-		<li><a href="#contact">CLIENTES</a></li>
-		<li><a href="#contact">CONTATOS</a></li>
-	</ul>
+	<p:toolbar>
+		<f:facet name="left">
+			<p:commandButton value="☰" ajax="true" id="botao" />
+		</f:facet>
+	</p:toolbar>
 	<p:column>
 		<h:form>
 			<p:panelGrid columns="5">
@@ -247,4 +211,21 @@ li a:hover {
 		</p:dialog>
 	</h:form>
 </h:body>
+<script>
+        $("#botao").click(function() {
+            $("#menu-lateral").addClass("menu-aberto");
+        });
+         
+        $(".botao-fechar-menu").click(function() {
+            $("#menu-lateral").removeClass("menu-aberto");
+        });
+         
+        $(".menu-lateral-opcao").click(function() {
+            if (this.id == "opcao_itens") {
+            	$("#submenu_itens").toggleClass("block");
+            }
+        });
+        
+        
+    </script>
 </html>
