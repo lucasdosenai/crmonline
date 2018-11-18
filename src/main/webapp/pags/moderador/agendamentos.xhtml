@@ -38,8 +38,8 @@
 				<f:selectItem itemLabel="Buscar p/ Curso" itemValue="" />
 				<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
 					value="#{agendaMB.cursos}" var="c" />
-			</p:selectOneMenu>	
- 			
+			</p:selectOneMenu>
+
 			<p:selectOneMenu>
 				<f:selectItem itemLabel="Buscar p/ Contato" itemValue="" />
 				<f:selectItems value="#{contatosMB.contatos}" var="c"
@@ -158,13 +158,17 @@
 					value="#{agendaMB.agenda.hora}" />
 
 				<p:panelGrid columns="2">
-					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
+					<p:selectOneMenu required="true"
+						requiredMessage="Um cliente é necessário"
+						value="#{agendaMB.agenda.id_cliente}">
 						<f:selectItem itemLabel="Selecionar Cliente" />
 						<f:selectItems value="#{clienteMB.clientes}" var="cli"
 							itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
 					</p:selectOneMenu>
 					<h:panelGrid columns="2">
-						<p:selectOneMenu id="cursos" value="#{agendaMB.agenda.curso}">
+						<p:selectOneMenu required="true"
+							requiredMessage="Um curso é necessário" id="cursos"
+							value="#{agendaMB.agenda.curso}">
 							<f:selectItem itemLabel="Selecionar Curso" />
 							<f:selectItems var="c" value="#{agendaMB.cursos}"
 								itemLabel="#{c.nome}" itemValue="#{c.id}" />
@@ -246,7 +250,7 @@
 		<p:commandButton value="Não" type="button"
 			styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 	</p:confirmDialog>
-	
+
 	<p:dialog widgetVar="Add">
 		<h:form>
 			<center>
@@ -259,8 +263,9 @@
 					<p:inputText placeholder="Duração"
 						value="#{agendaMB.novoCurso.DURACAO}" />
 
-					<p:selectOneMenu id="cursos" value="#{agendaMB.novoCurso.CATEGORIA.id}"
-						required="true" requiredMessage="Uma categoria é necessaria !">
+					<p:selectOneMenu id="cursos"
+						value="#{agendaMB.novoCurso.CATEGORIA.id}" required="true"
+						requiredMessage="Uma categoria é necessaria !">
 						<f:selectItem itemLabel="Selecionar Categoria" itemValue="" />
 						<f:selectItems var="c" value="#{agendaMB.categorias}"
 							itemLabel="#{c.nome}" itemValue="#{c.id}" />
@@ -272,7 +277,6 @@
 					update=":formNovaVisita:cursos" event="click" />
 			</center>
 		</h:form>
-	</p:dialog> 
-
+	</p:dialog>
 </h:body>
 </html>
