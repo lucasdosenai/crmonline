@@ -30,28 +30,21 @@
 		<f:facet name="left">
 			<p:commandButton onclick="PF('novaVisita').show();"
 				value="Nova Visita" icon="ui-icon-plus" />
-
-			<p:commandButton value="Buscar Data" />
-			<p:commandButton value="Buscar Hora" />
-
+			<h:form>
 			<p:selectOneMenu value="#{agendaMB.curso.id}">
-				<f:selectItem itemLabel="Buscar p/ Curso" itemValue="" />
+				<f:selectItem itemLabel="Buscar p/ Curso" />
 				<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
 					value="#{agendaMB.cursos}" var="c" />
+					<p:ajax listener="#{agendaMB.listacurso}" update=":formTabela:tabela" />
 			</p:selectOneMenu>
-
-			<p:selectOneMenu>
-				<f:selectItem itemLabel="Buscar p/ Contato" itemValue="" />
-				<f:selectItems value="#{contatosMB.contatos}" var="c"
-					itemLabel="#{c.nome}" itemValue="#{c.id}" />
-			</p:selectOneMenu>
-
-			<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
-				<f:selectItem itemLabel="Buscar p/ Cliente" />
-				<f:selectItems value="#{clienteMB.clientes}" var="cli"
-					itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
-			</p:selectOneMenu>
-
+			
+			
+				<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
+					<f:selectItem itemLabel="Buscar p/ Cliente" />
+					<f:selectItems value="#{clienteMB.clientes}" var="cli" itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
+					<p:ajax listener="#{agendaMB.listacliente}" update=":formTabela:tabela"/>
+				</p:selectOneMenu>
+			</h:form>
 		</f:facet>
 	</p:toolbar>
 	<h:form id="formTabela">
@@ -63,11 +56,9 @@
 				<h:outputText value="#{a.atendente}" />
 			</p:column>
 			<p:column headerText="Data e Hora da Visita">
-				<h:outputText
-					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
+				<h:outputText value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-
 				<p:commandButton ajax="true" event="onclick" styleClass="btn"
 					value="Excluir" onclick="PF('confirmaExcluir').show();">
 					<f:setPropertyActionListener value="#{a}"
