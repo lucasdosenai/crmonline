@@ -29,6 +29,8 @@ public class ContatosMB {
 	CargoDAO carDAO = new CargoDAO();
 	ClienteDAO cliDao ;
 	
+	Integer codigoCargoParaBuscar,codigoClienteParaBuscar;
+	
 	private List<Contato> contatos;
 
 	public ContatosMB() {
@@ -82,6 +84,24 @@ public class ContatosMB {
 
 	}
 	
+	
+	
+	public Integer getCodigoClienteParaBuscar() {
+		return codigoClienteParaBuscar;
+	}
+
+	public void setCodigoClienteParaBuscar(Integer codigoClienteParaBuscar) {
+		this.codigoClienteParaBuscar = codigoClienteParaBuscar;
+	}
+
+	public Integer getCodigoCargoParaBuscar() {
+		return codigoCargoParaBuscar;
+	}
+
+	public void setCodigoCargoParaBuscar(Integer codigoCargoParaBuscar) {
+		this.codigoCargoParaBuscar = codigoCargoParaBuscar;
+	}
+
 	public List<Cargo> getCargos() {
 		return cargos;
 	}

@@ -34,6 +34,7 @@
 			</div>
 			<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/relatorio.xhtml" target="conteudo">Relatórios</a>
 		 	<a class="opcao_submenu" href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/contatos.xhtml" target="conteudo">Contatos</a>
 		 </div>
 	</div>
 	<p:toolbar>
@@ -54,7 +55,7 @@
 			value="#{homeMB.visitaPendenteClicadaParaVisualizar.cursoObj.nome}" />
 	</p:dialog>
 
-	<p:panelGrid columns="5" style="width:100%;">
+	<p:panelGrid columns="5" style="width:100%; overflow: visible;">
 		<h:panelGrid id="pagina" columns="1"
 			style="width:30% !important; float:left;">
 			<h:form>
@@ -66,19 +67,14 @@
 						oncomplete="PF('informaVisita').show();">
 						<p:panel>
 							<f:facet name="header"> #{visitasRealizada.nome} </f:facet>
-							<h:outputText value="Dia : "
-								style="display:inline-block; font-weight: bold;" />
-							<h:outputText
-								value="#{relatorioMB.converteDate(visitasRealizada.data)}" />
+							<h:outputText value="Dia : " style="display:inline-block; font-weight: bold;" />
+							<h:outputText value="#{relatorioMB.converteDate(visitasRealizada.data)}" />
 							<br />
-							<h:outputText value="Hora : "
-								style="display:inline-block; font-weight: bold;" />
+							<h:outputText value="Hora : " style="display:inline-block; font-weight: bold;" />
 							<h:outputText value="#{visitasRealizada.hora}" />
 							<br />
-							<h:outputText value="Empresa : "
-								style="display:inline-block; font-weight: bold;" />
-							<h:outputText
-								value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}" />
+							<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;" />
+							<h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}" />
 						</p:panel>
 						<f:setPropertyActionListener value="#{visitasRealizada}"
 							target="#{homeMB.visitaPendenteClicadaParaVisualizar}" />
