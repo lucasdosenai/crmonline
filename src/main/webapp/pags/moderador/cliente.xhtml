@@ -70,37 +70,43 @@
 			<p:dialog id="dialog" header="NOVO CLIENTE" widgetVar="newC"
 				minHeight="40">
 				<p:column headerText="Novo Cliente">
+					<p:panelGrid columns="2">
+					
+					<p:outputLabel value="Nome"/>
+					<p:inputText value="#{clienteMB.cliente.nome}"/>
+					
+					<p:outputLabel value="Colaboradores"/>
+					<p:inputText value="#{clienteMB.cliente.numeroFuncionario}"/>
+					
+					<p:outputLabel value="Cnpj"/>
+					<p:inputMask mask="99.999.999/9999-99" value="#{clienteMB.cliente.cnjp}"/>
+					
+					<p:outputLabel value="Telefone"/>
+					<p:inputMask mask="(99) 9999-9999" value="#{clienteMB.cliente.telefone}"/>
+					
+					<p:outputLabel value="Email"/>
+					<p:inputText value="#{clienteMB.cliente.email}"/>
+					
+					<p:outputLabel value="Logradouro"/>
+					<p:inputText value="#{clienteMB.cliente.logradouro}"/>
+					
+					<p:outputLabel value="Cidade"/>
+					<p:inputText value="#{clienteMB.cliente.cidade}"/>
+					
+					<p:outputLabel value="Ramo"/>
+					<p:panel>
+						<p:selectOneMenu id="categoria"
+							value="#{clienteMB.cliente.categoria.id}" style="width:150px">
+							<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
+								itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
+						</p:selectOneMenu>
+						<p:commandButton icon="ui-icon-plus" ajax="true"
+							onclick="PF('newCT').show();" />
+					</p:panel>
+					</p:panelGrid>
 
-					<p:inputText placeholder="NOME : "
-						value="#{clienteMB.cliente.nome}" />
-					<br />
-					<p:inputText placeholder="COLABORADORES : "
-						value="#{clienteMB.cliente.numeroFuncionario}" />
-					<br />
-					<p:inputText placeholder="CNPJ : "
-						value="#{clienteMB.cliente.cnjp}" />
-					<br />
-					<p:inputText placeholder="TELEFONE : "
-						value="#{clienteMB.cliente.telefone}" />
-					<br />
-					<p:inputText placeholder="EMAIL : "
-						value="#{clienteMB.cliente.email}" />
-					<br />
-					<p:inputText placeholder="LOGRADOURO : "
-						value="#{clienteMB.cliente.logradouro}" />
-					<br />
-					<p:inputText placeholder="CIDADE : "
-						value="#{clienteMB.cliente.cidade}" />
-					<br />
-					<p:selectOneMenu id="categoria"
-						value="#{clienteMB.cliente.categoria.id}" style="width:150px">
-						<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
-							itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
-					</p:selectOneMenu>
-					<p:commandButton icon="ui-icon-plus" ajax="true"
-						onclick="PF('newCT').show();" />
 					<p:dialog widgetVar="newCT">
 						<p:ajax listener="#{categoriaMB.att}" update="categoria" />
 						<p:inputText placeholder="NOME : "
@@ -114,7 +120,6 @@
 					<p:commandButton value="Adicionar"
 						action="#{clienteMB.novoCliente}" ajax="true"
 						update="listaCompletaCliente" />
-					<p:commandButton value="Atualizar" action="#{categoriaMB}" />
 				</p:column>
 			</p:dialog>
 		</h:form>
@@ -122,7 +127,7 @@
 	<p:panelGrid id="listaCompletaCliente" columns="1"
 		style="width:100% !important;">
 		<h:form>
-			<p:dataTable id="teste" var="cliente" value="#{clienteMB.clientes}">
+			<p:dataTable id="teste" var="cliente" value="#{clienteMB.clientes}" emptyMessage="Não foi encontrado nenhum cliente">
 				<p:column>
 					<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
 				</p:column>
@@ -163,25 +168,32 @@
 		header="EDITA CLIENTE" widgetVar="editC" minHeight="40">
 		<h:form>
 			<p:column headerText="Editar Cliente">
-				<p:inputText placeholder="NOME : " value="#{clienteMB.cliente.nome}" />
-				<br />
-				<p:inputText placeholder="COLABORADORES : "
-					value="#{clienteMB.cliente.numeroFuncionario}" />
-				<br />
-				<p:inputText placeholder="CNPJ : " value="#{clienteMB.cliente.cnjp}" />
-				<br />
-				<p:inputText placeholder="TELEFONE : "
-					value="#{clienteMB.cliente.telefone}" />
-				<br />
-				<p:inputText placeholder="EMAIL : "
-					value="#{clienteMB.cliente.email}" />
-				<br />
-				<p:inputText placeholder="LOGRADOURO : "
-					value="#{clienteMB.cliente.logradouro}" />
-				<br />
-				<p:inputText placeholder="CIDADE : "
-					value="#{clienteMB.cliente.cidade}" />
-				<br />
+				<p:panelGrid columns="2">
+				
+				<p:outputLabel value="NOME :" /> 
+				<p:inputText value="#{clienteMB.cliente.nome}" />
+				
+				<p:outputLabel value="COLABORADORES : " /> 
+				<p:inputText value="#{clienteMB.cliente.numeroFuncionario}" />
+			
+				<p:outputLabel value="CNPJ : " /> 
+				<p:inputText value="#{clienteMB.cliente.cnjp}" />
+				
+				<p:outputLabel value="TELEFONE :" /> 
+				<p:inputText value="#{clienteMB.cliente.telefone}" />
+				
+				<p:outputLabel value="EMAIL : " /> 
+				<p:inputText value="#{clienteMB.cliente.email}" />
+				
+				<p:outputLabel value="LOGRADOURO : " /> 
+				<p:inputText value="#{clienteMB.cliente.logradouro}" />
+				
+				<p:outputLabel value="CIDADE : " /> 
+				<p:inputText value="#{clienteMB.cliente.cidade}" />
+				
+				<p:outputLabel value="CATEGORIA : " /> 
+				
+				<p:panel>
 				<p:selectOneMenu id="categoria"
 					value="#{clienteMB.cliente.categoria.id}" style="width:150px">
 					<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
@@ -189,13 +201,14 @@
 					<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
 						itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
 				</p:selectOneMenu>
-				<p:commandButton icon="ui-icon-plus" ajax="true"
-					onclick="PF('newCT').show();" />
-				<br />
+				<p:commandButton icon="ui-icon-plus" ajax="true" onclick="PF('newCT').show();" />
+				</p:panel>
+				
 				<p:commandButton value="Aplicar"
 					action="#{clienteMB.editaCliente()}" ajax="true"
 					update="listaCompletaCliente" />
 				<p:commandButton value="Atualizar" action="#{categoriaMB}" />
+			</p:panelGrid>
 			</p:column>
 		</h:form>
 	</p:dialog>
