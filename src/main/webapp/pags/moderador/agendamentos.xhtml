@@ -91,12 +91,12 @@
 				<p:calendar value="#{agendaMB.agenda.data}" showOn="button"
 					placeholder="Dia da Visita" mask="true" pattern="dd/MM/yyyy" />
 				<br />
-
+				
 				<p:inputMask placeholder="Horário da Visita" size="40"
 					styleClass="input_normal" mask="99:99"
 					value="#{agendaMB.agenda.hora}" />
-
 				<p:panelGrid columns="2">
+				
 					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 						<f:selectItem itemLabel="Selecionar Cliente" />
 						<f:selectItems value="#{clienteMB.clientes}" var="cli"
@@ -111,7 +111,6 @@
 						<p:commandButton value="+" onclick="PF('Add').show();" />
 					</h:panelGrid>
 				</p:panelGrid>
-
 				<br />
 				<p:commandButton value="Adicionar"
 					actionListener="#{agendaMB.agendar}" ajax="true"
