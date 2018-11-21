@@ -41,13 +41,10 @@
 	<p:toolbar>
 		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
-			<p:commandButton value="Novo"
-				action="cadastrarcontato?faces-redirect=true" />
+			<p:commandButton value="Novo" action="cadastrarcontato?faces-redirect=true" />
 			<p:splitButton value="Busca" onclick="PF('buscas').show();" />
 		</f:facet>
 	</p:toolbar>
-
-
 
 	<p:dialog id="dlgVisu" widgetVar="visualizar">
 		<h2>Nome</h2>
@@ -106,7 +103,6 @@
 			</p:column>
 		</p:dataTable>
 	</h:form>
-
 
 	<p:dialog id="dialog22" draggable="true" maximizable="true"
 		header="EDITA CLIENTE" widgetVar="edite" minHeight="40">
@@ -192,7 +188,7 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.cargos}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					
+					<p:ajax listener="#{contatosMB.buscarCargo}" update="@all"/>
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Cliente : " />
@@ -200,11 +196,12 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.clientes}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					
+					<p:ajax listener="#{contatosMB.buscaCliente}" update="@all"/>
 				</p:selectOneMenu>
 			</p:panelGrid>
 		</h:form>
 	</p:dialog>
+	
 </h:body>
 <script>
 	$("#botao").click(function() {

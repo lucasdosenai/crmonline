@@ -71,6 +71,71 @@ public class ContatoDAO {
 		return null; 
 	}
 	
+	public List<Contato> listarCargoContato(Integer codigo) {
+		List<Contato> contato = new ArrayList<>();
+
+		String sql = "SELECT * FROM contato WHERE ID_CARGO = ?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, codigo);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Contato c = new Contato();
+				c.setId(rs.getInt("ID"));
+				c.setNome(rs.getString("NOME"));
+				c.setTelefone(rs.getString("TELEFONE"));
+				c.setCelular(rs.getString("CELULAR"));
+				c.setEmail(rs.getString("EMAIL"));
+				c.getCargo().setId(rs.getInt("ID_CARGO"));
+				c.getCargo().setNome(rs.getString("NOME"));
+				c.getCliente().setId(rs.getInt("ID_CLIENTE"));
+				c.getCliente().setNome(rs.getString("NOME"));
+
+				contato.add(c);
+			}
+
+			return contato;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null; 
+	}
+	
+	public List<Contato> listarClienteContato(Integer codigo) {
+		List<Contato> contato = new ArrayList<>();
+
+		String sql = "SELECT * FROM contato WHERE ID_CLIENTE = ?";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, codigo);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Contato c = new Contato();
+				c.setId(rs.getInt("ID"));
+				c.setNome(rs.getString("NOME"));
+				c.setTelefone(rs.getString("TELEFONE"));
+				c.setCelular(rs.getString("CELULAR"));
+				c.setEmail(rs.getString("EMAIL"));
+				c.getCargo().setId(rs.getInt("ID_CARGO"));
+				c.getCargo().setNome(rs.getString("NOME"));
+				c.getCliente().setId(rs.getInt("ID_CLIENTE"));
+				c.getCliente().setNome(rs.getString("NOME"));
+
+				contato.add(c);
+			}
+
+			return contato;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null; 
+	}
 	
 	public boolean editarContato(Contato a) {
 		System.out.println("UpdateVisita()");

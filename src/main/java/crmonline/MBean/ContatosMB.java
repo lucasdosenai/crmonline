@@ -45,7 +45,13 @@ public class ContatosMB {
 		listacontato = new ArrayList<>();
 		listacontato = cDAO.listarcontato();
 	}
-
+	public void buscaCliente() {
+		contatos = cDAO.listarClienteContato(codigoClienteParaBuscar);
+	}
+	public void buscarCargo() {
+		contatos = cDAO.listarCargoContato(codigoCargoParaBuscar);
+	} 
+	
 	public void inserircontato() throws SQLException {
 		if (cDAO.inserircontato(contato)) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Contato cadastrado"));
