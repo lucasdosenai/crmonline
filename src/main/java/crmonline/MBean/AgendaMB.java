@@ -1,6 +1,7 @@
 package crmonline.MBean;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ import crmonline.DAO.ClasseGenericaDao;
 import crmonline.DAO.CursoDAO;
 import crmonline.Entidade.Agenda;
 import crmonline.Entidade.ClasseGenerica;
+import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Contato;
 import crmonline.Entidade.Curso;
 import crmonline.util.Mensagem;
@@ -28,8 +30,9 @@ public class AgendaMB {
 	Curso curso;
 	Curso novoCurso;
 	List<Curso> cursos;
+	Integer codigoparabuscar, buscarcurso;
 	
-    Contato contato;
+	Contato contato;
     List<Contato> contatos;
     
 	ClasseGenericaDao classeGenericaDao;
@@ -39,6 +42,7 @@ public class AgendaMB {
 	List<Agenda> visitas;
 
 	public AgendaMB() {
+
 		novoCurso = new Curso();
 		cDao = new CursoDAO();
 		aDao = new AgendaDAO();
@@ -107,6 +111,30 @@ public class AgendaMB {
 
 	}
 
+	public void listacliente() throws ParseException {
+		visitas = aDao.filtrocliente(agenda.getId_cliente());
+	}
+	
+	public void listacurso() throws ParseException {
+		visitas = aDao.filtroCURSO(curso.getId());
+	}
+	
+	
+	 public Integer getBuscarcurso() {
+			return buscarcurso;
+		}
+
+		public void setBuscarcurso(Integer buscarcurso) {
+			this.buscarcurso = buscarcurso;
+		}
+
+		public Integer getCodigoparabuscar() {
+			return codigoparabuscar;
+		}
+
+		public void setCodigoparabuscar(Integer codigoparabuscar) {
+			this.codigoparabuscar = codigoparabuscar;
+		}
 	public Curso getNovoCurso() {
 		return novoCurso;
 	}

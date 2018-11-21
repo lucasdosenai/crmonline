@@ -240,4 +240,72 @@ public class AgendaDAO {
 		ps.setInt(1, codigo);
 		return ps.executeUpdate() > 0;
 	}
+	
+	public ArrayList<Agenda> filtrocliente(Integer codigo) throws ParseException{
+		ArrayList<Agenda> agendas = new ArrayList<>();
+		String SQL = "SELECT * FROM  AGENDA WHERE ID_CLIENTE = ? AND ESTADOS = 0";
+		try {
+			PreparedStatement ps = con.prepareStatement(SQL);
+		
+			ps.setInt(1, codigo);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Agenda a = new Agenda();
+				a.setNome(rs.getString("NOME"));
+				a.setAtendente(rs.getString("ATENDENTE"));
+				String data = rs.getString("DATAV");
+				SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
+				a.setData(b.parse(data));
+				a.setHora(rs.getString("HORARIO"));
+				a.setEstadovisita(rs.getInt("ESTADOS"));
+				a.setClassificacao(rs.getString("CLASSFICACOES"));
+				a.setObservacao(rs.getString("OBSERVACOES"));
+				a.setId_visitante(rs.getInt("ID_VISITANTE"));
+				a.setId_cliente(rs.getInt("ID_CLIENTE"));
+				agendas.add(a);
+			}
+			return agendas;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return null;
+	}
+	
+	
+	public ArrayList<Agenda> filtroCURSO(Integer codigo) throws ParseException{
+		ArrayList<Agenda> agendas = new ArrayList<>();
+		String SQL = "SELECT * FROM  AGENDA WHERE ID_CURSO = ? AND ESTADOS = 0";
+		try {
+			PreparedStatement ps = con.prepareStatement(SQL);
+		
+			ps.setInt(1, codigo);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Agenda a = new Agenda();
+				a.setNome(rs.getString("NOME"));
+				a.setAtendente(rs.getString("ATENDENTE"));
+				String data = rs.getString("DATAV");
+				SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
+				a.setData(b.parse(data));
+				a.setHora(rs.getString("HORARIO"));
+				a.setEstadovisita(rs.getInt("ESTADOS"));
+				a.setClassificacao(rs.getString("CLASSFICACOES"));
+				a.setObservacao(rs.getString("OBSERVACOES"));
+				a.setId_visitante(rs.getInt("ID_VISITANTE"));
+				a.setId_cliente(rs.getInt("ID_CLIENTE"));
+				agendas.add(a);
+			}
+			return agendas;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return null;
+	}
+	
+	
+	
 }
