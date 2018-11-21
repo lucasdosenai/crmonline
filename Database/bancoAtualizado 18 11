@@ -1,0 +1,126 @@
+create database banco;
+use banco;
+
+Create table USUARIO(
+	ID int primary key auto_increment not null,
+	NOME varchar(64) not null,
+	NIF varchar(7) not null,
+    SEXO VARCHAR(1) not null,
+	EMAIL varchar(64) not null,
+	SENHA varchar(16) not null,
+	STATU integer default 1,
+	TIPO_USUARIO integer default 0
+
+-- Statu :         1 para Habilitado
+--                 0 para Desabilitado
+ 
+-- TIPO_USUARIO :  0 USUARIO COMUM
+  --               1 USUARIO ROOT
+);
+
+-- CRIANDO USUARIO
+INSERT INTO USUARIO(NOME,NIF,SEXO,EMAIL,SENHA,STATU,TIPO_USUARIO) 
+VALUES ('Lucas',0000000,'M','lucas.nepomuceno1999@gmail.com','0',1,1),('Administrador',1111111,'M','lucas.nepomuceno1999@gmail.com','adm',1,1);
+
+create table CATEGORIA(
+	ID	int primary key auto_increment not null,
+	NOME	varchar(24)
+);
+
+-- CRIA CATEGORIAS
+INSERT INTO CATEGORIA(NOME) VALUES('Eletrônica'),('Bebidas'),('Tecnologia');
+
+create table CLIENTE(
+	ID int primary key auto_increment not null,
+    NOME VARCHAR(64),
+    N_FUNCIONARIO VARCHAR(64),
+    CNPJ VARCHAR(64),
+    TELEFONE Varchar(64),
+	EMAIL	VARCHAR(64),
+    LOGRADOURO VARCHAR(254),
+    CIDADE VARCHAR(64),
+    ID_CATEGORIA INTEGER,
+	STATU INT DEFAULT 1,
+    FOREIGN KEY (ID_CATEGORIA) REFERENCES CATEGORIA(ID)
+);
+
+-- CRIA CLIENTES
+INSERT INTO CLIENTE(NOME,N_FUNCIONARIO,CNPJ,TELEFONE,EMAIL,LOGRADOURO,CIDADE,ID_CATEGORIA,STATU) 
+VALUES('Sabrina e Leandro Transportes Ltda','938','83.055.751/0001-32','(11) 3597-9204','comunicacoes@sabrinaeleandrotransportesltda.com.br','Rua Atenas','Itapecerica da Serra',1,1),
+      ('Bento e Daiane Limpeza ME','659','98.915.129/0001-24','(17) 2926-5199','juridico@bentoedaianelimpezame.com.br','Rua Antônio Conte','São José do Rio Preto',1,1),
+      ('Natália e Joaquim Vidros ME','350','87.474.783/0001-23','(12) 2573-5685','almoxarifado@nataliaejoaquimvidrosme.com.br','Rua das Sucupiras','Guaratinguetá',1,1);
+
+create table CURSO(
+	ID	         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	NOME	     VARCHAR(64) NOT NULL,
+	VAGAS_TOTAL	 INT DEFAULT 0,
+	DESCRI	     VARCHAR(264) DEFAULT 'SEM DESCRIÇÃO',
+	DURACAO	     VARCHAR(64) DEFAULT 'SEM DESCRIÇÃO',
+    ID_CATEGORIA INT
+);
+
+INSERT INTO CURSO(NOME,VAGAS_TOTAL,DESCRI,DURACAO,ID_CATEGORIA) 
+VALUES('Técnico em informática',32,'Curso voltado para tecnologia',null,3),
+      ('Tecnico em Eletrônica',32,'Curso voltado para tecnologia de automação',null,1),
+      ('Tecnico em Mectrônica',32,'Curso voltado para tecnologia',null,3);
+
+create table AGENDA(
+	ID	         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    NOME 		 VARCHAR(64),
+	ATENDENTE    VARCHAR(64) NOT NULL, -- Nome da pessoas que vai atender na hora da visita, reunião marcada com ?
+	DATAV	     VARCHAR(64), -- Dia da visita 
+	HORARIO	     VARCHAR(64), -- Hora da visita
+	ESTADOS	     INT DEFAULT 0, -- 0 = PENDENTE / 1 = REALIZADO 
+	CLASSFICACOES INT,
+	OBSERVACOES	  VARCHAR(264),
+    
+    ID_VISITANTE  INT, 
+	ID_CLIENTE	  INT, -- EMPRESA
+    ID_CURSO 	  INT, -- CURSO_RELACIONADO
+    
+	FOREIGN KEY (ID_CLIENTE)   REFERENCES CLIENTE(ID),
+	FOREIGN KEY (ID_VISITANTE) REFERENCES USUARIO(ID),
+	FOREIGN KEY (ID_CURSO)  REFERENCES CURSO(ID)
+);
+
+SELECT * FROM AGENDA AS A INNER JOIN CLIENTE AS C ON A.ID_CLIENTE = 2 AND C.ID = A.ID_CLIENTE INNER JOIN CURSO AS CG ON CG.ID = A.ID_CURSO  ;
+
+create table VENDA(
+	ID	int primary key auto_increment not null,
+	VAGAS	INT,
+    
+	ID_CURSO	INT,
+    ID_VISITA	INT,
+    
+	foreign key (ID_VISITA) references AGENDA(ID),
+	foreign key (ID_CURSO) references CURSO(ID)
+--   
+);
+
+create table RECUPERA_USUARIO(
+	ID	int primary key auto_increment not null,
+    ID_USER INTEGER,
+    CODIGO VARCHAR(64),
+    
+    FOREIGN KEY (ID_USER) REFERENCES USUARIO(ID)
+);
+
+SELECT * FROM AGENDA WHERE DATAV LIKE '10/11%';
+
+CREATE TABLE CARGO(
+	ID	int primary key auto_increment not null,
+    NOME VARCHAR(64)
+);
+
+CREATE TABLE CONTATO(
+	ID	int primary key auto_increment not null,
+    NOME VARCHAR(64),
+    TELEFONE VARCHAR(32),
+    CELULAR VARCHAR(32),
+    EMAIL VARCHAR(64),
+    ID_CARGO INT,
+    ID_CLIENTE INT,
+    
+    FOREIGN KEY (ID_CARGO) REFERENCES CARGO(ID),
+    FOREIGN KEY (ID_CLIENTE) REFERENCES CLIENTE(ID)
+);

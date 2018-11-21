@@ -27,6 +27,9 @@ public class Util {
 	public String irVerificaCodigo() {
 		return "verifica-codigo?faces-redirect=true";
 	}
+	public String irCadastrarContato() {
+		return "contatos?faces-redirect=true";
+	}
 	public String numeroAleatorio() {
 		Random random = new Random(1000);
 		return "CODIGO : " + random.nextInt(9999);

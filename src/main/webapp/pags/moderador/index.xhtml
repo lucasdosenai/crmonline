@@ -5,102 +5,102 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
-	<style>
-.textoID td {
-	background-color: #000;
-	border-color: #fff;
-	width: 100px !important;
-	height: 32px;
-	font-size: 32px;
-}
-
-.clientes {
-	width: 25%;
-	float: left;
-	padding: 0;
-	margin: 0 auto;
-	text-align: center;
-	text-decoration: blink;
-}
-
-body {
-	font-size: 28px;
-	margin: 0 auto;
-}
-
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #333;
-	position: -webkit-sticky; /* Safari */
-	position: sticky;
-	top: 0;
-}
-
-li {
-	float: left;
-}
-
-li a {
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-}
-
-li a:hover {
-	background-color: #111;
-}
-
-.active {
-	background-color: #4CAF50;
-}
-</style>
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputStylesheet library="css" name="pushy.css" />
+	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 
 <h:body>
-	<h:form>
-		<p:growl id="messages" />
-	</h:form>
-	<div class="header">
-		<h2>CRM ONLINE</h2>
-		<p>Mais produtividade para geral</p>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+
+	<div class="menu-lateral transform" id="menu-lateral">
+		<div style="padding: 10px; padding-right: 15px; text-align: right">
+			<span class="botao-fechar-menu">x</span>
+		</div>
+		<div class="menu-lateral-info-usuario">
+			<h:graphicImage library="images" name="usuario.svg" width="28px"></h:graphicImage>
+			<span>#{principalMBean.usuario.nome}</span>
+		</div>
+		<div class="menu-lateral-opcoes" style="top: 0">
+			<div>
+				<a class="menu-lateral-opcao"
+					href="http://localhost:8080/crmonline/pags/moderador/index.xhtml"
+					target="conteudo">Início</a>
+			</div>
+			<div>
+				<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml" target="conteudo" id="opcao_itens">Clientes</a>
+			</div>
+			<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/relatorio.xhtml" target="conteudo">Relatórios</a>
+		 	<a class="opcao_submenu" href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/contatos.xhtml" target="conteudo">Contatos</a>
+		 </div>
 	</div>
+	<p:toolbar>
+		<f:facet name="left">
+			<p:commandButton value="☰" ajax="true" id="botao" />
+		</f:facet>
+	</p:toolbar>
 
-	<ul>
-		<li><a class="active" href="#home">INICIO</a></li>
-		<li><a href="agendamentos.xhtml">AGEDAMENTOS</a></li>
-		<li><a href="cliente.xhtml">CLIENTES</a></li>
-		<li><a href="#contact">CONTATOS</a></li>
-	</ul>
-	<h:form>
-		<p:toolbar>
-			<f:facet name="left">
-				<p:commandButton type="button" styleClass="btn" value="Novo cliente" />
-			</f:facet>
-		</p:toolbar>
-	</h:form>
+	<p:dialog id="dialogInformaVisita" widgetVar="informaVisita">
+		<p:outputLabel
+			value="#{homeMB.visitaPendenteClicadaParaVisualizar.nome}" />
+		<br />
 
-	<p:panelGrid columns="1" style="width:100%;">
-			<h1 style="margin:0 auto;">VISITAS PENDENTE</h1>
-			<h:panelGrid id="pagina" style="width:70% !important; margin:0 auto;">
-			<p:dataList value="#{relatorioMB.visitaRealizada}" var="visitasRealizada" type="ordered" 	 >
+		<p:outputLabel
+			value="#{homeMB.visitaPendenteClicadaParaVisualizar.cliente.nome}" />
+		<br />
+		<p:outputLabel
+			value="#{homeMB.visitaPendenteClicadaParaVisualizar.cursoObj.nome}" />
+	</p:dialog>
+
+	<p:panelGrid columns="5" style="width:100%;">
+		<h:panelGrid id="pagina" columns="1"
+			style="width:30% !important; float:left;">
 			<h:form>
-				<h:commandLink>
-				<p:panel>
-				<f:facet name="header"> #{visitasRealizada.nome} </f:facet>
-				<h:outputText value="Dia : " style="display:inline-block; font-weight: bold;" /><h:outputText value="#{relatorioMB.converteDate(visitasRealizada.data)}"/> <br/>
-				<h:outputText value="Hora : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{visitasRealizada.hora}"/> <br/>
-				<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;"/><h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}"/>
-				</p:panel>
-				</h:commandLink>
+				<p:dataList emptyMessage="Não foram encontradas visitas"
+					value="#{relatorioMB.visitaRealizada}" var="visitasRealizada"
+					type="ordered">
+
+					<p:commandLink ajax="true" update="dialogInformaVisita"
+						oncomplete="PF('informaVisita').show();">
+						<p:panel>
+							<f:facet name="header"> #{visitasRealizada.nome} </f:facet>
+							<h:outputText value="Dia : "
+								style="display:inline-block; font-weight: bold;" />
+							<h:outputText
+								value="#{relatorioMB.converteDate(visitasRealizada.data)}" />
+							<br />
+							<h:outputText value="Hora : "
+								style="display:inline-block; font-weight: bold;" />
+							<h:outputText value="#{visitasRealizada.hora}" />
+							<br />
+							<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;" />
+							<h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}" />
+						</p:panel>
+						<f:setPropertyActionListener value="#{visitasRealizada}"
+							target="#{homeMB.visitaPendenteClicadaParaVisualizar}" />
+					</p:commandLink>
+					<hr />
+				</p:dataList>
 			</h:form>
-				<hr/>
-			</p:dataList>
 		</h:panelGrid>
 	</p:panelGrid>
 </h:body>
+<script>
+	$("#botao").click(function() {
+		$("#menu-lateral").addClass("menu-aberto");
+	});
+
+	$(".botao-fechar-menu").click(function() {
+		$("#menu-lateral").removeClass("menu-aberto");
+	});
+
+	$(".menu-lateral-opcao").click(function() {
+		if (this.id == "opcao_itens") {
+			$("#submenu_itens").toggleClass("block");
+		}
+	});
+</script>
 </html>

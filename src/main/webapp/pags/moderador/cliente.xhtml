@@ -1,81 +1,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
-	<style>
-.textoID td {
-	background-color: #000;
-	border-color: #fff;
-	width: 100px !important;
-	height: 32px;
-	font-size: 32px;
-}
-
-.clientes {
-	width: 25%;
-	float: left;
-	padding: 0;
-	margin: 0 auto;
-	text-align: center;
-	text-decoration: blink;
-}
-
-body {
-	width: 100%;
-	margin: 0 auto;
-}
-
-ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: #333;
-	position: -webkit-sticky; /* Safari */
-	position: sticky;
-	top: 0;
-}
-
-.li {
-	float: left;
-}
-
-li a {
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 16px;
-	text-decoration: none;
-}
-
-li a:hover {
-	background-color: #111;
-}
-
-.active {
-	background-color: #4CAF50;
-}
-</style>
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputStylesheet library="css" name="pushy.css" />
+	<h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 
 <h:body>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	<div class="header">
-		<h2>CRM ONLINE</h2>
-		<p>Mais produtividade para geral</p>
+	<div class="menu-lateral transform" id="menu-lateral">
+		<div style="padding: 10px; padding-right: 15px; text-align: right">
+			<span class="botao-fechar-menu">x</span>
+		</div>
+		<div class="menu-lateral-info-usuario">
+			<h:graphicImage library="images" name="usuario.svg" width="28px"></h:graphicImage>
+			<span>#{principalMBean.usuario.nome}</span>
+		</div>
+		<div class="menu-lateral-opcoes" style="top: 0">
+			<div>
+				<a class="menu-lateral-opcao"
+					href="http://localhost:8080/crmonline/pags/moderador/index.xhtml"
+					target="conteudo">Início</a>
+			</div>
+			<div>
+				<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml" target="conteudo" id="opcao_itens">Clientes</a>
+			</div>
+			<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/relatorio.xhtml" target="conteudo">Relatórios</a>
+		 	<a class="opcao_submenu" href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+		 </div>
 	</div>
-
-	<ul>
-		<li><a class="active" href="#home">INICIO</a></li>
-		<li><a href="#news">AGEDAMENTOS</a></li>
-		<li><a href="#contact">CLIENTES</a></li>
-		<li><a href="#contact">CONTATOS</a></li>
-	</ul>
+	<p:toolbar>
+		<f:facet name="left">
+			<p:commandButton value="☰" ajax="true" id="botao" />
+		</f:facet>
+	</p:toolbar>
 	<p:column>
 		<h:form>
 			<p:panelGrid columns="5">
@@ -106,37 +70,43 @@ li a:hover {
 			<p:dialog id="dialog" header="NOVO CLIENTE" widgetVar="newC"
 				minHeight="40">
 				<p:column headerText="Novo Cliente">
+					<p:panelGrid columns="2">
+					
+					<p:outputLabel value="Nome"/>
+					<p:inputText value="#{clienteMB.cliente.nome}"/>
+					
+					<p:outputLabel value="Colaboradores"/>
+					<p:inputText value="#{clienteMB.cliente.numeroFuncionario}"/>
+					
+					<p:outputLabel value="Cnpj"/>
+					<p:inputMask mask="99.999.999/9999-99" value="#{clienteMB.cliente.cnjp}"/>
+					
+					<p:outputLabel value="Telefone"/>
+					<p:inputMask mask="(99) 9999-9999" value="#{clienteMB.cliente.telefone}"/>
+					
+					<p:outputLabel value="Email"/>
+					<p:inputText value="#{clienteMB.cliente.email}"/>
+					
+					<p:outputLabel value="Logradouro"/>
+					<p:inputText value="#{clienteMB.cliente.logradouro}"/>
+					
+					<p:outputLabel value="Cidade"/>
+					<p:inputText value="#{clienteMB.cliente.cidade}"/>
+					
+					<p:outputLabel value="Ramo"/>
+					<p:panel>
+						<p:selectOneMenu id="categoria"
+							value="#{clienteMB.cliente.categoria.id}" style="width:150px">
+							<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
+								itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
+						</p:selectOneMenu>
+						<p:commandButton icon="ui-icon-plus" ajax="true"
+							onclick="PF('newCT').show();" />
+					</p:panel>
+					</p:panelGrid>
 
-					<p:inputText placeholder="NOME : "
-						value="#{clienteMB.cliente.nome}" />
-					<br />
-					<p:inputText placeholder="COLABORADORES : "
-						value="#{clienteMB.cliente.numeroFuncionario}" />
-					<br />
-					<p:inputText placeholder="CNPJ : "
-						value="#{clienteMB.cliente.cnjp}" />
-					<br />
-					<p:inputText placeholder="TELEFONE : "
-						value="#{clienteMB.cliente.telefone}" />
-					<br />
-					<p:inputText placeholder="EMAIL : "
-						value="#{clienteMB.cliente.email}" />
-					<br />
-					<p:inputText placeholder="LOGRADOURO : "
-						value="#{clienteMB.cliente.logradouro}" />
-					<br />
-					<p:inputText placeholder="CIDADE : "
-						value="#{clienteMB.cliente.cidade}" />
-					<br />
-					<p:selectOneMenu id="categoria"
-						value="#{clienteMB.cliente.categoria.id}" style="width:150px">
-						<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
-							itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
-					</p:selectOneMenu>
-					<p:commandButton icon="ui-icon-plus" ajax="true"
-						onclick="PF('newCT').show();" />
 					<p:dialog widgetVar="newCT">
 						<p:ajax listener="#{categoriaMB.att}" update="categoria" />
 						<p:inputText placeholder="NOME : "
@@ -150,7 +120,6 @@ li a:hover {
 					<p:commandButton value="Adicionar"
 						action="#{clienteMB.novoCliente}" ajax="true"
 						update="listaCompletaCliente" />
-					<p:commandButton value="Atualizar" action="#{categoriaMB}" />
 				</p:column>
 			</p:dialog>
 		</h:form>
@@ -158,7 +127,7 @@ li a:hover {
 	<p:panelGrid id="listaCompletaCliente" columns="1"
 		style="width:100% !important;">
 		<h:form>
-			<p:dataTable id="teste" var="cliente" value="#{clienteMB.clientes}">
+			<p:dataTable id="teste" var="cliente" value="#{clienteMB.clientes}" emptyMessage="Não foi encontrado nenhum cliente">
 				<p:column>
 					<h:outputText value="#{cliente.nome}" style="font-weight: bold" />
 				</p:column>
@@ -199,25 +168,32 @@ li a:hover {
 		header="EDITA CLIENTE" widgetVar="editC" minHeight="40">
 		<h:form>
 			<p:column headerText="Editar Cliente">
-				<p:inputText placeholder="NOME : " value="#{clienteMB.cliente.nome}" />
-				<br />
-				<p:inputText placeholder="COLABORADORES : "
-					value="#{clienteMB.cliente.numeroFuncionario}" />
-				<br />
-				<p:inputText placeholder="CNPJ : " value="#{clienteMB.cliente.cnjp}" />
-				<br />
-				<p:inputText placeholder="TELEFONE : "
-					value="#{clienteMB.cliente.telefone}" />
-				<br />
-				<p:inputText placeholder="EMAIL : "
-					value="#{clienteMB.cliente.email}" />
-				<br />
-				<p:inputText placeholder="LOGRADOURO : "
-					value="#{clienteMB.cliente.logradouro}" />
-				<br />
-				<p:inputText placeholder="CIDADE : "
-					value="#{clienteMB.cliente.cidade}" />
-				<br />
+				<p:panelGrid columns="2">
+				
+				<p:outputLabel value="NOME :" /> 
+				<p:inputText value="#{clienteMB.cliente.nome}" />
+				
+				<p:outputLabel value="COLABORADORES : " /> 
+				<p:inputText value="#{clienteMB.cliente.numeroFuncionario}" />
+			
+				<p:outputLabel value="CNPJ : " /> 
+				<p:inputText value="#{clienteMB.cliente.cnjp}" />
+				
+				<p:outputLabel value="TELEFONE :" /> 
+				<p:inputText value="#{clienteMB.cliente.telefone}" />
+				
+				<p:outputLabel value="EMAIL : " /> 
+				<p:inputText value="#{clienteMB.cliente.email}" />
+				
+				<p:outputLabel value="LOGRADOURO : " /> 
+				<p:inputText value="#{clienteMB.cliente.logradouro}" />
+				
+				<p:outputLabel value="CIDADE : " /> 
+				<p:inputText value="#{clienteMB.cliente.cidade}" />
+				
+				<p:outputLabel value="CATEGORIA : " /> 
+				
+				<p:panel>
 				<p:selectOneMenu id="categoria"
 					value="#{clienteMB.cliente.categoria.id}" style="width:150px">
 					<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
@@ -225,13 +201,14 @@ li a:hover {
 					<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
 						itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
 				</p:selectOneMenu>
-				<p:commandButton icon="ui-icon-plus" ajax="true"
-					onclick="PF('newCT').show();" />
-				<br />
+				<p:commandButton icon="ui-icon-plus" ajax="true" onclick="PF('newCT').show();" />
+				</p:panel>
+				
 				<p:commandButton value="Aplicar"
 					action="#{clienteMB.editaCliente()}" ajax="true"
 					update="listaCompletaCliente" />
 				<p:commandButton value="Atualizar" action="#{categoriaMB}" />
+			</p:panelGrid>
 			</p:column>
 		</h:form>
 	</p:dialog>
@@ -247,4 +224,21 @@ li a:hover {
 		</p:dialog>
 	</h:form>
 </h:body>
+<script>
+        $("#botao").click(function() {
+            $("#menu-lateral").addClass("menu-aberto");
+        });
+         
+        $(".botao-fechar-menu").click(function() {
+            $("#menu-lateral").removeClass("menu-aberto");
+        });
+         
+        $(".menu-lateral-opcao").click(function() {
+            if (this.id == "opcao_itens") {
+            	$("#submenu_itens").toggleClass("block");
+            }
+        });
+        
+        
+    </script>
 </html>

@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import crmonline.DAO.CargoDAO;
 import crmonline.DAO.ClienteDAO;
 import crmonline.DAO.ContatoDAO;
+import crmonline.Entidade.Agenda;
 import crmonline.Entidade.Cargo;
 import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Contato;
@@ -23,38 +24,74 @@ public class ContatosMB {
 	private List<Cliente> clientes;
 	private Contato contato;
 	ContatoDAO cDAO;
+	List<Contato> listacontato;
 	Cargo cargo = new Cargo();
 	CargoDAO carDAO = new CargoDAO();
+	ClienteDAO cliDao ;
 	
-
+	Integer tipoDeBuscaParaContato;
+	
+	private List<Contato> contatos;
 
 	public ContatosMB() {
 		cDAO = new ContatoDAO();
 		contato = new Contato();
 		carDAO = new CargoDAO();
+		
+		contatos = cDAO.listarcontato();
 		cargos = carDAO.listarcargo();
-		ClienteDAO cliDao = new ClienteDAO();
+		cliDao = new ClienteDAO();
 		clientes = cliDao.listaCliente(1);
+		listacontato = new ArrayList<>();
+		listacontato = cDAO.listarcontato();
+		
+		
+	}
+
+	public Integer getTipoDeBuscaParaContato() {
+		return tipoDeBuscaParaContato;
+	}
+
+	public void setTipoDeBuscaParaContato(Integer tipoDeBuscaParaContato) {
+		this.tipoDeBuscaParaContato = tipoDeBuscaParaContato;
 	}
 
 	public void inserircontato() throws SQLException {
 		if (cDAO.inserircontato(contato)) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Contato cadastrado"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Contato cadastrado"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir!"));
 		}
 
 	}
-	
+
 	public void salvarCargo() throws SQLException {
 		if (carDAO.inserircargo(cargo)) {
 			cargos = carDAO.listarcargo();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Cargo cadastrado"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cargo cadastrado"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir!"));
 		}
+	}
+	
+	public void editacago() {
+		if (cDAO.editarContato(contato)){
+			
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
+		}
+	}
+	
+	public void excluiVisita() throws SQLException {
+		if (cDAO.excluiVisita(contato.getId())) {
+			contatos = cDAO.listarcontato();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluido com Sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Excluir!"));
+		}
+
 	}
 	
 	public List<Cargo> getCargos() {
@@ -70,7 +107,15 @@ public class ContatosMB {
 	}
 
 	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;        
+		this.clientes = clientes;
+	}
+
+	public List<Contato> visualizar() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
 	}
 
 	public Contato getContato() {
@@ -103,6 +148,26 @@ public class ContatosMB {
 
 	public void setCarDAO(CargoDAO carDAO) {
 		this.carDAO = carDAO;
-	}	
-	
+	}
+
+	public List<Contato> getListacontato() {
+		return listacontato;
+	}
+
+	public void setListacontato(List<Contato> listacontato) {
+		this.listacontato = listacontato;
+	}
+
+	public ClienteDAO getCliDao() {
+		return cliDao;
+	}
+
+	public void setCliDao(ClienteDAO cliDao) {
+		this.cliDao = cliDao;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
 }

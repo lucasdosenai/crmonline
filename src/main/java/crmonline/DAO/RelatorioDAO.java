@@ -27,7 +27,7 @@ public class RelatorioDAO {
 		Agenda a = new Agenda();
 		String SQL = "SELECT * FROM AGENDA";
 		
-		if(acao == "cliente") {
+		if(acao == "0") {
 			SQL = "SELECT * FROM AGENDA AS A INNER JOIN CLIENTE AS C ON "
 					+ "A.ID_CLIENTE = ? AND C.ID = A.ID_CLIENTE "
 					+ "INNER JOIN CURSO AS CG ON CG.ID = A.ID_CURSO";
@@ -73,12 +73,12 @@ public class RelatorioDAO {
 	}
 	
 	public List<Agenda> listaAgendaKeyDown(String busca) {
-		String SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE" +" 12%";
+		String SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE ?";
 		List<Agenda> listaCompleta = new ArrayList<>();
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(SQL);
-			//ps.setString(1, busca);
+			ps.setString(1, busca+"%");
 			ResultSet rs = ps.executeQuery();
 		
 			while(rs.next()) {
