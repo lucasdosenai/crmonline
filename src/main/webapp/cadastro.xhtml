@@ -1,65 +1,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="css" name="estilo.css" />
-
+	<h:outputStylesheet library="css" name="estilo.css"/>
+	
 </h:head>
 <h:body styleClass="teste">
 	<p:growl autoUpdate="true">
 	</p:growl>
 	<div align="center" style="width: 1000px">
-		<h:graphicImage library="img" name="logo.png" width="200px"
-			height="200px" />
+		<h:graphicImage library="img" name="logo.png" width="200px" height="200px" />
 	</div>
-	
+
 	<h:panelGrid columns="1" styleClass="caixa">
-
-		<div class="barra">ACESSO RESTRITO</div>
+	
+	<div class="barra">ACESSO RESTRITO</div>
 		<h:panelGrid columns="2" styleClass="centro">
-			<h:panelGrid styleClass="centro">
-				<h3>Novo Usuário</h3>
-
-				<h:form>
-					<p:growl>
-						<p:autoUpdate />
-					</p:growl>
-					<p:panelGrid columns="1">
-						<p:inputText placeholder="Nome" size="40"
-							styleClass="input_normal" value="#{cadMB.usuario.nome}" />
-						<p:inputMask placeholder="NIF" size="40" styleClass="input_normal"
-							mask="999 999 9" value="#{cadMB.usuario.nif}" />
-
-						<p:password placeholder="Senha" size="40"
-							styleClass="input_normal" value="#{cadMB.usuario.password}" />
-						<p:password placeholder="Confirmar Senha"
-							styleClass="input_normal" size="40" />
-
-						<p:selectOneRadio styleClass="input_normal"
-							value="#{cadMB.usuario.tipo_user}">
-							<f:selectItem itemValue="0" itemLabel="Administrador" />
-							<f:selectItem itemValue="1" itemLabel="Moderador" />
-						</p:selectOneRadio>
-
-						<p:selectOneRadio styleClass="input_normal"
-							value="#{cadMB.usuario.sexo}">
-							<f:selectItem itemValue="M" itemLabel="Masculino" />
-							<f:selectItem itemValue="F" itemLabel="Feminino" />
-						</p:selectOneRadio>
-
-						<p:inputText placeholder="E-mail" size="40"
-							styleClass="input_normal" value="#{cadMB.usuario.email}" />
-						<p:panelGrid columns="2">
-							<h:commandButton value="Cadastrar" styleClass="btn"
-								action="#{cadMB.verifica}" />
-							<h:commandButton value="Cancelar" styleClass="btn" />
-						</p:panelGrid>
-					</p:panelGrid>
-				</h:form>
-			</h:panelGrid>
+		
+		<h:panelGrid styleClass="centro">
+	<h3>Novo Usuário</h3>
+	
+	<h:form>
+	<p:growl >
+		<p:autoUpdate />		
+	</p:growl>
+	<p:panelGrid columns="1">
+		<p:inputText placeholder="Nome" size="40" styleClass="input_normal" value="#{cadMB.usuario.nome}"/>
+		<p:inputMask placeholder="NIF" size="40" styleClass="input_normal" mask="999 999 9" value="#{cadMB.usuario.nif}"/>
+		
+			<p:password placeholder="Senha" size="40" styleClass="input_normal" value="#{cadMB.usuario.password}"/>
+			<p:password placeholder="Confirmar Senha" styleClass="input_normal" size="40"/>
+			
+		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.usuario.tipo_user}">
+			<f:selectItem itemValue="0" itemLabel="Administrador" />
+			<f:selectItem itemValue="1" itemLabel="Moderador" />		
+		</p:selectOneRadio>
+		
+		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.usuario.sexo}">
+			<f:selectItem itemValue="M" itemLabel="Masculino" />
+			<f:selectItem itemValue="F" itemLabel="Feminino" />		
+		</p:selectOneRadio>
+		
+		<p:inputText placeholder="E-mail" size="40"  styleClass="input_normal" value="#{cadMB.usuario.email}"/>	
+		<p:panelGrid columns="2">
+			<h:commandButton value="Cadastrar" styleClass="btn" action="#{cadMB.verifica}"/>
+			<h:commandButton value="Cancelar" styleClass="btn" />
+		</p:panelGrid>
+	</p:panelGrid>
+	</h:form>
+</h:panelGrid>
 		</h:panelGrid>
-	</h:panelGrid>
+</h:panelGrid>
 </h:body>
 </html>

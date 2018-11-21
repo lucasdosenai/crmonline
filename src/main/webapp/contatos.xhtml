@@ -4,54 +4,29 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
-	<h:outputStylesheet library="css" name="estilo.css" />
-	<h:outputStylesheet library="css" name="pushy.css" />
-	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 
 <h:body>
 	<p:growl id="messages" showDetail="true">
 		<p:autoUpdate />
 	</p:growl>
-	<div class="menu-lateral transform" id="menu-lateral">
-		<div style="padding: 10px; padding-right: 15px; text-align: right">
-			<span class="botao-fechar-menu">x</span>
+	<nav class="nav-extended" style="background-color: black">
+		<div class="nav-content">
+			<ul class="tabs tabs-transparent">
+				<li class="tab"><a href="#"><h:graphicImage library="img"
+							name="logo.png" width="50px" height="50px" /></a></li>
+				<li class="tab"><a href="#test1">AGENDAMENTOS</a></li>
+				<li class="tab"><a href="#test2">CLIENTES</a></li>
+				<li class="tab" style="margin-right: 50%"><a href="#test4">CADASTRO</a></li>
+
+				<li class="tab"><a href="sass.html">Inicio</a></li>
+				<li class="tab"><a href="badges.html">PERFIL</a></li>
+				<li class="tab"><a href="collapsible.html">SAIR</a></li>
+			</ul>
 		</div>
-		<div class="menu-lateral-info-usuario">
-			<h:graphicImage library="images" name="usuario.svg" width="28px"></h:graphicImage>
-			<span>#{principalMBean.usuario.nome}</span>
-		</div>
-		<div class="menu-lateral-opcoes" style="top: 0">
-			<div>
-				<a class="menu-lateral-opcao"
-					href="http://localhost:8080/crmonline/pags/moderador/index.xhtml"
-					target="conteudo">Início</a>
-			</div>
-			<div>
-				<a class="menu-lateral-opcao"
-					href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml"
-					target="conteudo" id="opcao_itens">Clientes</a>
-			</div>
-			<a class="menu-lateral-opcao"
-				href="http://localhost:8080/crmonline/relatorio.xhtml"
-				target="conteudo">Relatórios</a> 
-			<a class="opcao_submenu"
-				href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
-		</div>
-	</div>
-	<p:toolbar>
-		<f:facet name="left">
-			<p:commandButton value="☰" ajax="true" id="botao" />
-			<p:commandButton value="Novo" action="cadastrarcontato?faces-redirect=true" />
-			<p:splitButton value="Busca" >
-		        
-            </p:splitButton>  
-		</f:facet>
-	</p:toolbar>
-	
-	
-	
-	<p:dialog id="dlgVisu" widgetVar="visualizar">
+	</nav>
+
+<p:dialog id="dlgVisu" widgetVar="visualizar">
 		<h2>Nome</h2>
 		<h:outputText value="#{contatosMB.contato.nome}" />
 		<h2>Telefone</h2>
@@ -61,12 +36,11 @@
 		<h2>Email</h2>
 		<h:outputText value="#{contatosMB.contato.email}" />
 		<h2>Cargo</h2>
-		<h:outputText value="#{contatosMB.contato.cargo.nome}" />
-		<h2>Cliente</h2>
-		<h:outputText value="#{contatosMB.contato.cliente.nome}" />
+	    <h:outputText value="#{contatosMB.contato.cargo.nome}"/>
+	    <h2>Cliente</h2>
+	    <h:outputText value="#{contatosMB.contato.cliente.nome}" /> 
 		<br> </br>
-		<p:commandButton value="Voltar" ajax="true"
-			onclick="PF('visualizar').hide();" />
+		<p:commandButton value="Voltar" ajax="true" onclick="PF('visualizar').hide();" />
 	</p:dialog>
 
 	<h:form id="formTabela">
@@ -88,26 +62,31 @@
 			</p:column>
 
 			<p:column>
-				<p:panelGrid columns="3">
-					<p:commandButton icon="ui-icon-pencil" value="Editar"
-						oncomplete="PF('edite').show();" update="dialog22">
-						<f:setPropertyActionListener value="#{c}"
-							target="#{contatosMB.contato}" />
-					</p:commandButton>
-					<p:commandButton ajax="true" event="onclick" 
-						value="Excluir" onclick="PF('confirmaExcluir').show();">
-						<f:setPropertyActionListener value="#{c}"
-							target="#{contatosMB.contato}" />
-					</p:commandButton>
-					<p:commandButton  value="Visualizar"
-						update="dlgVisu" oncomplete="PF('visualizar').show();">
-						<f:setPropertyActionListener value="#{c}"
-							target="#{contatosMB.contato}" />
-					</p:commandButton>
-				</p:panelGrid>
-			</p:column>
-		</p:dataTable>
+				<p:commandButton icon="ui-icon-pencil" value="Editar"
+					oncomplete="PF('edite').show();" update="dialog22">
+					<f:setPropertyActionListener value="#{c}"
+						target="#{contatosMB.contato}" />
+				</p:commandButton>
+		
+			
+			
+			<p:commandButton ajax="true" event="onclick" styleClass="btn"
+					value="Excluir" onclick="PF('confirmaExcluir').show();">
+					<f:setPropertyActionListener value="#{c}"
+						target="#{contatosMB.contato}" />
+				</p:commandButton>
+			
+			
+			
+			<p:commandButton styleClass="btn" value="Visualizar"
+					update="dlgVisu" oncomplete="PF('visualizar').show();">
 
+					<f:setPropertyActionListener value="#{c}"
+						target="#{contatosMB.contato}" />
+				</p:commandButton>
+		</p:column>
+		</p:dataTable>
+		
 	</h:form>
 
 
@@ -159,7 +138,7 @@
 
 	</p:dialog>
 
-	<p:dialog widgetVar="confirmaExcluir"
+<p:dialog widgetVar="confirmaExcluir"
 		header="Gostaria de excluir essa visita ?">
 		<p:column headerText="">
 			<p:commandButton value="Sim" action="#{contatosMB.excluiVisita}"
@@ -183,35 +162,12 @@
 		</h:form>
 	</p:dialog>
 
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 		<p:commandButton value="Sim" type="button"
 			styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
 		<p:commandButton value="Não" type="button"
 			styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 	</p:confirmDialog>
-	
-	<p:dialog widgetVar="buscarClientes">
-		Opções dos clientes aqui
-	</p:dialog>
-	
-	<p:dialog widgetVar="buscarCargo">
-		Opções dos cargos aqui
-	</p:dialog>
-	
+
 </h:body>
-<script>
-	$("#botao").click(function() {
-		$("#menu-lateral").addClass("menu-aberto");
-	});
-
-	$(".botao-fechar-menu").click(function() {
-		$("#menu-lateral").removeClass("menu-aberto");
-	});
-
-	$(".menu-lateral-opcao").click(function() {
-		if (this.id == "opcao_itens") {
-			$("#submenu_itens").toggleClass("block");
-		}
-	});
-</script>
 </html>

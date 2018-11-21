@@ -20,11 +20,11 @@
 		<h:panelGrid columns="2" styleClass="centro">
 
 			<h:panelGrid styleClass="centro">
-			<h:form>
-	    <h:commandButton value="Voltar" style="width:100%;" styleClass="btn" action="#{util.irCadastrarContato}" /></h:form>
-				<h3>Novo Contato</h3>
-		
+
+				<h3>Novo Usuário</h3>
+
 				<h:form id="form">
+
 					<p:panelGrid id="panel" columns="1">
 						<p:inputText placeholder="Nome" size="40" required="true"
 							requiredMessage="O nome é necessário" styleClass="input_normal"
@@ -41,6 +41,8 @@
 							requiredMessage="O e-mail é necessário" styleClass="input_normal"
 							value="#{contatosMB.contato.email}">
 						</p:inputText>
+
+
 						<p:growl id="messages" showDetail="true" />
 						<p:panelGrid columns="2">
 							<p:selectOneMenu value="#{contatosMB.contato.cargo.id}"
@@ -58,9 +60,14 @@
 							<f:selectItems value="#{contatosMB.clientes}" var="c"
 								itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
 						</p:selectOneMenu>
-						<p:panelGrid columns="1" style="width:100%">
+
+
+						<p:panelGrid columns="2">
 							<h:commandButton value="Cadastrar" styleClass="btn"
-								actionListener="#{contatosMB.inserircontato}" style="width:100%"/>
+								actionListener="#{contatosMB.inserircontato}" />
+
+							<h:commandButton value="Cancelar" type="reset" styleClass="btn"
+								ajax="true" event="click" update=":form:panel" />
 						</p:panelGrid>
 					</p:panelGrid>
 
