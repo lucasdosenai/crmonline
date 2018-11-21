@@ -29,8 +29,6 @@ public class ContatosMB {
 	CargoDAO carDAO = new CargoDAO();
 	ClienteDAO cliDao ;
 	
-	Integer tipoDeBuscaParaContato;
-	
 	private List<Contato> contatos;
 
 	public ContatosMB() {
@@ -44,16 +42,6 @@ public class ContatosMB {
 		clientes = cliDao.listaCliente(1);
 		listacontato = new ArrayList<>();
 		listacontato = cDAO.listarcontato();
-		
-		
-	}
-
-	public Integer getTipoDeBuscaParaContato() {
-		return tipoDeBuscaParaContato;
-	}
-
-	public void setTipoDeBuscaParaContato(Integer tipoDeBuscaParaContato) {
-		this.tipoDeBuscaParaContato = tipoDeBuscaParaContato;
 	}
 
 	public void inserircontato() throws SQLException {
