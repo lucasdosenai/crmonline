@@ -40,9 +40,11 @@ public class AgendaMB {
 	CursoDAO cDao;
 	LoginMB u;
 	List<Agenda> visitas;
-
+	
+	String dataFinal;
+	
 	public AgendaMB() {
-
+	
 		novoCurso = new Curso();
 		cDao = new CursoDAO();
 		aDao = new AgendaDAO();
@@ -54,6 +56,7 @@ public class AgendaMB {
 		contatos = new ArrayList<>();
 		visitas = new ArrayList<>();
 		visitas = aDao.listarAgenda("0");
+		
 		try {
 			cursos = classeGenericaDao.listarCurso();
 			categorias = classeGenericaDao.buscaCategoria();
@@ -63,7 +66,9 @@ public class AgendaMB {
 			Mensagem.make(e.toString());
 		}
 	}
-
+	public void visualizarConvertendoData() {
+		dataFinal = "" + converteDate(agenda.getData()) + "";
+	}
 	public String agendar() throws SQLException {
 		if (aDao.inserir(agenda)) {
 			visitas = aDao.listarAgenda("0");
@@ -90,7 +95,6 @@ public class AgendaMB {
 		try {
 			if (aDao.realizaVisita(agenda)) {
 				visitas = aDao.listarAgenda("0");
-				agenda = new Agenda();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
 			}
 		} catch (SQLException e) {
@@ -98,6 +102,7 @@ public class AgendaMB {
 			e.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
+		agenda = new Agenda();
 	}
 
 	public void excluiVisita() throws SQLException {
@@ -110,13 +115,26 @@ public class AgendaMB {
 		}
 
 	}
-
+	
+	public String converteDate(Date date) {
+		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+		return s.format(date);
+	}
+	
 	public void listacliente() throws ParseException {
-		visitas = aDao.filtrocliente(agenda.getId_cliente());
+		if(agenda.getId_cliente() != 0)
+		     visitas = aDao.filtrocliente(agenda.getId_cliente());
+		else 
+			visitas = aDao.listarAgenda("0");
 	}
 	
 	public void listacurso() throws ParseException {
-		visitas = aDao.filtroCURSO(curso.getId());
+		if(curso.getId() != 0) {
+			visitas = aDao.filtroCURSO(curso.getId());
+		}else {
+			visitas = aDao.listarAgenda("0");
+		}
+		
 	}
 	
 	
@@ -249,6 +267,14 @@ public class AgendaMB {
 
 	public void setU(LoginMB u) {
 		this.u = u;
+	}
+
+	public String getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(String dataFinal) {
+		this.dataFinal = dataFinal;
 	}
 
 }

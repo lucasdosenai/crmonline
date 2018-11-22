@@ -1,5 +1,6 @@
 package crmonline.Entidade;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import crmonline.MBean.LoginMB;

@@ -63,7 +63,7 @@ public class AgendaDAO {
 				+ " FROM AGENDA a "
 				+ " INNER JOIN cliente c ON a.id_cliente = c.id"
 				+ " INNER JOIN curso cs ON a.id_curso = cs.id"
-				+ " WHERE ESTADOS = ?";
+				+ " WHERE ESTADOS = ? ORDER BY DATAV ASC";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, codigo);

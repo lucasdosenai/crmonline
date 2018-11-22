@@ -32,7 +32,7 @@
 				value="Nova Visita" icon="ui-icon-plus" />
 			<h:form>
 			<p:selectOneMenu value="#{agendaMB.curso.id}">
-				<f:selectItem itemLabel="Buscar p/ Curso" />
+				<f:selectItem itemLabel="Buscar p/ Curso" itemValue="0" />
 				<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
 					value="#{agendaMB.cursos}" var="c" />
 					<p:ajax listener="#{agendaMB.listacurso}" update=":formTabela:tabela" />
@@ -40,7 +40,7 @@
 			
 			
 				<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
-					<f:selectItem itemLabel="Buscar p/ Cliente" />
+					<f:selectItem itemLabel="Buscar p/ Cliente" itemValue="0" />
 					<f:selectItems value="#{clienteMB.clientes}" var="cli" itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
 					<p:ajax listener="#{agendaMB.listacliente}" update=":formTabela:tabela"/>
 				</p:selectOneMenu>
@@ -60,7 +60,7 @@
 			</p:column>
 			<p:column headerText="Editar">
 				<p:commandButton ajax="true" event="onclick" styleClass="btn"
-					value="Excluir" onclick="PF('confirmaExcluir').show();">
+					value="Excluir" onclick="PF('confirmaExcluir').show();" icon="ui-icon-trash">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
@@ -71,7 +71,7 @@
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
 				<p:commandButton onclstyleClass="btn" value="Realizar"
-					onclick="PF('realizar').show();">
+					onclick="PF('realizar').show();" icon="ui-icon-check">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
@@ -79,10 +79,8 @@
 				</p:commandButton>
 
 				<p:commandButton styleClass="btn" value="Visualizar"
-					update="dlgVisu" oncomplete="PF('visualizar').show();">
-
-					<f:setPropertyActionListener value="#{a}"
-						target="#{agendaMB.agenda}" />
+					oncomplete="PF('visualizar').show();" update="dlgVisu" icon="ui-icon-zoomin">
+					<f:setPropertyActionListener value="#{a}" target="#{agendaMB.agenda}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
@@ -204,7 +202,7 @@
 
 
 
-	<p:dialog id="dlgVisu" widgetVar="visualizar">
+	<p:dialog id="dlgVisu" widgetVar="visualizar" >
 		<h2>Nome da Visita</h2>
 		<h:outputText value="#{agendaMB.agenda.nome}" />
 		<h2>Atendente</h2>
@@ -219,7 +217,7 @@
 		<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
 		<br> </br>
 		<p:commandButton value="Voltar" ajax="true"
-			onclick="PF('dlgVisu').hide();" />
+			oncomplete="PF('dlgVisu').hide();" />
 	</p:dialog>
 
 
