@@ -55,35 +55,16 @@
 			value="#{homeMB.visitaPendenteClicadaParaVisualizar.cursoObj.nome}" />
 	</p:dialog>
 
-	<p:panelGrid columns="5" style="width:100%; overflow: visible;">
-		<h:panelGrid id="pagina" columns="1"
-			style="width:30% !important; float:left;">
-			<h:form>
-				<p:dataList emptyMessage="Não foram encontradas visitas"
-					value="#{relatorioMB.visitaRealizada}" var="visitasRealizada"
-					type="ordered">
-
-					<p:commandLink ajax="true" update="dialogInformaVisita"
-						oncomplete="PF('informaVisita').show();">
-						<p:panel>
-							<f:facet name="header"> #{visitasRealizada.nome} </f:facet>
-							<h:outputText value="Dia : " style="display:inline-block; font-weight: bold;" />
-							<h:outputText value="#{relatorioMB.converteDate(visitasRealizada.data)}" />
-							<br />
-							<h:outputText value="Hora : " style="display:inline-block; font-weight: bold;" />
-							<h:outputText value="#{visitasRealizada.hora}" />
-							<br />
-							<h:outputText value="Empresa : " style="display:inline-block; font-weight: bold;" />
-							<h:outputText value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}" />
-						</p:panel>
-						<f:setPropertyActionListener value="#{visitasRealizada}"
-							target="#{homeMB.visitaPendenteClicadaParaVisualizar}" />
-					</p:commandLink>
-					<hr />
-				</p:dataList>
-			</h:form>
-		</h:panelGrid>
-	</p:panelGrid>
+	<h:form id="form">
+		<p:dataGrid var="v" value="#{agendaMB.visitas}" 
+		layout="grid" columns="3" paginator="true" rows="10">
+		<p:panel header="#{v.nome}">
+			<p:outputLabel value="Atendente : #{v.atendente}"/><br/>
+			<p:outputLabel value="Empresa : #{v.cliente.nome} "/><br/>
+			<p:outputLabel value="Local : #{v.cliente.logradouro}"/>
+		</p:panel>
+		</p:dataGrid>
+	</h:form>
 </h:body>
 <script>
 	$("#botao").click(function() {
