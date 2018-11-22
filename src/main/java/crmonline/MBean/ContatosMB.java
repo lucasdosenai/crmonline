@@ -80,12 +80,17 @@ public class ContatosMB {
 		}
 	}
 	
-	public void excluiVisita() throws SQLException {
-		if (cDAO.excluiVisita(contato.getId())) {
-			contatos = cDAO.listarcontato();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluido com Sucesso!"));
-		} else {
+	public void excluiVisita() {
+		try {
+			if (cDAO.excluiVisita(contato.getId())) {
+				contatos = cDAO.listarcontato();
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluido com Sucesso!"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Excluir!"));
+			}
+		} catch (SQLException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Excluir!"));
+			e.printStackTrace();
 		}
 
 	}
