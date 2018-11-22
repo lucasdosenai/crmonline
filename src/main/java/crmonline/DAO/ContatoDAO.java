@@ -42,14 +42,14 @@ public class ContatoDAO {
 	public List<Contato> listarcontato() {
 		List<Contato> contato = new ArrayList<>();
 
-		String sql = "SELECT c.*, contato.* FROM contato INNER JOIN cargo as c on c.id = contato.id_cargo";
+		String sql = "SELECT c.*, contato.*, contato.id as idContato FROM contato INNER JOIN cargo as c on c.id = contato.id_cargo";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 				Contato c = new Contato();
-				c.setId(rs.getInt("ID"));
+				c.setId(rs.getInt("idContato"));
 				c.setNome(rs.getString("NOME"));
 				c.setTelefone(rs.getString("TELEFONE"));
 				c.setCelular(rs.getString("CELULAR"));
