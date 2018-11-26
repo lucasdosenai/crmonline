@@ -31,18 +31,21 @@
 			<p:commandButton onclick="PF('novaVisita').show();"
 				value="Nova Visita" icon="ui-icon-plus" />
 			<h:form>
-			<p:selectOneMenu value="#{agendaMB.curso.id}">
-				<f:selectItem itemLabel="Buscar p/ Curso" itemValue="0" />
-				<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
-					value="#{agendaMB.cursos}" var="c" />
-					<p:ajax listener="#{agendaMB.listacurso}" update=":formTabela:tabela" />
-			</p:selectOneMenu>
-			
-			
+				<p:selectOneMenu value="#{agendaMB.curso.id}">
+					<f:selectItem itemLabel="Buscar p/ Curso" itemValue="0" />
+					<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
+						value="#{agendaMB.cursos}" var="c" />
+					<p:ajax listener="#{agendaMB.listacurso}"
+						update=":formTabela:tabela" />
+				</p:selectOneMenu>
+
+
 				<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 					<f:selectItem itemLabel="Buscar p/ Cliente" itemValue="0" />
-					<f:selectItems value="#{clienteMB.clientes}" var="cli" itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
-					<p:ajax listener="#{agendaMB.listacliente}" update=":formTabela:tabela"/>
+					<f:selectItems value="#{clienteMB.clientes}" var="cli"
+						itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
+					<p:ajax listener="#{agendaMB.listacliente}"
+						update=":formTabela:tabela" />
 				</p:selectOneMenu>
 			</h:form>
 		</f:facet>
@@ -56,11 +59,13 @@
 				<h:outputText value="#{a.atendente}" />
 			</p:column>
 			<p:column headerText="Data e Hora da Visita">
-				<h:outputText value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
+				<h:outputText
+					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
 				<p:commandButton ajax="true" event="onclick" styleClass="btn"
-					value="Excluir" onclick="PF('confirmaExcluir').show();" icon="ui-icon-trash">
+					value="Excluir" onclick="PF('confirmaExcluir').show();"
+					icon="ui-icon-trash">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
@@ -71,7 +76,7 @@
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
 				<p:commandButton onclstyleClass="btn" value="Realizar"
-					onclick="PF('realizar').show();" icon="ui-icon-check">
+					oncomplete="PF('realizar').show();" icon="ui-icon-check">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
@@ -79,8 +84,10 @@
 				</p:commandButton>
 
 				<p:commandButton styleClass="btn" value="Visualizar"
-					oncomplete="PF('visualizar').show();" update="dlgVisu" icon="ui-icon-zoomin">
-					<f:setPropertyActionListener value="#{a}" target="#{agendaMB.agenda}" />
+					oncomplete="PF('visualizar').show();" update="dlgVisu"
+					icon="ui-icon-zoomin">
+					<f:setPropertyActionListener value="#{a}"
+						target="#{agendaMB.agenda}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
@@ -97,12 +104,12 @@
 				<p:calendar value="#{agendaMB.agenda.data}" showOn="button"
 					placeholder="Dia da Visita" mask="true" pattern="dd/MM/yyyy" />
 				<br />
-				
+
 				<p:inputMask placeholder="Horário da Visita" size="40"
 					styleClass="input_normal" mask="99:99"
 					value="#{agendaMB.agenda.hora}" />
 				<p:panelGrid columns="2">
-				
+
 					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 						<f:selectItem itemLabel="Selecionar Cliente" />
 						<f:selectItems value="#{clienteMB.clientes}" var="cli"
@@ -166,7 +173,7 @@
 				</p:panelGrid>
 
 				<br />
-				<p:commandButton value="Aplicar" action="#{agendaMB.editaVisita}"
+				<p:commandButton value="Aplicar" action="#{agendaMB.aVisita}"
 					ajax="true" onclick="PF('dialog22').hide();" />
 
 			</p:column>
@@ -175,7 +182,7 @@
 	</p:dialog>
 
 	<p:dialog widgetVar="realizar">
-		<h:form>
+		<h:form id="formRealizar">
 			<h:outputText value="Classificação:" />
 			<p:rating value="#{agendaMB.agenda.classificacao}">
 
@@ -187,7 +194,8 @@
 
 			<p:commandButton value="Visita Concluída" ajax="true"
 				actionListener="#{agendaMB.realizaVisita}"
-				oncomplete="PF('realizar').hide();" update="formTabela:tabela" />
+				oncomplete="PF('realizar').hide();"
+				update="formTabela:tabela formRealizar" />
 
 		</h:form>
 	</p:dialog>
@@ -202,22 +210,24 @@
 
 
 
-	<p:dialog id="dlgVisu" widgetVar="visualizar" >
-		<h2>Nome da Visita</h2>
-		<h:outputText value="#{agendaMB.agenda.nome}" />
-		<h2>Atendente</h2>
-		<h:outputText value="#{agendaMB.agenda.atendente}" />
-		<h2>Data</h2>
-		<h:outputText value="#{agendaMB.agenda.data}" />
-		<h2>Hora</h2>
-		<h:outputText value="#{agendaMB.agenda.hora}" />
-		<h2>Cliente</h2>
-		<h:outputText value="#{agendaMB.agenda.cliente.nome}" />
-		<h2>Curso</h2>
-		<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
-		<br> </br>
-		<p:commandButton value="Voltar" ajax="true"
-			oncomplete="PF('dlgVisu').hide();" />
+	<p:dialog id="dlgVisu" widgetVar="visualizar">
+		<form id="visuForm">
+			<h2>Nome da Visita</h2>
+			<h:outputText value="#{agendaMB.agenda.nome}" />
+			<h2>Atendente</h2>
+			<h:outputText value="#{agendaMB.agenda.atendente}" />
+			<h2>Data</h2>
+			<h:outputText value="#{agendaMB.agenda.dataConverte}" />
+			<h2>Hora</h2>
+			<h:outputText value="#{agendaMB.agenda.hora}" />
+			<h2>Cliente</h2>
+			<h:outputText value="#{agendaMB.agenda.cliente.nome}" />
+			<h2>Curso</h2>
+			<h:outputText value="#{agendaMB.agenda.cursoObj.nome}" />
+			<br> </br>
+			<p:commandButton value="Voltar" type="button"
+				onclick="document.getElementById('dlgVisu').style.display = 'none'" />
+		</form>
 	</p:dialog>
 
 

@@ -95,6 +95,7 @@ public class AgendaMB {
 		try {
 			if (aDao.realizaVisita(agenda)) {
 				visitas = aDao.listarAgenda("0");
+				agenda = new Agenda();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
 			}
 		} catch (SQLException e) {

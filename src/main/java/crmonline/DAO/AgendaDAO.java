@@ -251,6 +251,7 @@ public class AgendaDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Agenda a = new Agenda();
+				a.setCodigo(rs.getInt("ID"));
 				a.setNome(rs.getString("NOME"));
 				a.setAtendente(rs.getString("ATENDENTE"));
 				String data = rs.getString("DATAV");
@@ -284,6 +285,7 @@ public class AgendaDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Agenda a = new Agenda();
+				
 				a.setNome(rs.getString("NOME"));
 				a.setAtendente(rs.getString("ATENDENTE"));
 				String data = rs.getString("DATAV");

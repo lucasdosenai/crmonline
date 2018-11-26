@@ -6,9 +6,11 @@ import java.util.Date;
 import crmonline.MBean.LoginMB;
 
 public class Agenda {
+
 	public Agenda() {
 		
 	}
+	
 	private Integer codigo;
 	private String nome;
 	private String atendente;
@@ -22,7 +24,6 @@ public class Agenda {
 	private Cliente cliente;
 	private Curso cursoObj;
 	private Integer curso;
-
 	
 	public Curso getCursoObj() {
 		return cursoObj;
@@ -31,6 +32,8 @@ public class Agenda {
 	public void setCursoObj(Curso cursoObj) {
 		this.cursoObj = cursoObj;
 	}
+
+	
 
 	public String getNome() {
 		return nome;
@@ -58,6 +61,15 @@ public class Agenda {
 	
 	public Date getData() {
 		return data;
+	}					
+	
+	public String getDataConverte() {
+		if(data != null) {
+			SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+			return s.format(data);
+
+		}
+		return null;
 	}
 
 	public void setData(Date date) {
