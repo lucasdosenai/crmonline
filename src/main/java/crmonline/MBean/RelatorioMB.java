@@ -28,6 +28,10 @@ public class RelatorioMB {
 	ClienteDAO cDao;
 	RelatorioDAO rDao;
 	
+	Agenda visitaSelecionada;
+	
+	boolean renderizaInformaDialog = false;
+	
 	String buscaDataAtualizandoALista;
 	String dataParaBuscarNoBancoDeDados;
 	
@@ -37,10 +41,16 @@ public class RelatorioMB {
 		rDao = new RelatorioDAO();
 		cDao = new ClienteDAO();
 		
+		visitaSelecionada = new Agenda();
+		
 		visitaRealizada = aDao.listarAgenda("0");
 		listaClientesDropDown = cDao.listaCliente(1);
 	}
 	
+	public boolean retornoRenderiza() {
+		renderizaInformaDialog = !renderizaInformaDialog;
+		return renderizaInformaDialog;
+	}
 	
 	public void x() {
 		System.out.println("Entrou no método de listaPorData");
@@ -138,6 +148,26 @@ public class RelatorioMB {
 
 	public void setClienteSelecionadoParaBusca(Integer clienteSelecionadoParaBusca) {
 		this.clienteSelecionadoParaBusca = clienteSelecionadoParaBusca;
+	}
+
+
+	public Agenda getVisitaSelecionada() {
+		return visitaSelecionada;
+	}
+
+
+	public void setVisitaSelecionada(Agenda visitaSelecionada) {
+		this.visitaSelecionada = visitaSelecionada;
+	}
+
+
+	public boolean isRenderizaInformaDialog() {
+		return renderizaInformaDialog;
+	}
+
+
+	public void setRenderizaInformaDialog(boolean renderizaInformaDialog) {
+		this.renderizaInformaDialog = renderizaInformaDialog;
 	}
 	
 }

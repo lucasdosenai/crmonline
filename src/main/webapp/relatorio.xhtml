@@ -6,6 +6,11 @@
 	<h:outputStylesheet library="css" name="estilo.css" />
 	<h:outputStylesheet library="css" name="pushy.css" />
 	<h:outputStylesheet library="css" name="styles.css"/>
+	<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
 </h:head>
 <h:body styleClass="teste">
 	<p:growl>
@@ -35,7 +40,7 @@
 
 		<p:toolbar>
 			<f:facet name="left">
-			<p:commandButton value="☰" ajax="true" update="dataList" id="botao" />
+			<p:commandButton value="☰" ajax="true" id="botao" />
 			</f:facet>
 
 			<f:facet name="right">
@@ -43,13 +48,13 @@
 					<p:inputText placeholder="Busca por data"
 						value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
 						<p:ajax event="keyup" listener="#{relatorioMB.x}"
-							update=":dataList" />
+							update="@all" />
 					</p:inputText>
 					<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
 					<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
 					<f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}"
 						var="c" value="#{relatorioMB.listaClientesDropDown}" />
-					<p:ajax update="dataList" listener="#{relatorioMB.filtrarClientes}" />
+					<p:ajax update="@all" listener="#{relatorioMB.filtrarClientes}" />
 				</p:selectOneMenu>
 				</h:form>
 			</f:facet>
@@ -57,33 +62,57 @@
 
 	<p:panelGrid columns="3"
 		style="width:90%;margin:0 auto;border: none !important;">
-		<p:dataList id="dataList" value="#{relatorioMB.visitaRealizada}"
-			var="visitasRealizada" type="ordered"
-			style=" border: none !important;">
-			<h:form>
-				<p:panel style=" border: none !important;">
-					<f:facet name="header"
-						style="font-weight: blod;border: none !important;"> #{visitasRealizada.nome} </f:facet>
-					<h:outputText value="Dia : "
-						style="display:inline-block; font-weight: bold;" />
-					<h:outputText
-						value="#{relatorioMB.converteDate(visitasRealizada.data)} - " />
-					<h:outputText value="  Hora : "
-						style="display:inline-block; font-weight: bold;" />
-					<h:outputText value="#{visitasRealizada.hora}" />
-					<br />
-					<h:outputText value="Atendente : "
-						style="display:inline-block; font-weight: bold;" />
-					<h:outputText value="#{visitasRealizada.atendente}" />
-					<br />
-					<h:outputText value="Empresa : "
-						style="display:inline-block; font-weight: bold;" />
-					<h:outputText
-						value="#{relatorioMB.mostraCliente(visitasRealizada.id_cliente)}" />
-				</p:panel>
-			</h:form>
-			<hr />
-		</p:dataList>
+		
+		<h:form id="form">
+    <p:dataGrid id="dataList" var="visita" value="#{relatorioMB.visitaRealizada}" columns="1" layout="grid"
+        rows="12" paginator="true" rowsPerPageTemplate="6,12,16">
+         
+        <f:facet name="header">
+            Relatórios
+        </f:facet>
+ 
+        <p:panel header="#{visita.codigo}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+                <p:graphicImage name="logo.png" library="img" width="35px" height="35px"/> 
+ 
+                <h:outputText value="#{visita.cliente.nome}" />
+                <h:outputText value="#{visita.cursoObj.nome}" />
+                <h:outputText value="#{visita.dataConverte}" />
+ 
+                <p:commandLink update="dialogFinal" oncomplete="PF('visitaDialog').show()"  title="Visualizar Detalhes">
+                    <h:outputText styleClass="pi pi-search" style="margin:0 auto;" value="Informações Completas"/>
+                    <f:setPropertyActionListener value="#{visita}" target="#{relatorioMB.visitaSelecionada}" />
+                     <p:ajax event="click" listener="#{relatorioMB.retornoRenderiza}" update="msg" />
+                </p:commandLink>
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
+ </h:form>
+    <p:dialog id="dialogFinal" header="Informações da Visita" widgetVar="visitaDialog" 
+    modal="true" showEffect="fade" hideEffect="fade" resizable="false" rendered="#{relatorioMB.renderizaInformaDialog}">
+        <p:outputPanel id="visitaDetale" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty relatorioMB.visitaSelecionada}" columnClasses="label,value">
+                <f:facet name="header">
+                    <p:graphicImage name="logo.png" library="img"/>  
+                </f:facet>
+                
+                <h:outputText value="Titulo : #{visita.nome}" /><br/>
+                <h:outputText value="Atendente : #{visita.atendente}" /><br/>
+                <h:outputText value="Classificação : #{visita.classificacao}" /><br/>
+                <h:outputText value="Data : #{visita.DataConverte}" /><br/>
+                
+               
+                <h:outputLabel value="Observações :"/><br/>
+                <h:outputLabel value="#{visita.observacao}"/>
+                <p:ajax event="close" listener="#{relatorioMB.retornoRenderiza}" update="msg" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+
+		
+		
+		
 	</p:panelGrid>
 	
 </h:body>

@@ -4,52 +4,70 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputStylesheet library="css" name="pushy.css" />
+	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 
 <h:body>
 	<p:growl id="messages" showDetail="true">
 		<p:autoUpdate />
 	</p:growl>
-	<nav class="nav-extended" style="background-color: black">
-		<div class="nav-content">
-			<ul class="tabs tabs-transparent">
-				<li class="tab"><a href="#"><h:graphicImage library="img"
-							name="logo.png" width="50px" height="50px" /></a></li>
-				<li class="tab"><a href="#test1">AGENDAMENTOS</a></li>
-				<li class="tab"><a href="#test2">CLIENTES</a></li>
-				<li class="tab" style="margin-right: 50%"><a href="#test4">CADASTRO</a></li>
-
-				<li class="tab"><a href="sass.html">Inicio</a></li>
-				<li class="tab"><a href="badges.html">PERFIL</a></li>
-				<li class="tab"><a href="collapsible.html">SAIR</a></li>
-			</ul>
+	<div class="menu-lateral transform" id="menu-lateral">
+		<div style="padding: 10px; padding-right: 15px; text-align: right">
+			<span class="botao-fechar-menu">x</span>
 		</div>
-	</nav>
-
+		<div class="menu-lateral-info-usuario">
+			<h:graphicImage library="img" name="logo.png" width="50px"
+				height="50px"></h:graphicImage>
+			<span>#{principalMBean.usuario.nome}</span>
+		</div>
+		<div class="menu-lateral-opcoes" style="top: 0">
+			<div>
+				<a class="menu-lateral-opcao"
+					href="http://localhost:8080/crmonline/pags/moderador/index.xhtml"
+					target="conteudo">Início</a>
+			</div>
+			<div>
+				<a class="menu-lateral-opcao"
+					href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml"
+					target="conteudo" id="opcao_itens">Clientes</a>
+			</div>
+			<a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/relatorio.xhtml"
+				target="conteudo">Relatórios</a> <a class="opcao_submenu"
+				href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+			<a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/contatos.xhtml"
+				target="conteudo">Contatos</a>
+		</div>
+	</div>
 	<p:toolbar>
 		<f:facet name="left">
+			<p:commandButton value="☰" ajax="true" id="botao" />
 			<p:commandButton onclick="PF('novaVisita').show();"
 				value="Nova Visita" icon="ui-icon-plus" />
-			<h:form>
-				<p:selectOneMenu value="#{agendaMB.curso.id}">
-					<f:selectItem itemLabel="Buscar p/ Curso" itemValue="0" />
-					<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
-						value="#{agendaMB.cursos}" var="c" />
-					<p:ajax listener="#{agendaMB.listacurso}"
-						update=":formTabela:tabela" />
-				</p:selectOneMenu>
 
+				<h:form>
+					<p:selectOneMenu value="#{agendaMB.curso.id}">
+						<f:selectItem itemLabel="Buscar p/ Curso" itemValue="0" />
+						<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
+							value="#{agendaMB.cursos}" var="c" />
+						<p:ajax listener="#{agendaMB.listacurso}"
+							update=":formTabela:tabela" />
+					</p:selectOneMenu>
+					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
+						<f:selectItem itemLabel="Buscar p/ Cliente" itemValue="0" />
+						<f:selectItems value="#{clienteMB.clientes}" var="cli"
+							itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
+						<p:ajax listener="#{agendaMB.listacliente}"
+							update=":formTabela:tabela" />
+					</p:selectOneMenu>
+				</h:form>
 
-				<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
-					<f:selectItem itemLabel="Buscar p/ Cliente" itemValue="0" />
-					<f:selectItems value="#{clienteMB.clientes}" var="cli"
-						itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
-					<p:ajax listener="#{agendaMB.listacliente}"
-						update=":formTabela:tabela" />
-				</p:selectOneMenu>
-			</h:form>
 		</f:facet>
 	</p:toolbar>
+
 	<h:form id="formTabela">
 		<p:dataTable id="tabela" value="#{agendaMB.visitas}" var="a">
 			<p:column headerText="Nome da Visita">
@@ -277,4 +295,19 @@
 		</h:form>
 	</p:dialog>
 </h:body>
+<script>
+	$("#botao").click(function() {
+		$("#menu-lateral").addClass("menu-aberto");
+	});
+
+	$(".botao-fechar-menu").click(function() {
+		$("#menu-lateral").removeClass("menu-aberto");
+	});
+
+	$(".menu-lateral-opcao").click(function() {
+		if (this.id == "opcao_itens") {
+			$("#submenu_itens").toggleClass("block");
+		}
+	});
+</script>
 </html>

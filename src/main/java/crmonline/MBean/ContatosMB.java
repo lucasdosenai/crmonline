@@ -45,6 +45,9 @@ public class ContatosMB {
 		listacontato = new ArrayList<>();
 		listacontato = cDAO.listarcontato();
 	}
+	
+	
+	
 	public void buscaCliente() {
 		contatos = cDAO.listarClienteContato(codigoClienteParaBuscar);
 	}
