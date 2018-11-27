@@ -70,6 +70,7 @@
 
 	<h:form id="formTabela">
 		<p:dataTable id="tabela" value="#{agendaMB.visitas}" var="a">
+		    
 			<p:column headerText="Nome da Visita">
 				<h:outputText value="#{a.nome}" />
 			</p:column>
@@ -81,7 +82,7 @@
 					value="Dia : #{agendaMB.getDate(a.data)} - Hora : #{a.hora}" />
 			</p:column>
 			<p:column headerText="Editar">
-				<p:commandButton ajax="true" event="onclick" styleClass="btn"
+				<p:commandButton ajax="true" event="onclick"
 					value="Excluir" onclick="PF('confirmaExcluir').show();"
 					icon="ui-icon-trash">
 					<f:setPropertyActionListener value="#{a}"
@@ -93,15 +94,14 @@
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
 				</p:commandButton>
-				<p:commandButton onclstyleClass="btn" value="Realizar"
+				<p:commandButton value="Realizar"
 					oncomplete="PF('realizar').show();" icon="ui-icon-check">
 					<f:setPropertyActionListener value="#{a}"
 						target="#{agendaMB.agenda}" />
-					<p:confirm header="Confirma ?" message="Deseja realizar a visita ?"
-						icon="ui-icon-alert" />
+					
 				</p:commandButton>
 
-				<p:commandButton styleClass="btn" value="Visualizar"
+				<p:commandButton value="Visualizar"
 					oncomplete="PF('visualizar').show();" update="dlgVisu"
 					icon="ui-icon-zoomin">
 					<f:setPropertyActionListener value="#{a}"
@@ -111,9 +111,11 @@
 		</p:dataTable>
 	</h:form>
 	<h:form id="formNovaVisita">
+		
 		<p:dialog id="dialog" header="NOVO VISITA" widgetVar="novaVisita"
 			minHeight="40">
 			<p:column headerText="Nova Visita">
+			<h:panelGrid columns="2"> 
 				<p:inputText placeholder="NOME : " value="#{agendaMB.agenda.nome}" />
 				<br />
 				<p:inputText placeholder="ATENDENTE : "
@@ -122,12 +124,9 @@
 				<p:calendar value="#{agendaMB.agenda.data}" showOn="button"
 					placeholder="Dia da Visita" mask="true" pattern="dd/MM/yyyy" />
 				<br />
-
-				<p:inputMask placeholder="Horário da Visita" size="40"
-					styleClass="input_normal" mask="99:99"
+				<p:inputMask placeholder="Horário da Visita" size="40" styleClass="input_normal" mask="99:99"
 					value="#{agendaMB.agenda.hora}" />
 				<p:panelGrid columns="2">
-
 					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
 						<f:selectItem itemLabel="Selecionar Cliente" />
 						<f:selectItems value="#{clienteMB.clientes}" var="cli"
@@ -142,6 +141,7 @@
 						<p:commandButton value="+" onclick="PF('Add').show();" />
 					</h:panelGrid>
 				</p:panelGrid>
+				</h:panelGrid>
 				<br />
 				<p:commandButton value="Adicionar"
 					actionListener="#{agendaMB.agendar}" ajax="true"
@@ -150,9 +150,6 @@
 			</p:column>
 		</p:dialog>
 	</h:form>
-
-
-
 	<p:dialog id="dialog22" draggable="true" maximizable="true"
 		header="EDITA CLIENTE" widgetVar="edite" minHeight="40">
 		<h:form id="formEditar">
@@ -189,14 +186,12 @@
 						<p:commandButton value="+" onclick="PF('Add').show();" />
 					</h:panelGrid>
 				</p:panelGrid>
-
 				<br />
-				<p:commandButton value="Aplicar" action="#{agendaMB.aVisita}"
-					ajax="true" onclick="PF('dialog22').hide();" />
+				<p:commandButton ajax="true" value="Aplicar" actionListener="#{agendaMB.editaVisita}"
+					oncomplete="document.getElementById('dialog22).style.display = 'none'" />
 
 			</p:column>
 		</h:form>
-
 	</p:dialog>
 
 	<p:dialog widgetVar="realizar">
@@ -218,13 +213,7 @@
 		</h:form>
 	</p:dialog>
 
-	<p:dialog header="Values" widgetVar="dlg" showEffect="fade"
-		hideEffect="fade">
-		<h:panelGrid id="display" columns="2" cellpadding="5">
-			<h:outputText value="Rating 3:" />
-			<h:outputText value="#{ratingView.rating3}" />
-		</h:panelGrid>
-	</p:dialog>
+	
 
 
 
@@ -259,13 +248,6 @@
 				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 		</p:column>
 	</p:dialog>
-
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		<p:commandButton value="Sim" type="button"
-			styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-		<p:commandButton value="Não" type="button"
-			styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-	</p:confirmDialog>
 
 	<p:dialog widgetVar="Add">
 		<h:form>

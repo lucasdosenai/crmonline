@@ -10,7 +10,17 @@
     .value {
         font-weight: bold;
     }
-</style>
+    
+    .scroll{
+    	overflow: auto;
+    }
+    
+    @media print{
+    	#teste{
+    		display: none;
+    	}
+    }
+	</style>
 </h:head>
 <h:body styleClass="teste">
 	<p:growl>
@@ -38,7 +48,7 @@
 		 </div>
 	</div>
 
-		<p:toolbar>
+		<p:toolbar id="teste">
 			<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
 			</f:facet>
@@ -59,11 +69,12 @@
 				</h:form>
 			</f:facet>
 		</p:toolbar>
-
+<div class="scroll">	
 	<p:panelGrid columns="3"
 		style="width:90%;margin:0 auto;border: none !important;">
 		
 		<h:form id="form">
+	
     <p:dataGrid id="dataList" var="visita" value="#{relatorioMB.visitaRealizada}" columns="1" layout="grid"
         rows="12" paginator="true" rowsPerPageTemplate="6,12,16">
          
@@ -82,12 +93,13 @@
                 <p:commandLink update="dialogFinal" oncomplete="PF('visitaDialog').show()"  title="Visualizar Detalhes">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;" value="Informações Completas"/>
                     <f:setPropertyActionListener value="#{visita}" target="#{relatorioMB.visitaSelecionada}" />
-                     <p:ajax event="click" listener="#{relatorioMB.retornoRenderiza}" update="msg" />
+                     <p:ajax event="click" listener="#{relatorioMB.retornoRenderiza}"  />
                 </p:commandLink>
             </h:panelGrid>
         </p:panel>
  
     </p:dataGrid>
+    
  </h:form>
     <p:dialog id="dialogFinal" header="Informações da Visita" widgetVar="visitaDialog" 
     modal="true" showEffect="fade" hideEffect="fade" resizable="false" rendered="#{relatorioMB.renderizaInformaDialog}">
@@ -105,7 +117,7 @@
                
                 <h:outputLabel value="Observações :"/><br/>
                 <h:outputLabel value="#{visita.observacao}"/>
-                <p:ajax event="close" listener="#{relatorioMB.retornoRenderiza}" update="msg" />
+                
             </p:panelGrid>
         </p:outputPanel>
     </p:dialog>
@@ -114,7 +126,7 @@
 		
 		
 	</p:panelGrid>
-	
+	</div>
 </h:body>
 <script>
         $("#botao").click(function() {
