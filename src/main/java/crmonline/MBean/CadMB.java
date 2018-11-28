@@ -14,13 +14,16 @@ public class CadMB {
 
 	UserDAO uDao;
 	Usuario usuario;
-
+	String verificaSenha;
+	
 	public CadMB() {
 		uDao = new UserDAO();
 		usuario = new Usuario();
 	}
 	
 	public String verifica() {
+		if(usuario.getPassword().equals(verificaSenha)) {
+			
 		if(uDao.verificaNifNoBanco(usuario.getNif()) == null) {
 			if(uDao.cadastrar(usuario)) {
 				FacesContext.getCurrentInstance().addMessage(null, 
@@ -39,6 +42,20 @@ public class CadMB {
 					new FacesMessage("NIF JÁ EXISTENTE! "));
 			return "";
 		}
+	}else {
+		FacesContext.getCurrentInstance().addMessage(null, 
+				new FacesMessage("SENHAS NÃO CORRESPONDEM! "));
+		return "";
+	}
+	}
+	
+	
+	public String getVerificaSenha() {
+		return verificaSenha;
+	}
+
+	public void setVerificaSenha(String verificaSenha) {
+		this.verificaSenha = verificaSenha;
 	}
 
 	public UserDAO getuDao() {

@@ -31,9 +31,8 @@
 		<p:inputMask placeholder="NIF" size="40" styleClass="input_normal" mask="999 999 9" value="#{cadMB.usuario.nif}"/>
 		
 			<p:password placeholder="Senha" size="40" styleClass="input_normal" value="#{cadMB.usuario.password}"/>
-			<p:password placeholder="Confirmar Senha" styleClass="input_normal" size="40"/>
-
-		
+			<p:password placeholder="Confirmar Senha" styleClass="input_normal" size="40" value="#{cadMB.verificaSenha}"/>
+			
 		<p:selectOneRadio styleClass="input_normal" value="#{cadMB.usuario.sexo}">
 			<f:selectItem itemValue="M" itemLabel="Masculino" />
 			<f:selectItem itemValue="F" itemLabel="Feminino" />		
@@ -41,8 +40,8 @@
 		
 		<p:inputText placeholder="E-mail" size="40"  styleClass="input_normal" value="#{cadMB.usuario.email}"/>	
 		<p:panelGrid columns="2">
-			<h:commandButton value="Cadastrar" styleClass="btn" action="#{cadMB.verifica}"/>
-			<h:commandButton value="Cancelar" styleClass="btn" />
+			<h:commandButton value="Confirmar Cadastro" styleClass="btn" action="#{cadMB.verifica}"/>
+			<h:commandButton value="Acessar conta" styleClass="btn" action="index?faces-redirect=true"/>
 		</p:panelGrid>
 	</p:panelGrid>
 	</h:form>

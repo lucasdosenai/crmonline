@@ -28,10 +28,10 @@ public class UserMB {
 	@ManagedProperty("#{loginMB}")
 	private LoginMB usuarioLogado;
 	
-	@PostConstruct
+	/*@PostConstruct
 	public void post() {
 		usuarioLog = usuarioLogado.getUserAtual();
-	}
+	}*/
 	
 	Usuario usuarioLog;
 	private RelatorioMB rMB;

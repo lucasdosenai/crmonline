@@ -135,7 +135,6 @@ public class AgendaMB {
 		}else {
 			visitas = aDao.listarAgenda("0");
 		}
-		
 	}
 	
 	
