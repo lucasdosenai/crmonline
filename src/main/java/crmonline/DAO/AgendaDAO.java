@@ -59,10 +59,11 @@ public class AgendaDAO {
 	/*x*/
 	public List<Agenda> listarAgenda(String codigo) {
 		List<Agenda> agenda = new ArrayList<>();
-		String sql = "SELECT a.*, c.nome as cliente, cs.nome as curso  "
+		String sql = "SELECT a.*, c.*,ct.*, cs.*  "
 				+ " FROM AGENDA a "
 				+ " INNER JOIN cliente c ON a.id_cliente = c.id"
 				+ " INNER JOIN curso cs ON a.id_curso = cs.id"
+				+ " INNER JOIN categoria ct ON c.id_categoria = ct.id"
 				+ " WHERE ESTADOS = ? ORDER BY DATAV ASC";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -86,14 +87,21 @@ public class AgendaDAO {
 				
 				Cliente c = new Cliente();
 				c.setCodigo(rs.getInt("id_cliente"));
-				c.setNome(rs.getString("cliente"));
+				c.setNome(rs.getString("c.nome"));
+				c.setCidade(rs.getString("c.CIDADE"));
+				
+				c.getCategoria().setId(rs.getInt("c.ID_CATEGORIA"));
+				c.getCategoria().setNome(rs.getString("ct.nome"));
+				
+				c.setLogradouro(rs.getString("c.LOGRADOURO"));
+				
 				a.setCliente(c);
 				
 				Curso cs = new Curso();
-				cs.setNome(rs.getString("curso"));
+				cs.setId(rs.getInt("ID_CURSO"));
+				cs.setNome(rs.getString("cs.nome"));
 				a.setCursoObj(cs);
 				a.setCurso(rs.getInt("ID_CURSO"));
-				
 				
 				agenda.add(a);
 			}
