@@ -31,6 +31,7 @@ public class AgendaMB {
 	Curso novoCurso;
 	List<Curso> cursos;
 	Integer codigoparabuscar, buscarcurso;
+	Integer id_cursofiltro;
 	
 	Contato contato;
     List<Contato> contatos;
@@ -169,6 +170,13 @@ public class AgendaMB {
 		this.contato = contato;
 	}
 
+	
+	public Integer getId_cusofiltro() {
+		return id_cursofiltro;
+	}
+	public void setId_cusofiltro(Integer id_cusofiltro) {
+		this.id_cursofiltro = id_cusofiltro;
+	}
 	public List<Contato> getContatos() {
 		return contatos;
 	}

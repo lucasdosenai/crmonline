@@ -25,6 +25,7 @@ public class Agenda {
 	private Curso cursoObj;
 	private Integer curso;
 	
+	
 	public Curso getCursoObj() {
 		return cursoObj;
 	}

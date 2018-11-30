@@ -121,6 +121,7 @@ public class AgendaDAO {
 		String SQL = "UPDATE AGENDA SET NOME = ? ,ATENDENTE = ? ,DATAV = ? ,HORARIO = ? "
 				+ ",ID_CLIENTE = ? ,ID_CURSO = ?  WHERE ID = ?";
 		PreparedStatement ps;
+		
 		try {
 			ps = con.prepareStatement(SQL);
 			ps.setString(1, a.getNome());
@@ -132,10 +133,10 @@ public class AgendaDAO {
 			ps.setString(3, x);
 			ps.setString(4, a.getHora());
 			ps.setInt(5, a.getId_cliente());
-			ps.setInt(6, a.getCurso()); // == null? 0 : a.getCurso());
+			ps.setInt(6, a.getCurso()); 
 			ps.setInt(7, a.getCodigo());
 
-			if(ps.executeUpdate() > 0)
+			if(ps.executeUpdate() > 0) 
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -188,7 +189,7 @@ public class AgendaDAO {
 			a.setId_cliente(rs.getInt("ID_CLIENTE"));
 			
 			Cliente c = new Cliente();
-			c.setCodigo(rs.getInt("id_cliente"));
+			c.setCodigo(rs.getInt("c.id"));
 			c.setNome(rs.getString("C.NOME"));
 			a.setCliente(c);
 			
@@ -227,7 +228,7 @@ public class AgendaDAO {
 			a.setId_cliente(rs.getInt("ID_CLIENTE"));
 			
 			Cliente c = new Cliente();
-			c.setCodigo(rs.getInt("id_cliente"));
+			c.setCodigo(rs.getInt("c.id"));
 			c.setNome(rs.getString("C.NOME"));
 			a.setCliente(c);
 			
@@ -293,7 +294,7 @@ public class AgendaDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Agenda a = new Agenda();
-				
+				a.setCodigo(rs.getInt("ID"));
 				a.setNome(rs.getString("NOME"));
 				a.setAtendente(rs.getString("ATENDENTE"));
 				String data = rs.getString("DATAV");
@@ -305,7 +306,7 @@ public class AgendaDAO {
 				a.setObservacao(rs.getString("OBSERVACOES"));
 				a.setId_visitante(rs.getInt("ID_VISITANTE"));
 				a.setId_cliente(rs.getInt("ID_CLIENTE"));
-				a.getCursoObj().setId(rs.getInt(""));
+				a.setCurso(rs.getInt("ID_CURSO"));
 				agendas.add(a);
 			}
 			return agendas;
