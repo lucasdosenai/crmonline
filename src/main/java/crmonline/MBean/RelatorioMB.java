@@ -43,7 +43,7 @@ public class RelatorioMB {
 		
 		visitaSelecionada = new Agenda();
 		
-		visitaRealizada = aDao.listarAgenda("0");
+		visitaRealizada = aDao.listarAgenda("1");
 		listaClientesDropDown = cDao.listaCliente(1);
 	}
 	
@@ -72,9 +72,9 @@ public class RelatorioMB {
 		}
 	}
 	public void filtrarClientes() throws SQLException, ParseException {
-		if(clienteSelecionadoParaBusca != 0) visitaRealizada = 
-				rDao.listaRelatorioPorTipo(clienteSelecionadoParaBusca, "0");
-		else visitaRealizada = aDao.listarAgenda("0");
+		if(clienteSelecionadoParaBusca != 0) 
+			visitaRealizada = rDao.listaRelatorioPorTipo(clienteSelecionadoParaBusca, "0");
+		else visitaRealizada = aDao.listarAgenda("1");
 			
 	}
 	public String converteDate(Date date) {

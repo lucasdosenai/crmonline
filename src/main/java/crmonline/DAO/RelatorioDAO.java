@@ -28,9 +28,10 @@ public class RelatorioDAO {
 		String SQL = "SELECT * FROM AGENDA";
 		
 		if(acao == "0") {
-			SQL = "SELECT * FROM AGENDA AS A INNER JOIN CLIENTE AS C ON "
-					+ "A.ID_CLIENTE = ? AND C.ID = A.ID_CLIENTE "
-					+ "INNER JOIN CURSO AS CG ON CG.ID = A.ID_CURSO";
+			SQL = "select a.*,c.*,cs.* from agenda as a" + 
+					"	inner join cliente as c on c.id = a.id_cliente" + 
+					"   inner join curso as cs on cs.id = a.id_curso" + 
+					"   where a.estados = 1 AND a.id_cliente = ?";
 		}else if(acao == "cargo") {
 			SQL = "SELECT * FROM AGENDA WHERE ID_CURSO = ?";
 		}
@@ -60,9 +61,9 @@ public class RelatorioDAO {
 			a.setCliente(c);
 			
 			Curso cs = new Curso();
-			cs.setNome(rs.getString("CG.NOME"));
-			cs.setId(rs.getInt("CG.ID"));
-			cs.getCATEGORIA().setId(rs.getInt("CG.ID_CATEGORIA"));
+			cs.setNome(rs.getString("CS.NOME"));
+			cs.setId(rs.getInt("CS.ID"));
+			cs.getCATEGORIA().setId(rs.getInt("CS.ID_CATEGORIA"));
 			a.setCursoObj(cs);
 			a.setCurso(rs.getInt("ID_CURSO"));
 			
@@ -73,12 +74,18 @@ public class RelatorioDAO {
 	}
 	
 	public List<Agenda> listaAgendaKeyDown(String busca) {
-		String SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE ?";
+		String SQL;
+		if(busca != "") { 
+			SQL = "SELECT * FROM AGENDA WHERE DATAV LIKE ? ESTADOS = 1";
+			}
+		else {
+			SQL = "SELECT * FROM AGENDA ESTADOS = 1";
+			}
 		List<Agenda> listaCompleta = new ArrayList<>();
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(SQL);
-			ps.setString(1, busca+"%");
+			ps.setString(1, "%"+busca+"%");
 			ResultSet rs = ps.executeQuery();
 		
 			while(rs.next()) {

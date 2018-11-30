@@ -305,6 +305,7 @@ public class AgendaDAO {
 				a.setObservacao(rs.getString("OBSERVACOES"));
 				a.setId_visitante(rs.getInt("ID_VISITANTE"));
 				a.setId_cliente(rs.getInt("ID_CLIENTE"));
+				a.getCursoObj().setId(rs.getInt(""));
 				agendas.add(a);
 			}
 			return agendas;

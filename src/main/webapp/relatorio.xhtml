@@ -19,6 +19,8 @@
     	#teste{
     		display: none;
     	}
+    		display: none;
+    	}
     }
 	</style>
 </h:head>
@@ -26,6 +28,7 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
+	
 	<div class="menu-lateral transform" id="menu-lateral">
 		<div style="padding: 10px; padding-right: 15px; text-align: right">
 			<span class="botao-fechar-menu">x</span>
@@ -52,7 +55,6 @@
 			<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
 			</f:facet>
-
 			<f:facet name="right">
 				<h:form>
 					<p:inputText placeholder="Busca por data"
@@ -75,29 +77,24 @@
 		
 		<h:form id="form">
 	
-    <p:dataGrid id="dataList" var="visita" value="#{relatorioMB.visitaRealizada}" columns="1" layout="grid"
-        rows="12" paginator="true" rowsPerPageTemplate="6,12,16">
+    <p:dataGrid id="dataList" var="visita" value="#{relatorioMB.visitaRealizada}" columns="4" layout="grid"
+        rows="12" paginator="true" style="width:100%" >
          
-        <f:facet name="header">
+        <f:facet name="header" id="teste1">
             Relatórios
         </f:facet>
  
-        <p:panel header="#{visita.codigo}" style="text-align:center">
+        <p:panel header="#{visita.nome}" style="text-align:center; font-size:90% ">
             <h:panelGrid columns="1" style="width:100%">
-                <p:graphicImage name="logo.png" library="img" width="35px" height="35px"/> 
- 
-                <h:outputText value="#{visita.cliente.nome}" />
-                <h:outputText value="#{visita.cursoObj.nome}" />
-                <h:outputText value="#{visita.dataConverte}" />
- 
-                <p:commandLink update="dialogFinal" oncomplete="PF('visitaDialog').show()"  title="Visualizar Detalhes">
-                    <h:outputText styleClass="pi pi-search" style="margin:0 auto;" value="Informações Completas"/>
-                    <f:setPropertyActionListener value="#{visita}" target="#{relatorioMB.visitaSelecionada}" />
-                     <p:ajax event="click" listener="#{relatorioMB.retornoRenderiza}"  />
-                </p:commandLink>
+            		<h4>Empresa</h4><h:outputText value="#{visita.cliente.nome}"/><hr/>
+	                <h4>Curso Relacionado :</h4><h:outputText value=" #{visita.cursoObj.nome}" /><hr/>
+	                <h4>Data da visita :</h4><h:outputText value=" #{visita.dataConverte}" />
+	                <p:panel>
+	                	<h4>Observações</h4>
+ 						<h:outputText value="#{visita.observacao}"/>
+                	</p:panel>
             </h:panelGrid>
         </p:panel>
- 
     </p:dataGrid>
     
  </h:form>

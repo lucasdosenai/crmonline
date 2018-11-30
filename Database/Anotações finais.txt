@@ -1,0 +1,36 @@
+Anotações finais Lucas.
+
+- Na tela inicial, colocar o nome de quem fez agendamento, data e local da visita.
+
+- Estilizar a tela de nova visita (Completo)
+
+- Na tela nova visita, mudar o nome da visita para ASSUNTO (Completo).
+
+- Na tela novo cliente, deixar explicito o número do endereço no campo de inserção
+
+- Na tela novo cliente, colocar as labels. Retirar o botão Atualizar.
+
+- Na tela de cliente, colocar no filtro TODOS OS RAMOS.
+
+- Na tela de novo e editar cliente, aumentar tamanho dos campos.
+
+- Na tela novo contato, colocar o botão voltar abaixo do cadastrar.
+
+- Na tela de contato, colocar botão Limpar Filtro.
+
+- Na tela realizar visita, colocar o botão pra baixo.
+
+- Na tela relatório:	
+	Fazer o filtro funcionar.
+	Alterar informações mostradas conforme passado.
+
+	MELHORIA
+	- Criar um campo na tabela cliente pontos.
+	- Todas visita gera pontos conforme a classificação -2 a 2.
+	- Quando a visita é realizada e avaliada, incrementa os pontos no cliente.
+
+No APP:
+	- Bloquear rotação.
+	- Estilizar a tela realizar.
+	
+	

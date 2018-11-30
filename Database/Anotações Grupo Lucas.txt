@@ -1,0 +1,25 @@
+Apresentação grupo Lucas.
+
+SOBRE APRESENTAÇÃO.
+	
+A FAZER
+
+- Mensagem de email não encontrado na tela de esqueci a senha.
+
+- @all na tela de cadastro de empresas
+
+- Mascara no campo telefone da empresa.
+
+- Bug nos botões da tela de contatos.
+
+- Acertar os menus.
+
+- Colocar realizadas ou não realizadas no filtro de visitas.
+
+SUGESTÃO
+
+- Desabilitar campos na edição do cliente e colocar botão para habilitar.
+
+- Na classificação da empresa colocar pontuação de -2 a 2.
+
+- Disparar e-mails para cliente no agendamento da visita.
