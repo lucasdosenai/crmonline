@@ -43,6 +43,7 @@ public class AgendaMB {
 	List<Agenda> visitas;
 	
 	String dataFinal;
+	Agenda visitaSelecionadaIndex;
 	
 	public AgendaMB() {
 	
@@ -57,6 +58,7 @@ public class AgendaMB {
 		contatos = new ArrayList<>();
 		visitas = new ArrayList<>();
 		visitas = aDao.listarAgenda("0");
+		visitaSelecionadaIndex = new Agenda();
 		
 		try {
 			cursos = classeGenericaDao.listarCurso();
@@ -91,7 +93,22 @@ public class AgendaMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
 		}
 	}
-
+	
+	public void realizaVisitaIndex() {
+		try {
+			if(aDao.realizaVisita(visitaSelecionadaIndex)) {
+				visitas = aDao.listarAgenda("0");
+				agenda = new Agenda();
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+		}
+		visitaSelecionadaIndex = new Agenda();
+	}
+	
 	public void realizaVisita() {
 		try {
 			if (aDao.realizaVisita(agenda)) {
@@ -283,6 +300,18 @@ public class AgendaMB {
 
 	public void setDataFinal(String dataFinal) {
 		this.dataFinal = dataFinal;
+	}
+	public Integer getId_cursofiltro() {
+		return id_cursofiltro;
+	}
+	public void setId_cursofiltro(Integer id_cursofiltro) {
+		this.id_cursofiltro = id_cursofiltro;
+	}
+	public Agenda getVisitaSelecionadaIndex() {
+		return visitaSelecionadaIndex;
+	}
+	public void setVisitaSelecionadaIndex(Agenda visitaSelecionadaIndex) {
+		this.visitaSelecionadaIndex = visitaSelecionadaIndex;
 	}
 
 }

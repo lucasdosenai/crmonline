@@ -41,18 +41,58 @@
 		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
 		</f:facet>
+		<f:facet name="right">
+			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}"/>
+		</f:facet>
 	</p:toolbar>
-	
 	<h:form id="form">
-		<p:dataGrid var="v" value="#{agendaMB.visitas}" 
-		layout="grid" columns="3" paginator="true" rows="10">
+		
+		<p:dataGrid id="tabelaVisitasPendente" var="v" value="#{agendaMB.visitas}" layout="grid" columns="3" paginator="true" rows="10">
 		<p:panel header="#{v.nome}">
 			<p:outputLabel value="Atendente : #{v.atendente}"/><br/>
 			<p:outputLabel value="Empresa : #{v.cliente.nome} "/><br/>
-			<p:outputLabel value="Local : #{v.cliente.logradouro}"/>
+			<p:outputLabel value=" Data : #{v.dataConverte} Hora : #{v.hora}"/><br/>
+			<p:outputLabel value="Local : #{v.cliente.logradouro}"/><br/>
+			
+			<p:commandButton value="Realizar" oncomplete="PF('realizarVisita').show();" ajax="true" update="realizar">
+				<f:setPropertyActionListener value="#{v}" target="#{agendaMB.visitaSelecionadaIndex}"/>
+			</p:commandButton>
+			
+			<p:commandButton value="Informações" oncomplete="PF('visualizarCard').show();" ajax="true"  update="cardInforma">
+				<f:setPropertyActionListener value="#{v}" target="#{agendaMB.visitaSelecionadaIndex}"/>
+			</p:commandButton>
 		</p:panel>
+			
 		</p:dataGrid>
+		
 	</h:form>
+	
+	<p:dialog id="realizar" widgetVar="realizarVisita">
+		<h:form id="formRealizar">
+			<h:outputText value="Classificação:" />
+			<p:rating value="#{agendaMB.visitaSelecionadaIndex.classificacao}">
+
+			</p:rating>
+			<h3>Observações:</h3>
+			<p:inputTextarea value="#{agendaMB.visitaSelecionadaIndex.observacao}" style="width:980px" rows="6" cols="33" /><br/>
+			<p:commandButton value="Visita Concluída" ajax="true"
+				actionListener="#{agendaMB.realizaVisitaIndex}"
+				oncomplete="PF('realizar').hide();"
+				update="form:tabelaVisitasPendente formRealizar" disabled="" />
+		</h:form>
+	</p:dialog>
+	
+	<p:dialog id="cardInforma" widgetVar="visualizarCard" header="#{agendaMB.visitaSelecionadaIndex.nome}">
+	<p:panelGrid columns="2">
+		   <p:outputLabel value="Atendente :"/> <p:outputLabel value=" #{agendaMB.visitaSelecionadaIndex.atendente}"/>
+		   <p:outputLabel value="Empresa :"/><p:outputLabel value="#{agendaMB.visitaSelecionadaIndex.cliente.nome} "/>
+		   <p:outputLabel value="Data :"/><p:outputLabel value="#{agendaMB.visitaSelecionadaIndex.dataConverte} Hora : #{agendaMB.visitaSelecionadaIndex.hora}"/>
+		   <p:outputLabel value="Local :"/><p:outputLabel value=" #{agendaMB.visitaSelecionadaIndex.cliente.logradouro}"/>
+		   <p:outputLabel value="Curso :"/><p:outputLabel value="#{agendaMB.visitaSelecionadaIndex.cursoObj.nome}"/>
+		   <p:outputLabel value="Estado :"/><p:outputLabel value="#{agendaMB.visitaSelecionadaIndex.estadovisita eq '0' ? 'Pendente':'Realizado'} "/>   
+	</p:panelGrid>
+	</p:dialog>
+	
 </h:body>
 <script>
 	$("#botao").click(function() {

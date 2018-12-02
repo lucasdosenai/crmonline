@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.xml.crypto.Data;
 
 import crmonline.DAO.UserDAO;
@@ -27,7 +28,20 @@ public class LoginMB {
 		uDao = new UserDAO();
 	}
 // -------------------------------------------------------------------------------------------------
-
+	//Contexto da Aplicação
+    // FacesContext conext = FacesContext.getCurrentInstance();
+    //Verifica a sessao e a grava na variavel
+    // HttpSession session = (HttpSession) conext.getExternalContext().getSession(false);
+    //Fecha/Destroi sessao
+    // session.invalidate();
+	public String desligaUsuario() {
+		FacesContext contexto = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) contexto.getExternalContext().
+				getSession(false);
+		session.invalidate();
+		return "index?faces-redirect=true";
+	}
+	
 	public String logaUsuario() {
 		System.out.println("METODO: logaUsuario");
 		userAtual = uDao.buscaLogin(getUsuario().replaceAll(" ", ""), getPassword());

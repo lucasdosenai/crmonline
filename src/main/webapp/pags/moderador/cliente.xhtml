@@ -158,30 +158,30 @@
 	</p:panelGrid>
 
 	<p:dialog id="dialog" draggable="true" maximizable="true"
-		header="EDITA CLIENTE" widgetVar="editC" minHeight="40">
+		header="EDITA CLIENTE" widgetVar="editC" minHeight="40" >
 		<h:form>
 			<p:column headerText="Editar Cliente">
-				<p:inputText placeholder="NOME : " value="#{clienteMB.cliente.nome}" />
+				<p:inputText style="width:500px;" placeholder="NOME : " value="#{clienteMB.cliente.nome}" />
 				<br />
-				<p:inputText placeholder="COLABORADORES : "
+				<p:inputText style="width:500px;" placeholder="COLABORADORES : "
 					value="#{clienteMB.cliente.numeroFuncionario}" />
 				<br />
-				<p:inputText placeholder="CNPJ : " value="#{clienteMB.cliente.cnjp}" />
+				<p:inputText style="width:500px;" placeholder="CNPJ : " value="#{clienteMB.cliente.cnjp}" />
 				<br />
-				<p:inputText placeholder="TELEFONE : "
+				<p:inputText style="width:500px;" placeholder="TELEFONE : "
 					value="#{clienteMB.cliente.telefone}" />
 				<br />
-				<p:inputText placeholder="EMAIL : "
+				<p:inputText style="width:500px;" placeholder="EMAIL : "
 					value="#{clienteMB.cliente.email}" />
 				<br />
-				<p:inputText placeholder="LOGRADOURO : "
+				<p:inputText style="width:500px;" placeholder="LOGRADOURO : "
 					value="#{clienteMB.cliente.logradouro}" />
 				<br />
-				<p:inputText placeholder="CIDADE : "
+				<p:inputText style="width:500px;" placeholder="CIDADE : "
 					value="#{clienteMB.cliente.cidade}" />
 				<br />
 				<p:selectOneMenu id="categoria"
-					value="#{clienteMB.cliente.categoria.id}" style="width:150px">
+					value="#{clienteMB.cliente.categoria.id}" style="width:455px">
 					<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
 						noSelectionOption="true" />
 					<f:selectItems var="categoria" value="#{categoriaMB.categorias}"

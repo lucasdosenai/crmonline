@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="css" name="estilo.css" />
 	<h:outputStylesheet library="css" name="pushy.css" />
@@ -73,13 +73,12 @@
 			</f:facet>
 		</p:toolbar>
 <div class="scroll">	
-	<p:panelGrid columns="3"
-		style="width:90%;margin:0 auto;border: none !important;">
+	<p:panelGrid columns="3" style="width:90%;margin:0 auto;border: none !important;">
 		
 		<h:form id="form">
 	
     <p:dataGrid id="dataList" var="visita" value="#{relatorioMB.visitaRealizada}" columns="4" layout="grid"
-        rows="12" paginator="true" style="width:100%" >
+        rows="12" style="width:100%" >
          
         <f:facet name="header" id="teste1">
             Relatórios
@@ -97,7 +96,6 @@
             </h:panelGrid>
         </p:panel>
     </p:dataGrid>
-    
  </h:form>
     <p:dialog id="dialogFinal" header="Informações da Visita" widgetVar="visitaDialog" 
     modal="true" showEffect="fade" hideEffect="fade" resizable="false" rendered="#{relatorioMB.renderizaInformaDialog}">
