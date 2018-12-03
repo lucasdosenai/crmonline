@@ -69,7 +69,8 @@
 						var="c" value="#{relatorioMB.listaClientesDropDown}" />
 					<p:ajax update="@all" listener="#{relatorioMB.filtrarClientes}" />
 				</p:selectOneMenu>
-				</h:form>
+				</h:form>	
+			 <p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}"/>
 			</f:facet>
 		</p:toolbar>
 <div class="scroll">	
