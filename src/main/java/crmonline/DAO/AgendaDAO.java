@@ -272,6 +272,7 @@ public class AgendaDAO {
 				a.setObservacao(rs.getString("OBSERVACOES"));
 				a.setId_visitante(rs.getInt("ID_VISITANTE"));
 				a.setId_cliente(rs.getInt("ID_CLIENTE"));
+				a.setCurso(rs.getInt("ID_CURSO"));
 				agendas.add(a);
 			}
 			return agendas;
@@ -317,7 +318,7 @@ public class AgendaDAO {
 		}
 	return null;
 	}
-	
+
 	
 	
 }

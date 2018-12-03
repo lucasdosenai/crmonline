@@ -27,26 +27,29 @@ import crmonline.util.Mensagem;
 public class AgendaMB {
 	AgendaDAO aDao;
 	Agenda agenda = new Agenda();
+	Agenda agendaEditar = new Agenda();
 	Curso curso;
 	Curso novoCurso;
 	List<Curso> cursos;
 	Integer codigoparabuscar, buscarcurso;
 	Integer id_cursofiltro;
-	
+
 	Contato contato;
-    List<Contato> contatos;
-    
+	List<Contato> contatos;
+
 	ClasseGenericaDao classeGenericaDao;
 	List<ClasseGenerica> categorias;
 	CursoDAO cDao;
 	LoginMB u;
 	List<Agenda> visitas;
-	
+
 	String dataFinal;
 	Agenda visitaSelecionadaIndex;
-	
+	String selectOneMenu_Ativados_e_Desativados = "0";
+	boolean btDisabled = false;
+
 	public AgendaMB() {
-	
+
 		novoCurso = new Curso();
 		cDao = new CursoDAO();
 		aDao = new AgendaDAO();
@@ -59,7 +62,7 @@ public class AgendaMB {
 		visitas = new ArrayList<>();
 		visitas = aDao.listarAgenda("0");
 		visitaSelecionadaIndex = new Agenda();
-		
+
 		try {
 			cursos = classeGenericaDao.listarCurso();
 			categorias = classeGenericaDao.buscaCategoria();
@@ -69,9 +72,11 @@ public class AgendaMB {
 			Mensagem.make(e.toString());
 		}
 	}
+
 	public void visualizarConvertendoData() {
 		dataFinal = "" + converteDate(agenda.getData()) + "";
 	}
+
 	public String agendar() throws SQLException {
 		if (aDao.inserir(agenda)) {
 			visitas = aDao.listarAgenda("0");
@@ -85,18 +90,18 @@ public class AgendaMB {
 	}
 
 	public void editaVisita() {
-		if (aDao.updateVisita(agenda)){
+		if (aDao.updateVisita(agendaEditar)) {
 			visitas = aDao.listarAgenda("0");
-			agenda = new Agenda();
+			agendaEditar = new Agenda();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
 		}
 	}
-	
+
 	public void realizaVisitaIndex() {
 		try {
-			if(aDao.realizaVisita(visitaSelecionadaIndex)) {
+			if (aDao.realizaVisita(visitaSelecionadaIndex)) {
 				visitas = aDao.listarAgenda("0");
 				agenda = new Agenda();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
@@ -108,7 +113,17 @@ public class AgendaMB {
 		}
 		visitaSelecionadaIndex = new Agenda();
 	}
-	
+
+	public void controlevisita() {
+		if (selectOneMenu_Ativados_e_Desativados.equals("0")) {
+			btDisabled = false;
+		} else {
+			btDisabled = true;
+		}
+		visitas = new ArrayList<Agenda>();
+		visitas = aDao.listarAgenda(selectOneMenu_Ativados_e_Desativados);
+	}
+
 	public void realizaVisita() {
 		try {
 			if (aDao.realizaVisita(agenda)) {
@@ -134,43 +149,43 @@ public class AgendaMB {
 		}
 
 	}
-	
+
 	public String converteDate(Date date) {
 		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
 		return s.format(date);
 	}
-	
+
 	public void listacliente() throws ParseException {
-		if(agenda.getId_cliente() != 0)
-		     visitas = aDao.filtrocliente(agenda.getId_cliente());
-		else 
+		if (agenda.getId_cliente() != 0)
+			visitas = aDao.filtrocliente(agenda.getId_cliente());
+		else
 			visitas = aDao.listarAgenda("0");
 	}
-	
+
 	public void listacurso() throws ParseException {
-		if(curso.getId() != 0) {
+		if (curso.getId() != 0) {
 			visitas = aDao.filtroCURSO(curso.getId());
-		}else {
+		} else {
 			visitas = aDao.listarAgenda("0");
 		}
 	}
-	
-	
-	 public Integer getBuscarcurso() {
-			return buscarcurso;
-		}
 
-		public void setBuscarcurso(Integer buscarcurso) {
-			this.buscarcurso = buscarcurso;
-		}
+	public Integer getBuscarcurso() {
+		return buscarcurso;
+	}
 
-		public Integer getCodigoparabuscar() {
-			return codigoparabuscar;
-		}
+	public void setBuscarcurso(Integer buscarcurso) {
+		this.buscarcurso = buscarcurso;
+	}
 
-		public void setCodigoparabuscar(Integer codigoparabuscar) {
-			this.codigoparabuscar = codigoparabuscar;
-		}
+	public Integer getCodigoparabuscar() {
+		return codigoparabuscar;
+	}
+
+	public void setCodigoparabuscar(Integer codigoparabuscar) {
+		this.codigoparabuscar = codigoparabuscar;
+	}
+
 	public Curso getNovoCurso() {
 		return novoCurso;
 	}
@@ -187,13 +202,22 @@ public class AgendaMB {
 		this.contato = contato;
 	}
 
-	
+	public String getSelectOneMenu_Ativados_e_Desativados() {
+		return selectOneMenu_Ativados_e_Desativados;
+	}
+
+	public void setSelectOneMenu_Ativados_e_Desativados(String selectOneMenu_Ativados_e_Desativados) {
+		this.selectOneMenu_Ativados_e_Desativados = selectOneMenu_Ativados_e_Desativados;
+	}
+
 	public Integer getId_cusofiltro() {
 		return id_cursofiltro;
 	}
+
 	public void setId_cusofiltro(Integer id_cusofiltro) {
 		this.id_cursofiltro = id_cusofiltro;
 	}
+
 	public List<Contato> getContatos() {
 		return contatos;
 	}
@@ -301,17 +325,37 @@ public class AgendaMB {
 	public void setDataFinal(String dataFinal) {
 		this.dataFinal = dataFinal;
 	}
+
 	public Integer getId_cursofiltro() {
 		return id_cursofiltro;
 	}
+
 	public void setId_cursofiltro(Integer id_cursofiltro) {
 		this.id_cursofiltro = id_cursofiltro;
 	}
+
 	public Agenda getVisitaSelecionadaIndex() {
 		return visitaSelecionadaIndex;
 	}
+
 	public void setVisitaSelecionadaIndex(Agenda visitaSelecionadaIndex) {
 		this.visitaSelecionadaIndex = visitaSelecionadaIndex;
+	}
+
+	public boolean isBtDisabled() {
+		return btDisabled;
+	}
+
+	public void setBtDisabled(boolean btDisabled) {
+		this.btDisabled = btDisabled;
+	}
+
+	public Agenda getAgendaEditar() {
+		return agendaEditar;
+	}
+
+	public void setAgendaEditar(Agenda agendaEditar) {
+		this.agendaEditar = agendaEditar;
 	}
 
 }
