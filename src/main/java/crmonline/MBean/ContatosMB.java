@@ -30,7 +30,8 @@ public class ContatosMB {
 	ClienteDAO cliDao ;
 	
 	Integer codigoCargoParaBuscar,codigoClienteParaBuscar;
-	
+	String emailCompleto = "";
+	// String testeEmail = listaCompletaEmail();
 	private List<Contato> contatos;
 
 	public ContatosMB() {
@@ -47,6 +48,12 @@ public class ContatosMB {
 	}
 	
 	
+	public void listaCompletaEmail() {
+		emailCompleto = "";
+		for(Contato contato : contatos) {
+			emailCompleto += contato.getEmail() + ",";
+		}
+	}
 	
 	public void buscaCliente() {
 		contatos = cDAO.listarClienteContato(codigoClienteParaBuscar);
@@ -98,8 +105,16 @@ public class ContatosMB {
 
 	}
 	
-	
-	
+	public String getEmailCompleto() {
+		return emailCompleto;
+	}
+
+
+	public void setEmailCompleto(String emailCompleto) {
+		this.emailCompleto = emailCompleto;
+	}
+
+
 	public Integer getCodigoClienteParaBuscar() {
 		return codigoClienteParaBuscar;
 	}
@@ -191,5 +206,5 @@ public class ContatosMB {
 	public List<Contato> getContatos() {
 		return contatos;
 	}
-
+	
 }

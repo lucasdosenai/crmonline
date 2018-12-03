@@ -18,7 +18,8 @@
 			<span class="botao-fechar-menu">x</span>
 		</div>
 		<div class="menu-lateral-info-usuario">
-			<h:graphicImage library="images" name="usuario.svg" width="28px"></h:graphicImage>
+			<h:graphicImage library="img" name="logo.png" width="50px"
+				height="50px"></h:graphicImage>
 			<span>#{principalMBean.usuario.nome}</span>
 		</div>
 		<div class="menu-lateral-opcoes" style="top: 0">
@@ -34,18 +35,35 @@
 			</div>
 			<a class="menu-lateral-opcao"
 				href="http://localhost:8080/crmonline/relatorio.xhtml"
-				target="conteudo">Relatórios</a> <a class="opcao_submenu"
+				target="conteudo">Relatórios</a> <a class="menu-lateral-opcao"
 				href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+			<a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/contatos.xhtml"
+				target="conteudo">Contatos</a>
 		</div>
 	</div>
 	<p:toolbar>
 		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
-			<p:commandButton value="Novo" action="cadastrarcontato?faces-redirect=true" />
+			<p:commandButton value="Novo"
+				action="cadastrarcontato?faces-redirect=true" />
 			<p:splitButton value="Busca" onclick="PF('buscas').show();" />
-			<p:commandButton value="Email´s da lista"/>
+			<p:commandButton value="Emails"
+				oncomplete="PF('emailsCompletos').show();">
+				<p:ajax listener="#{contatosMB.listaCompletaEmail}"
+					update="listaEmailCompleto" event="click" />
+			</p:commandButton>
+		</f:facet>
+		<f:facet name="right">
+			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 		</f:facet>
 	</p:toolbar>
+
+	<p:dialog id="listaEmailCompleto" widgetVar="emailsCompletos" >
+			<textarea id="div">#{contatosMB.emailCompleto}</textarea>
+			<input type="button" id="bt" value="copiar" />
+			<p:outputLabel id="listaDeEmailsContatos" value="#{contatosMB.emailCompleto}" />
+	</p:dialog>
 
 	<p:dialog id="dlgVisu" widgetVar="visualizar">
 		<h2>Nome</h2>
@@ -189,7 +207,7 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.cargos}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					<p:ajax listener="#{contatosMB.buscarCargo}" update="@all"/>
+					<p:ajax listener="#{contatosMB.buscarCargo}" update="@all" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Cliente : " />
@@ -197,14 +215,22 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.clientes}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					<p:ajax listener="#{contatosMB.buscaCliente}" update="@all"/>
+					<p:ajax listener="#{contatosMB.buscaCliente}" update="@all" />
 				</p:selectOneMenu>
 			</p:panelGrid>
 		</h:form>
 	</p:dialog>
-	
+
 </h:body>
 <script>
+	$("#bt").click(function() {
+		alert("oi");
+		$("#div").select();
+
+		document.execCommand('copy');
+
+	})
+
 	$("#botao").click(function() {
 		$("#menu-lateral").addClass("menu-aberto");
 	});
