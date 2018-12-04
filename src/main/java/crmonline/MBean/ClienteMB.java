@@ -82,6 +82,7 @@ public class ClienteMB {
     
 	public void editaCliente() {
 		if (cDao.updateCliente(cliente)) {
+			cliente = new Cliente();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado com sucesso!"));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao Alterar cliente!"));
@@ -109,6 +110,7 @@ public class ClienteMB {
 				FacesContext.getCurrentInstance().addMessage("ALERTA",
 						new FacesMessage(cliente.getNome() + " ADICIONADO COM SUCESSO!"));
 				clientes.add(cliente);
+				cliente = new Cliente();
 
 			} else {
 				FacesContext.getCurrentInstance().addMessage("ALERTA", new FacesMessage("FALHA AO INSERIR"));

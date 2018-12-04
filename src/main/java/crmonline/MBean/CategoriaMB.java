@@ -26,12 +26,15 @@ public class CategoriaMB {
 	}
 	public void att() {
 		categorias = cDao.todasCategorias();
+		categoria = new Categoria();
+		ClienteMB.class.getAnnotatedInterfaces().notify();
 	}
 	
 	public void novaCategoria() {
 		if(categoria.getNome() != "") {
 		if(cDao.novaCategoria(categoria)) {
 			categorias = cDao.todasCategorias();
+			categoria = new Categoria();
 			FacesContext.getCurrentInstance().addMessage(null, 
 					new FacesMessage(categoria.getNome() + " INSERIDO COM SUCESSO!"));
 		}
