@@ -50,7 +50,7 @@ public class ContatoDAO {
 			while (rs.next()) {
 				Contato c = new Contato();
 				c.setId(rs.getInt("idContato"));
-				c.setNome(rs.getString("NOME"));
+				c.setNome(rs.getString("contato.NOME"));
 				c.setTelefone(rs.getString("TELEFONE"));
 				c.setCelular(rs.getString("CELULAR"));
 				c.setEmail(rs.getString("EMAIL"));

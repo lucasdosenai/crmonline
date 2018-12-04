@@ -85,7 +85,7 @@ public class RelatorioDAO {
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(SQL);
-			ps.setString(1, "%"+busca+"%");
+			ps.setString(1, "%"+busca);
 			ResultSet rs = ps.executeQuery();
 		
 			while(rs.next()) {

@@ -68,7 +68,6 @@ public class ContatosMB {
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir!"));
 		}
-
 	}
 
 	public void salvarCargo() throws SQLException {

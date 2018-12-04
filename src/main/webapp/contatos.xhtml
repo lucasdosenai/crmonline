@@ -1,12 +1,9 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="resource" name="estilo.css" />
-	<h:outputStylesheet library="css" name="estilo.css" />
-	<h:outputStylesheet library="css" name="pushy.css" />
 	<h:outputStylesheet library="css" name="styles.css" />
+	<h:outputScript library="js" name="js.js"/>
+	
 </h:head>
 
 <h:body>
@@ -18,8 +15,7 @@
 			<span class="botao-fechar-menu">x</span>
 		</div>
 		<div class="menu-lateral-info-usuario">
-			<h:graphicImage library="img" name="logo.png" width="50px"
-				height="50px"></h:graphicImage>
+			<h:graphicImage library="img" name="logo.png" width="50px" height="50px"></h:graphicImage>
 			<span>#{principalMBean.usuario.nome}</span>
 		</div>
 		<div class="menu-lateral-opcoes" style="top: 0">
@@ -29,42 +25,34 @@
 					target="conteudo">Início</a>
 			</div>
 			<div>
-				<a class="menu-lateral-opcao"
-					href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml"
-					target="conteudo" id="opcao_itens">Clientes</a>
+				<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml" target="conteudo" id="opcao_itens">Clientes</a>
 			</div>
-			<a class="menu-lateral-opcao"
-				href="http://localhost:8080/crmonline/relatorio.xhtml"
-				target="conteudo">Relatórios</a> <a class="menu-lateral-opcao"
-				href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
-			<a class="menu-lateral-opcao"
-				href="http://localhost:8080/crmonline/contatos.xhtml"
-				target="conteudo">Contatos</a>
-		</div>
+			<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/relatorio.xhtml" target="conteudo">Relatórios</a>
+		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/contatos.xhtml" target="conteudo">Contatos</a>
+		 </div>
 	</div>
 	<p:toolbar>
 		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
-			<p:commandButton value="Novo"
-				action="cadastrarcontato?faces-redirect=true" />
-			<p:splitButton value="Busca" onclick="PF('buscas').show();" />
-			<p:commandButton value="Emails"
-				oncomplete="PF('emailsCompletos').show();">
-				<p:ajax listener="#{contatosMB.listaCompletaEmail}"
-					update="listaEmailCompleto" event="click" />
+			<p:commandButton value="Novo" action="cadastrarcontato?faces-redirect=true" />
+			<p:commandButton value="Busca" onclick="PF('buscas').show();" />
+			<p:commandButton id="bt" value="Copiar" type="button" data-clipboard-action="copy" data-clipboard-target="area">
+				<p:ajax listener="#{contatosMB.listaCompletaEmail}" update="listaEmailCompleto" event="click"/>
 			</p:commandButton>
+			
+			<textarea id="area" style="display:none;" >#{contatosMB.listaCompletaEmail()}</textarea>
+			
 		</f:facet>
 		<f:facet name="right">
 			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 		</f:facet>
 	</p:toolbar>
-
-	<p:dialog id="listaEmailCompleto" widgetVar="emailsCompletos" >
-			<textarea id="div">#{contatosMB.emailCompleto}</textarea>
-			<input type="button" id="bt" value="copiar" />
-			<p:outputLabel id="listaDeEmailsContatos" value="#{contatosMB.emailCompleto}" />
+	
+	<p:dialog id="listaEmailCompleto" widgetVar="emailsCompletos" style="width:">
+		<p:outputLabel id="listaDeEmailsContatos" value="#{contatosMB.emailCompleto}" />
 	</p:dialog>
-
+	
 	<p:dialog id="dlgVisu" widgetVar="visualizar">
 		<h2>Nome</h2>
 		<h:outputText value="#{contatosMB.contato.nome}" />
@@ -207,7 +195,7 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.cargos}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					<p:ajax listener="#{contatosMB.buscarCargo}" update="@all" />
+					<p:ajax listener="#{contatosMB.buscarCargo}" update="@all"/>
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Cliente : " />
@@ -215,22 +203,15 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.clientes}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					<p:ajax listener="#{contatosMB.buscaCliente}" update="@all" />
+					<p:ajax listener="#{contatosMB.buscaCliente}" update="@all"/>
 				</p:selectOneMenu>
 			</p:panelGrid>
 		</h:form>
 	</p:dialog>
-
+	
 </h:body>
+<script src="dist/clipboard.min.js"></script>
 <script>
-	$("#bt").click(function() {
-		alert("oi");
-		$("#div").select();
-
-		document.execCommand('copy');
-
-	})
-
 	$("#botao").click(function() {
 		$("#menu-lateral").addClass("menu-aberto");
 	});
