@@ -12,6 +12,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.PrimeFaces;
+
 import crmonline.DAO.AgendaDAO;
 import crmonline.DAO.ClasseGenericaDao;
 import crmonline.DAO.CursoDAO;
@@ -83,6 +85,7 @@ public class AgendaMB {
 			agenda = new Agenda();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Agora você tem uma nova visita agendada"));
+			PrimeFaces.current().executeScript("PF('novaVisita').hide();");
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Problema ao inserir nova visita!"));
 		}

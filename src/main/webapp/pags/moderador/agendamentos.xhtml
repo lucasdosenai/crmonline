@@ -65,9 +65,14 @@
 		            <f:selectItem itemLabel="Visitas Realizadas" itemValue="1" />
 		            <p:ajax listener="#{agendaMB.controlevisita}" event="change" update=":formTabela:tabela filcliente" />
 		        </p:selectOneMenu>
+		        
+		       
         
 			</h:form>
 			</f:facet>
+			 <f:facet name="right">
+			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}"/>
+		</f:facet>
 			</p:toolbar>
 
 	<h:form id="formTabela">
@@ -119,23 +124,23 @@
 		<p:dialog id="dialog" header="NOVO VISITA" widgetVar="novaVisita"
 			minHeight="40">
 			<p:column headerText="Nova Visita">
-				<p:panelGrid columns="2">
+				<p:panelGrid columns="2" id="pnNovaVisita">
 
 					<p:outputLabel value="Assunto:" />
-					<p:inputText value="#{agendaMB.agenda.nome}" riquered="true" riqueredMessage="Preencha o Campo Assunto"/>
+					<p:inputText value="#{agendaMB.agenda.nome}" required="true" requiredMessage="Preencha o Campo Assunto"/>
 
 					<p:outputLabel value="Atendente: " />
-					<p:inputText value="#{agendaMB.agenda.atendente}" />
+					<p:inputText value="#{agendaMB.agenda.atendente}" required="true" requiredMessage="Preencha o Campo Atendente" />
 
 					<p:outputLabel value="Dia da Visita: " />
-					<p:calendar value="#{agendaMB.agenda.data}" showOn="button"
+					<p:calendar mindate="now" value="#{agendaMB.agenda.data}" showOn="button" required="true" requiredMessage="Preencha o Campo Data"
 						mask="true" pattern="dd/MM/yyyy" />
 
 					<p:outputLabel value="Horário da Visita: " />
-					<p:inputMask size="40" mask="99:99" value="#{agendaMB.agenda.hora}" />
+					<p:inputMask size="40" mask="99:99" value="#{agendaMB.agenda.hora}" required="true" requiredMessage="Preencha o Campo Hora" />
 
 					<p:outputLabel value="Selecionar Cliente " />
-					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}">
+					<p:selectOneMenu value="#{agendaMB.agenda.id_cliente}" required="true" requiredMessage="Preencha o Campo Cliente">
 						<f:selectItem itemLabel="Selecionar Cliente" />
 						<f:selectItems value="#{clienteMB.clientes}" var="cli"
 							itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
@@ -143,7 +148,7 @@
 
 					<p:outputLabel value="Selecionar Curso: " />
 					<h:panelGrid columns="2">
-						<p:selectOneMenu id="cursos" value="#{agendaMB.agenda.curso}">
+						<p:selectOneMenu id="cursos" value="#{agendaMB.agenda.curso}" required="true" requiredMessage="Preencha o Campo Curso" >
 							<f:selectItem itemLabel="Selecionar Curso" />
 							<f:selectItems var="c" value="#{agendaMB.cursos}"
 								itemLabel="#{c.nome}" itemValue="#{c.id}" />
@@ -155,8 +160,7 @@
 				<br />
 				<p:commandButton value="Adicionar"
 					actionListener="#{agendaMB.agendar}" ajax="true"
-					update=":formTabela:tabela formNovaVisita" event="click"
-					oncomplete="PF('novaVisita').hide();" />
+					update=":formTabela pnNovaVisita"/>
 			</p:column>
 		</p:dialog>
 	</h:form>
