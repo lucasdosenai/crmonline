@@ -7,7 +7,7 @@
 	<h:outputStylesheet library="resource" name="estilo.css" />
 	<h:outputStylesheet library="css" name="estilo.css" />
 	<h:outputStylesheet library="css" name="pushy.css" />
-	<h:outputStylesheet library="css" name="styles.css"/>
+	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 
 <h:body>
@@ -19,7 +19,8 @@
 			<span class="botao-fechar-menu">x</span>
 		</div>
 		<div class="menu-lateral-info-usuario">
-			<h:graphicImage library="img" name="logo.png" width="50px" height="50px"></h:graphicImage>
+			<h:graphicImage library="img" name="logo.png" width="50px"
+				height="50px"></h:graphicImage>
 			<span>#{principalMBean.usuario.nome}</span>
 		</div>
 		<div class="menu-lateral-opcoes" style="top: 0">
@@ -29,19 +30,25 @@
 					target="conteudo">Início</a>
 			</div>
 			<div>
-				<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml" target="conteudo" id="opcao_itens">Clientes</a>
+				<a class="menu-lateral-opcao"
+					href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml"
+					target="conteudo" id="opcao_itens">Clientes</a>
 			</div>
-			<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/relatorio.xhtml" target="conteudo">Relatórios</a>
-		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
-		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/contatos.xhtml" target="conteudo">Contatos</a>
-		 </div>
+			<a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/relatorio.xhtml"
+				target="conteudo">Relatórios</a> <a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+			<a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/contatos.xhtml"
+				target="conteudo">Contatos</a>
+		</div>
 	</div>
 	<p:toolbar>
 		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
 		</f:facet>
 		<f:facet name="right">
-			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}"/>
+			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 		</f:facet>
 	</p:toolbar>
 	<p:column>
@@ -58,13 +65,15 @@
 							value="#{categoriaMB.categorias}"
 							itemLabel="#{buscaCategoria.nome}"
 							itemValue="#{buscaCategoria.codigo}" />
-						<p:ajax listener="#{clienteMB.SelectOneMenuAtivosDesativados()}" update="listaCompletaCliente" />
+						<p:ajax listener="#{clienteMB.SelectOneMenuAtivosDesativados()}"
+							update="listaCompletaCliente" />
 					</p:selectOneMenu>
 					<p:selectOneMenu id="statuCliente" style="width:150px"
 						value="#{clienteMB.selectOneMenu_Ativados_e_Desativados}">
 						<f:selectItem itemLabel="Ativados" itemValue="1" />
 						<f:selectItem itemLabel="Desativados" itemValue="0" />
-						<p:ajax listener="#{clienteMB.SelectOneMenuAtivosDesativados()}" update="listaCompletaCliente" />
+						<p:ajax listener="#{clienteMB.SelectOneMenuAtivosDesativados()}"
+							update="listaCompletaCliente" />
 					</p:selectOneMenu>
 				</p:panel>
 			</p:panelGrid>
@@ -73,45 +82,57 @@
 				minHeight="40">
 				<p:column headerText="Novo Cliente">
 
-					<p:inputText placeholder="NOME : "
-						value="#{clienteMB.cliente.nome}" />
-					<br />
-					<p:inputText placeholder="COLABORADORES : "
-						value="#{clienteMB.cliente.numeroFuncionario}" />
-					<br />
-					<p:inputText placeholder="CNPJ : "
-						value="#{clienteMB.cliente.cnjp}" />
-					<br />
-					<p:inputText placeholder="TELEFONE : "
-						value="#{clienteMB.cliente.telefone}" />
-					<br />
-					<p:inputText placeholder="EMAIL : "
-						value="#{clienteMB.cliente.email}" />
-					<br />
-					<p:inputText placeholder="LOGRADOURO : "
-						value="#{clienteMB.cliente.logradouro}" />
-					<br />
-					<p:inputText placeholder="CIDADE : "
-						value="#{clienteMB.cliente.cidade}" />
-					<br />
-					<p:selectOneMenu id="categoria"
-						value="#{clienteMB.cliente.categoria.id}" style="width:150px">
-						<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
-							itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
-					</p:selectOneMenu>
-					<p:commandButton icon="ui-icon-plus" ajax="true"
-						onclick="PF('newCT').show();" />
-					<p:dialog widgetVar="newCT">
-						<p:ajax listener="#{categoriaMB.att}" update="categoria" />
-						<p:inputText placeholder="NOME : "
-							value="#{categoriaMB.categoria.nome}" />
-						<br />
-						<p:commandButton icon="ui-icon-plus" ajax="true"
-							action="#{categoriaMB.novaCategoria}" />
-					</p:dialog>
+					<p:panelGrid columns="2" id="pnNovaVisita">
 
+						<p:outputLabel value="Nome: " />
+						<p:inputText value="#{clienteMB.cliente.nome}" required="true"
+							requiredMessage="Insira o Campo Nome!" />
+
+						<p:outputLabel value="Colaboradores: " />
+						<p:inputText value="#{clienteMB.cliente.numeroFuncionario}"
+							required="true" requiredMessage="Insira o Campo Colaboradores!" />
+
+						<p:outputLabel value="CNPJ: " />
+						<p:inputText value="#{clienteMB.cliente.cnjp}" required="true"
+							requiredMessage="Insira o Campo CNPJ!" />
+
+						<p:outputLabel value="Telefone: " />
+						<p:inputText value="#{clienteMB.cliente.telefone}" required="true"
+							requiredMessage="Insira o Campo Telefone!" />
+
+						<p:outputLabel value="Email: " />
+						<p:inputText value="#{clienteMB.cliente.email}" required="true"
+							requiredMessage="Insira o Campo Email!" />
+
+						<p:outputLabel value="Logradouro: " />
+						<p:inputText value="#{clienteMB.cliente.logradouro}"
+							required="true" requiredMessage="Insira o Campo Logradouro!" />
+
+						<p:outputLabel value="Cidade: " />
+						<p:inputText value="#{clienteMB.cliente.cidade}" required="true"
+							requiredMessage="Insira o Campo Cidade!" />
+                        
+						<p:outputLabel value="Selecionar Categoria " />
+						<p:panel>
+						<p:selectOneMenu id="categoria"
+							value="#{clienteMB.cliente.categoria.id}" style="width:150px">
+							<f:selectItem itemLabel="Criar / Selecionar" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems var="categoria" value="#{categoriaMB.categorias}"
+								itemLabel="#{categoria.nome}" itemValue="#{categoria.codigo}" />
+						</p:selectOneMenu>
+						<p:commandButton icon="ui-icon-plus" ajax="true"
+							onclick="PF('newCT').show();" />
+							</p:panel>
+						<p:dialog widgetVar="newCT">
+							<p:ajax listener="#{categoriaMB.att}" update="categoria" />
+							<p:inputText placeholder="NOME : "
+								value="#{categoriaMB.categoria.nome}" />
+							
+							<p:commandButton icon="ui-icon-plus" ajax="true"
+								action="#{categoriaMB.novaCategoria}" />
+						</p:dialog>
+					</p:panelGrid>
 					<br />
 					<p:commandButton value="Adicionar"
 						action="#{clienteMB.novoCliente}" ajax="true"
@@ -162,15 +183,17 @@
 	</p:panelGrid>
 
 	<p:dialog id="dialog" draggable="true" maximizable="true"
-		header="EDITA CLIENTE" widgetVar="editC" minHeight="40" >
+		header="EDITA CLIENTE" widgetVar="editC" minHeight="40">
 		<h:form>
 			<p:column headerText="Editar Cliente">
-				<p:inputText style="width:500px;" placeholder="NOME : " value="#{clienteMB.cliente.nome}" />
+				<p:inputText style="width:500px;" placeholder="NOME : "
+					value="#{clienteMB.cliente.nome}" />
 				<br />
 				<p:inputText style="width:500px;" placeholder="COLABORADORES : "
 					value="#{clienteMB.cliente.numeroFuncionario}" />
 				<br />
-				<p:inputText style="width:500px;" placeholder="CNPJ : " value="#{clienteMB.cliente.cnjp}" />
+				<p:inputText style="width:500px;" placeholder="CNPJ : "
+					value="#{clienteMB.cliente.cnjp}" />
 				<br />
 				<p:inputText style="width:500px;" placeholder="TELEFONE : "
 					value="#{clienteMB.cliente.telefone}" />
@@ -214,20 +237,18 @@
 	</h:form>
 </h:body>
 <script>
-        $("#botao").click(function() {
-            $("#menu-lateral").addClass("menu-aberto");
-        });
-         
-        $(".botao-fechar-menu").click(function() {
-            $("#menu-lateral").removeClass("menu-aberto");
-        });
-         
-        $(".menu-lateral-opcao").click(function() {
-            if (this.id == "opcao_itens") {
-            	$("#submenu_itens").toggleClass("block");
-            }
-        });
-        
-        
-    </script>
+	$("#botao").click(function() {
+		$("#menu-lateral").addClass("menu-aberto");
+	});
+
+	$(".botao-fechar-menu").click(function() {
+		$("#menu-lateral").removeClass("menu-aberto");
+	});
+
+	$(".menu-lateral-opcao").click(function() {
+		if (this.id == "opcao_itens") {
+			$("#submenu_itens").toggleClass("block");
+		}
+	});
+</script>
 </html>

@@ -133,6 +133,7 @@ public class AgendaMB {
 				visitas = aDao.listarAgenda("0");
 				agenda = new Agenda();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visita Realizada com Sucesso!"));
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
