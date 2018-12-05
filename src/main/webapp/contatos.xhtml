@@ -37,20 +37,19 @@
 			<p:commandButton value="☰" ajax="true" id="botao" />
 			<p:commandButton value="Novo" action="cadastrarcontato?faces-redirect=true" />
 			<p:commandButton value="Busca" onclick="PF('buscas').show();" />
-			<p:commandButton id="bt" value="Copiar" type="button" data-clipboard-action="copy" data-clipboard-target="area">
-				<p:ajax listener="#{contatosMB.listaCompletaEmail}" update="listaEmailCompleto" event="click"/>
+			<p:commandButton value="Emails"
+				oncomplete="PF('emailsCompletos').show();">
+				<p:ajax listener="#{contatosMB.listaCompletaEmail}"
+					update="listaEmailCompleto" event="click" />
 			</p:commandButton>
-			
-			<textarea id="area" style="display:none;" >#{contatosMB.listaCompletaEmail()}</textarea>
-			
 		</f:facet>
 		<f:facet name="right">
 			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 		</f:facet>
 	</p:toolbar>
 	
-	<p:dialog id="listaEmailCompleto" widgetVar="emailsCompletos" style="width:">
-		<p:outputLabel id="listaDeEmailsContatos" value="#{contatosMB.emailCompleto}" />
+	<p:dialog id="listaEmailCompleto" widgetVar="emailsCompletos" >
+		<p:inputText id="listaDeEmailsContatos" value="#{contatosMB.emailCompleto}" />
 	</p:dialog>
 	
 	<p:dialog id="dlgVisu" widgetVar="visualizar">
@@ -206,6 +205,10 @@
 					<p:ajax listener="#{contatosMB.buscaCliente}" update="@all"/>
 				</p:selectOneMenu>
 			</p:panelGrid>
+			<p:commandButton value="emails" oncomplete="PF('emailsCompletos').show();" >
+				<p:ajax listener="#{contatoMB.listaCompletaEmail}" update="listaDeEmailsContatos" event="click"/>
+			</p:commandButton>
+		
 		</h:form>
 	</p:dialog>
 	

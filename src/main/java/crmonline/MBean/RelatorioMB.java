@@ -61,15 +61,11 @@ public class RelatorioMB {
 	
 	public void listaPorData() throws SQLException, ParseException {	
 		System.out.println("Entrou no método de listaPorData");
-		if(rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados).size() > 1) {
+		
 			visitaRealizada = rDao.listaAgendaKeyDown(dataParaBuscarNoBancoDeDados);
 			FacesContext.getCurrentInstance().addMessage("VISITAS ATUALIZADAS",
 					new FacesMessage("ATUALIZADO"));
-		}else {
-			visitaRealizada = null;
-			FacesContext.getCurrentInstance().addMessage("PROBLEMAS COM VISITAS",
-					new FacesMessage("PROBLEMAS"));
-		}
+		
 	}
 	public void filtrarClientes() throws SQLException, ParseException {
 		if(clienteSelecionadoParaBusca != 0) 
