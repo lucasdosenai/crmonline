@@ -7,7 +7,7 @@
 </h:head>
 
 <h:body>
-	<p:growl id="messages" showDetail="true">
+	<p:growl id="messages" widgetVar="messages" showDetail="true">
 		<p:autoUpdate />
 	</p:growl>
 	<div class="menu-lateral transform" id="menu-lateral">
@@ -49,6 +49,7 @@
 	</p:toolbar>
 	
 	<p:dialog id="listaEmailCompleto" widgetVar="emailsCompletos" >
+		<p:button value="Teste" onclick="copyToClip(); return false;" />
 		<p:inputText id="listaDeEmailsContatos" value="#{contatosMB.emailCompleto}" />
 	</p:dialog>
 	
@@ -215,6 +216,24 @@
 </h:body>
 <script src="dist/clipboard.min.js"></script>
 <script>
+	function copyToClip() {
+	  /* Get the text field */
+	  var copyText = document.getElementById("listaDeEmailsContatos");
+
+	  /* Select the text field */
+	  copyText.select();
+
+	  /* Copy the text inside the text field */
+	  document.execCommand("copy");
+
+	  /* Alert the copied text */
+	  PF('messages').renderMessage({
+			"summary" : "E-mails copiados",
+			"detail" : "Para Área de Transferência",
+			"severity" : "warn"
+		})
+	}
+
 	$("#botao").click(function() {
 		$("#menu-lateral").addClass("menu-aberto");
 	});
