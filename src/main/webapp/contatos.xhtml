@@ -90,7 +90,7 @@
 			</p:column>
 
 			<p:column>
-				<p:panelGrid columns="3">
+				<p:panel>
 					<p:commandButton icon="ui-icon-pencil" value="Editar"
 						oncomplete="PF('edite').show();" update="dialog22">
 						<f:setPropertyActionListener value="#{c}"
@@ -106,7 +106,7 @@
 						<f:setPropertyActionListener value="#{c}"
 							target="#{contatosMB.contato}" />
 					</p:commandButton>
-				</p:panelGrid>
+				</p:panel>
 			</p:column>
 		</p:dataTable>
 	</h:form>
