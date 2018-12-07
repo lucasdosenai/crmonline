@@ -4,36 +4,43 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<h:outputStylesheet library="css" name="estilo.css" />
+	<script type="text/javascript">
+		function imprimir() {
+			window.print();
+		}
+	</script>
 	<style type="text/css">
-    .value {
-        font-weight: bold;
-    }
-    
-    .scroll{
-    	overflow: auto;
-    }
-    
-    @media print{
-    	#teste{
-    		display: none;
-    	}
-    	#teste1{
-    		display: none;
-    	}
-    }
-	</style>
+.value {
+	font-weight: bold;
+}
+
+.scroll {
+	overflow: auto;
+}
+
+@media print {
+	#teste {
+		display: none;
+	}
+	#teste1 {
+		display: none;
+		color: black;
+	}
+}
+</style>
 </h:head>
 <h:body styleClass="teste">
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-	
+
 	<div class="menu-lateral transform" id="menu-lateral">
 		<div style="padding: 10px; padding-right: 15px; text-align: right">
 			<span class="botao-fechar-menu">x</span>
 		</div>
 		<div class="menu-lateral-info-usuario">
-			<h:graphicImage library="img" name="logo.png" width="50px" height="50px"></h:graphicImage>
+			<h:graphicImage library="img" name="logo.png" width="50px"
+				height="50px"></h:graphicImage>
 			<span>#{principalMBean.usuario.nome}</span>
 		</div>
 		<div class="menu-lateral-opcoes" style="top: 0">
@@ -43,101 +50,119 @@
 					target="conteudo">Início</a>
 			</div>
 			<div>
-				<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml" target="conteudo" id="opcao_itens">Clientes</a>
+				<a class="menu-lateral-opcao"
+					href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml"
+					target="conteudo" id="opcao_itens">Clientes</a>
 			</div>
-			<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/relatorio.xhtml" target="conteudo">Relatórios</a>
-		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
-		 	<a class="menu-lateral-opcao" href="http://localhost:8080/crmonline/contatos.xhtml" target="conteudo">Contatos</a>
-		 </div>
+			<a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/relatorio.xhtml"
+				target="conteudo">Relatórios</a> <a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+			<a class="menu-lateral-opcao"
+				href="http://localhost:8080/crmonline/contatos.xhtml"
+				target="conteudo">Contatos</a>
+		</div>
 	</div>
-		<p:toolbar id="teste">
-			<f:facet name="left">
+	<p:toolbar id="teste">
+		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
-			</f:facet>
-			<f:facet name="right">
-				<h:form>
-					<p:inputText placeholder="Busca por data"
-						value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
-						<p:ajax event="keyup" listener="#{relatorioMB.x}"
-							update="@all" />
-					</p:inputText>
-					<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
+			<p:commandButton value="Imprimir" type="button" onclick="imprimir()"/>
+		</f:facet>
+		<f:facet name="right">
+			<h:form>
+				<p:inputText placeholder="Busca por data"
+					value="#{relatorioMB.dataParaBuscarNoBancoDeDados}">
+					<p:ajax event="keyup" listener="#{relatorioMB.x}" update="@all" />
+				</p:inputText>
+				<p:selectOneMenu value="#{relatorioMB.clienteSelecionadoParaBusca}">
 					<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
 					<f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}"
 						var="c" value="#{relatorioMB.listaClientesDropDown}" />
 					<p:ajax update="@all" listener="#{relatorioMB.filtrarClientes}" />
 				</p:selectOneMenu>
-				</h:form>	
-			 <p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}"/>
-			</f:facet>
-		</p:toolbar>
-<div class="scroll">	
-	<p:panelGrid columns="3" style="width:90%;margin:0 auto;border: none !important;">
-		
-		<h:form id="form">
-	
-    <p:dataGrid id="dataList" var="visita" value="#{relatorioMB.visitaRealizada}" columns="4" layout="grid"
-        rows="12" style="width:100%" >
-         
-        <f:facet name="header" id="teste1">
+			</h:form>
+			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
+		</f:facet>
+	</p:toolbar>
+	<div class="scroll">
+		<p:panelGrid columns="3"
+			style="width:90%;margin:0 auto;border: none !important;">
+			<h:form id="form">
+				<p:dataGrid id="dataList" var="visita"
+					value="#{relatorioMB.visitaRealizada}" columns="4" layout="grid"
+					rows="12" style="width:100%">
+
+					<f:facet name="header" id="teste1">
             Relatórios
         </f:facet>
- 
-        <p:panel header="#{visita.nome}" style="text-align:center; font-size:90% ">
-            <h:panelGrid columns="1" style="width:100%">
-            		<h4>Empresa</h4><h:outputText value="#{visita.cliente.nome}"/><hr/>
-	                <h4>Curso Relacionado :</h4><h:outputText value=" #{visita.cursoObj.nome}" /><hr/>
-	                <h4>Data da visita :</h4><h:outputText value=" #{visita.dataConverte}" />
-	                <p:panel>
-	                	<h4>Observações</h4>
- 						<h:outputText value="#{visita.observacao}"/>
-                	</p:panel>
-            </h:panelGrid>
-        </p:panel>
-    </p:dataGrid>
- </h:form>
-    <p:dialog id="dialogFinal" header="Informações da Visita" widgetVar="visitaDialog" 
-    modal="true" showEffect="fade" hideEffect="fade" resizable="false" rendered="#{relatorioMB.renderizaInformaDialog}">
-        <p:outputPanel id="visitaDetale" style="text-align:center;">
-            <p:panelGrid  columns="2" rendered="#{not empty relatorioMB.visitaSelecionada}" columnClasses="label,value">
-                <f:facet name="header">
-                    <p:graphicImage name="logo.png" library="img"/>  
-                </f:facet>
-                
-                <h:outputText value="Titulo : #{visita.nome}" /><br/>
-                <h:outputText value="Atendente : #{visita.atendente}" /><br/>
-                <h:outputText value="Classificação : #{visita.classificacao}" /><br/>
-                <h:outputText value="Data : #{visita.DataConverte}" /><br/>
-                
-               
-                <h:outputLabel value="Observações :"/><br/>
-                <h:outputLabel value="#{visita.observacao}"/>
-                
-            </p:panelGrid>
-        </p:outputPanel>
-    </p:dialog>
+					<p:panel header="#{visita.nome}"
+						style="text-align:center; font-size:90% ">
+						<h:panelGrid columns="1" style="width:100%">
+							<h4>Empresa</h4>
+							<h:outputText value="#{visita.cliente.nome}" />
+							<hr />
+							<h4>Curso Relacionado :</h4>
+							<h:outputText value=" #{visita.cursoObj.nome}" />
+							<hr />
+							<h4>Data da visita :</h4>
+							<h:outputText value=" #{visita.dataConverte}" />
+							<p:panel>
+								<h4>Observações</h4>
+								<h:outputText value="#{visita.observacao}" />
+							</p:panel>
+						</h:panelGrid>
+					</p:panel>
+				</p:dataGrid>
+			</h:form>
+			<p:dialog id="dialogFinal" header="Informações da Visita"
+				widgetVar="visitaDialog" modal="true" showEffect="fade"
+				hideEffect="fade" resizable="false"
+				rendered="#{relatorioMB.renderizaInformaDialog}">
+				<p:outputPanel id="visitaDetale" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{not empty relatorioMB.visitaSelecionada}"
+						columnClasses="label,value">
+						<f:facet name="header">
+							<p:graphicImage name="logo.png" library="img" />
+						</f:facet>
 
-		
-		
-		
-	</p:panelGrid>
+						<h:outputText value="Titulo : #{visita.nome}" />
+						<br />
+						<h:outputText value="Atendente : #{visita.atendente}" />
+						<br />
+						<h:outputText value="Classificação : #{visita.classificacao}" />
+						<br />
+						<h:outputText value="Data : #{visita.DataConverte}" />
+						<br />
+
+
+						<h:outputLabel value="Observações :" />
+						<br />
+						<h:outputLabel value="#{visita.observacao}" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+
+
+
+		</p:panelGrid>
 	</div>
 </h:body>
 <script>
-        $("#botao").click(function() {
-            $("#menu-lateral").addClass("menu-aberto");
-        });
-         
-        $(".botao-fechar-menu").click(function() {
-            $("#menu-lateral").removeClass("menu-aberto");
-        });
-         
-        $(".menu-lateral-opcao").click(function() {
-            if (this.id == "opcao_itens") {
-            	$("#submenu_itens").toggleClass("block");
-            }
-        });
-        
-        
-    </script>
+	$("#botao").click(function() {
+		$("#menu-lateral").addClass("menu-aberto");
+	});
+
+	$(".botao-fechar-menu").click(function() {
+		$("#menu-lateral").removeClass("menu-aberto");
+	});
+
+	$(".menu-lateral-opcao").click(function() {
+		if (this.id == "opcao_itens") {
+			$("#submenu_itens").toggleClass("block");
+		}
+	});
+</script>
 </html>
