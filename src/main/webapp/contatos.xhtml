@@ -1,9 +1,117 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="resource" name="estilo.css" />
-	<h:outputStylesheet library="css" name="styles.css" />
-	<h:outputScript library="js" name="js.js"/>
+	<h:outputStylesheet library="resource" name="estilo.css" />	
+	<style>
+		.menu-lateral {
+    background-color: #282828;
+    height: 100%;
+    position: fixed;
+    width: 10em;
+    left: -10em;
+    z-index: 999999;
+}
+
+.menu-lateral-opcoes a {
+	text-decoration: none;
+	color: #BABABA;
+	display: block;
+	padding: 10px;
 	
+}
+
+.menu-lateral span {
+    color: white;
+}
+
+.opcao_submenu {
+	font-size: 0.8em;
+	padding-left: 15px;
+}
+
+.menu-aberto {
+    left: 0;
+    box-shadow: 3px 0px 10px #B2B2B2;
+}
+
+.menu-lateral-info-usuario {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    background-color: #3D3D3D;
+}
+
+.menu-lateral-info-usuario img {
+    margin-left: 10px;
+    margin-right: 15px;
+}
+
+.menu-lateral-info-usuario span {
+    cursor: pointer;
+}
+
+.menu-lateral-opcao {
+    display: block;
+    padding: 15px;
+    padding-left: 15px;
+    cursor: pointer;
+    border-top: 1px solid #363636;
+    font-size: 0.85em;
+    text-decoration: none;
+}
+
+.menu-lateral-opcao:hover {
+    color: white;
+}
+
+.botao-fechar-menu {
+    margin-bottom:10px;
+}
+
+.topbar {
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    box-shadow: 0px 3px 10px #B2B2B2;
+}
+
+.conteudo-menu-aberto {
+    margin-left: 10em;
+}
+
+.botao {
+    background-color: #282828;
+    text-align: center;
+    color: white;
+    padding: 10px 0px;
+    border-radius: 5px;
+    width: 5em;
+    cursor: pointer;
+}
+
+.botao:hover {
+    background-color: #121212;
+}
+
+.botao:active {
+    background-color: black;
+}
+
+.transform {
+    transition: all 0.2s ease-out;
+}
+
+iframe {
+    border: none;
+}
+
+span {
+    cursor: pointer;
+}
+
+.block {
+	display: block;
+}
+	</style>
 </h:head>
 
 <h:body>

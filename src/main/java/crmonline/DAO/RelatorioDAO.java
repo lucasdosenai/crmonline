@@ -22,6 +22,13 @@ public class RelatorioDAO {
 		con = ConDB.getConnection();
 	}
 	
+	public List<Agenda> listaFiltro(Integer codigoCliente, String data){
+		if(codigoCliente != null && data) {
+			
+		}
+		return null;
+	}
+	
 	public List<Agenda> listaRelatorioPorTipo(Integer codigo,String acao) throws SQLException, ParseException{
 		List<Agenda> relatorios = new ArrayList<>();
 		Agenda a = new Agenda();
