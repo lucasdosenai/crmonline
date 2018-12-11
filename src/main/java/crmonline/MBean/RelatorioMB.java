@@ -57,7 +57,7 @@ public class RelatorioMB {
 	public void listaFiltro() {
 		try {
 			visitaRealizada = rDao.listaFiltro(rFiltro);
-			
+			rFiltro = new RelatorioFiltro();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -26,7 +26,7 @@ public class RelatorioDAO {
 	}
 	
 	public List<Agenda> listaFiltro(RelatorioFiltro filtro) throws SQLException{
-		String SQL = "SELECT * FROM agenda";
+		String SQL = "SELECT * from agenda";
 		List<Agenda> agendas = new ArrayList<>();
 		int contador = 0;
 		for(Field var : filtro.getClass().getDeclaredFields()) {
@@ -35,7 +35,7 @@ public class RelatorioDAO {
 				if(value != null) {
 					if(contador == 0) { 
 						if (var.getName().equals("ID_CLIENTE")) {
-							SQL += " WHERE " + var.getName() + " = " + value;  
+							SQL += " WHERE " + var.getName() + " = " + value ;  
 						} else
 							SQL += " WHERE " + var.getName() + " LIKE '" + value + "%'";  
 						}
@@ -44,8 +44,6 @@ public class RelatorioDAO {
 					}
 					contador++;
 				}
-				
-				
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -54,7 +52,10 @@ public class RelatorioDAO {
 				e.printStackTrace();
 			}
 		}
-		if(contador > 0) SQL += " AND ESTADOS = 1";
+		
+		if(contador > 0) { 
+			SQL +=  " AND ESTADOS = 1";
+		}
 		PreparedStatement ps = con.prepareStatement(SQL);
 		ResultSet rs = ps.executeQuery();
 		
@@ -66,7 +67,6 @@ public class RelatorioDAO {
 			
 			String data = rs.getString("DATAV");
 			SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
-			
 			try {
 				a.setData(b.parse(data));
 			} catch (ParseException e) {
@@ -80,9 +80,40 @@ public class RelatorioDAO {
 			a.setId_visitante(rs.getInt("ID_VISITANTE"));
 			a.setId_cliente(rs.getInt("ID_CLIENTE"));
 			
+			a.setCliente(clientePorID(a.getId_cliente()));
+			a.setCurso(rs.getInt("ID_CURSO"));
+			a.setCursoObj(cursoPorID(a.getCurso()));
+			
 			agendas.add(a);
 		}
 		return agendas;
+	}
+	
+	public Cliente clientePorID(Integer codigo) throws SQLException{
+		Cliente c = new Cliente();
+		String SQL = "SELECT * FROM CLIENTE WHERE ID = " + codigo;
+		
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			c.setNome(rs.getString("NOME"));
+		}
+		return c;
+	}
+	
+	public Curso cursoPorID(Integer codigo) throws SQLException{
+		Curso c = new Curso();
+		String SQL = "SELECT * FROM CURSO WHERE ID = " + codigo;
+		
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			c.setNome(rs.getString("NOME"));
+			c.setVAGAS_TOTAL(rs.getInt("VAGAS_TOTAL"));
+		}
+		return c;
 	}
 	
 	public List<Agenda> listaRelatorioPorTipo(Integer codigo,String acao) throws SQLException, ParseException{

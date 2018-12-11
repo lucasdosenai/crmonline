@@ -70,16 +70,15 @@
 		</f:facet>
 		<f:facet name="right">
 			<h:form>
-				<p:inputText placeholder="Busca por data"
-					value="#{relatorioMB.rFiltro.DATAV}">
-					<p:ajax event="keyup" listener="#{relatorioMB.listaFiltro}" update="@all" />
-				</p:inputText>
+				<p:inputText placeholder="Busca por data" value="#{relatorioMB.rFiltro.DATAV}"/>
+
 				<p:selectOneMenu value="#{relatorioMB.rFiltro.ID_CLIENTE}">
-					<f:selectItem itemLabel="Busca Empresas" itemValue="0" />
+					<f:selectItem itemLabel="Busca Empresas" />
 					<f:selectItems itemLabel="#{c.nome}" itemValue="#{c.codigo}"
 						var="c" value="#{relatorioMB.listaClientesDropDown}" />
-					<p:ajax update=":body" listener="#{relatorioMB.listaFiltro}" />
 				</p:selectOneMenu>
+				
+				<p:commandButton value="Buscar" actionListener="#{relatorioMB.listaFiltro}" ajax="true" update="@all"/>
 			</h:form>
 			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 		</f:facet>
