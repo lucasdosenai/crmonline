@@ -16,6 +16,7 @@ import crmonline.DAO.ClienteDAO;
 import crmonline.DAO.RelatorioDAO;
 import crmonline.Entidade.Agenda;
 import crmonline.Entidade.Cliente;
+import crmonline.Entidade.RelatorioFiltro;
 
 @ManagedBean
 @ViewScoped
@@ -23,6 +24,7 @@ public class RelatorioMB {
 	
 	private List<Agenda> visitaRealizada;
 	private List<Cliente> listaClientesDropDown;
+	RelatorioFiltro rFiltro;
 	
 	AgendaDAO aDao;
 	ClienteDAO cDao;
@@ -40,7 +42,7 @@ public class RelatorioMB {
 		aDao = new AgendaDAO();
 		rDao = new RelatorioDAO();
 		cDao = new ClienteDAO();
-		
+		rFiltro = new RelatorioFiltro();
 		visitaSelecionada = new Agenda();
 		
 		visitaRealizada = aDao.listarAgenda("1");
@@ -50,6 +52,18 @@ public class RelatorioMB {
 	public boolean retornoRenderiza() {
 		renderizaInformaDialog = !renderizaInformaDialog;
 		return renderizaInformaDialog;
+	}
+	
+	public void listaFiltro() {
+		try {
+			visitaRealizada = rDao.listaFiltro(rFiltro);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("problema no preparedSta"));
+		}
 	}
 	
 	public void x() {
@@ -160,7 +174,16 @@ public class RelatorioMB {
 	public boolean isRenderizaInformaDialog() {
 		return renderizaInformaDialog;
 	}
+	
+	
 
+	public RelatorioFiltro getrFiltro() {
+		return rFiltro;
+	}
+
+	public void setrFiltro(RelatorioFiltro rFiltro) {
+		this.rFiltro = rFiltro;
+	}
 
 	public void setRenderizaInformaDialog(boolean renderizaInformaDialog) {
 		this.renderizaInformaDialog = renderizaInformaDialog;

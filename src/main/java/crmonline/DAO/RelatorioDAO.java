@@ -1,5 +1,6 @@
 package crmonline.DAO;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,8 +13,10 @@ import java.util.List;
 
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Agenda;
+import crmonline.Entidade.ClasseGenerica;
 import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Curso;
+import crmonline.Entidade.RelatorioFiltro;
 
 public class RelatorioDAO {
 	
@@ -22,11 +25,64 @@ public class RelatorioDAO {
 		con = ConDB.getConnection();
 	}
 	
-	public List<Agenda> listaFiltro(Integer codigoCliente, String data){
-		if(codigoCliente != null && data) {
-			
+	public List<Agenda> listaFiltro(RelatorioFiltro filtro) throws SQLException{
+		String SQL = "SELECT * FROM agenda";
+		List<Agenda> agendas = new ArrayList<>();
+		int contador = 0;
+		for(Field var : filtro.getClass().getDeclaredFields()) {
+			try {
+				Object value = var.get(filtro);
+				if(value != null) {
+					if(contador == 0) { 
+						if (var.getName().equals("ID_CLIENTE")) {
+							SQL += " WHERE " + var.getName() + " = " + value;  
+						} else
+							SQL += " WHERE " + var.getName() + " LIKE '" + value + "%'";  
+						}
+					else {
+						SQL += " AND " + var.getName() + " LIKE '" + value + "%'";  
+					}
+					contador++;
+				}
+				
+				
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return null;
+		if(contador > 0) SQL += " AND ESTADOS = 1";
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ResultSet rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			Agenda a = new Agenda();
+			a.setCodigo(rs.getInt("ID"));
+			a.setNome(rs.getString("NOME"));
+			a.setAtendente(rs.getString("ATENDENTE"));
+			
+			String data = rs.getString("DATAV");
+			SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
+			
+			try {
+				a.setData(b.parse(data));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			a.setHora(rs.getString("HORARIO"));
+			a.setEstadovisita(rs.getInt("ESTADOS"));
+			a.setClassificacao(rs.getString("CLASSFICACOES"));
+			a.setObservacao(rs.getString("OBSERVACOES"));
+			a.setId_visitante(rs.getInt("ID_VISITANTE"));
+			a.setId_cliente(rs.getInt("ID_CLIENTE"));
+			
+			agendas.add(a);
+		}
+		return agendas;
 	}
 	
 	public List<Agenda> listaRelatorioPorTipo(Integer codigo,String acao) throws SQLException, ParseException{

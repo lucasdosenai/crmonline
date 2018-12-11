@@ -49,7 +49,7 @@ public class LoginMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario não encontrado!"));
 		} else {
 			if (userAtual.getStatu() != 0) {
-				return "pags/moderador/index?faces-redirect=true";
+				return "/pags/moderador/index?faces-redirect=true";
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Usuario DESATIVADO." + "/n" + " Entre em contato com o ADMINISTRADOR"));
