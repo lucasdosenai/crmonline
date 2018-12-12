@@ -33,35 +33,25 @@
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
-
-	<div class="menu-lateral transform" id="menu-lateral">
+		<div class="menu-lateral transform" id="menu-lateral">
 		<div style="padding: 10px; padding-right: 15px; text-align: right">
 			<span class="botao-fechar-menu">x</span>
 		</div>
 		<div class="menu-lateral-info-usuario">
-			<h:graphicImage library="img" name="logo.png" width="50px"
-				height="50px"></h:graphicImage>
+			<h:graphicImage library="img" name="logo.png" width="50px" height="50px"></h:graphicImage>
 			<span>#{principalMBean.usuario.nome}</span>
 		</div>
 		<div class="menu-lateral-opcoes" style="top: 0">
 			<div>
-				<a class="menu-lateral-opcao"
-					href="http://localhost:8080/crmonline/pags/moderador/index.xhtml"
-					target="conteudo">Início</a>
+				<a class="menu-lateral-opcao" href="pags/moderador/index.xhtml" target="conteudo">Início</a>
 			</div>
 			<div>
-				<a class="menu-lateral-opcao"
-					href="http://localhost:8080/crmonline/pags/moderador/cliente.xhtml"
-					target="conteudo" id="opcao_itens">Clientes</a>
+				<a class="menu-lateral-opcao" href="/crmonline/pags/moderador/cliente.xhtml" target="conteudo" id="opcao_itens">Clientes</a>
 			</div>
-			<a class="menu-lateral-opcao"
-				href="http://localhost:8080/crmonline/relatorio.xhtml"
-				target="conteudo">Relatórios</a> <a class="menu-lateral-opcao"
-				href="http://localhost:8080/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
-			<a class="menu-lateral-opcao"
-				href="http://localhost:8080/crmonline/contatos.xhtml"
-				target="conteudo">Contatos</a>
-		</div>
+			<a class="menu-lateral-opcao" href="relatorio.xhtml" target="conteudo">Relatórios</a>
+		 	<a class="menu-lateral-opcao" href="/crmonline/pags/moderador/agendamentos.xhtml">Agenda</a>
+		 	<a class="menu-lateral-opcao" href="contatos.xhtml" target="conteudo">Contatos</a>
+		 </div>
 	</div>
 	<p:toolbar id="teste">
 		<f:facet name="left">
