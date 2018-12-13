@@ -154,6 +154,7 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
 	public boolean cadastrar(Usuario usuario) {
 		String sql = "INSERT INTO USUARIO VALUES(0, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -174,6 +175,7 @@ public class UserDAO {
 		}	
 		return false;
 	}
+	
 	public RecuperaUser listaProtocolo(String cod){
 		String sql = "SELECT * FROM RECUPERA_USUARIO WHERE CODIGO = ?";
 
