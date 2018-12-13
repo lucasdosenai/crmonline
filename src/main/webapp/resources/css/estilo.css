@@ -10,7 +10,16 @@
   src: url('https://fonts.googleapis.com/css?family=Passion+One'); 
 }
 
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
 
+
+*::-webkit-scrollbar { width:3px; background:#e3e0d6; } /* configurando scroll */
+*::-webkit-scrollbar-track { background:#c0c0c0; }
+*::-webkit-scrollbar-thumb { border-radius:3px; background:#000;  }
 
 #tabMenu {
 background:#000000;
@@ -47,16 +56,7 @@ color:#3e3a3a
 /*//////////////////////////////////////////////////////////////////
 [ ESTILO PADRÃO ]*/
 
-* {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
-}
 
-
-*::-webkit-scrollbar { width:3px; background:#e3e0d6; } /* configurando scroll */
-*::-webkit-scrollbar-track { background:#c0c0c0; }
-*::-webkit-scrollbar-thumb { border-radius:3px; background:#000;  }
 
 .teste{
 	background-attachment:fixed;

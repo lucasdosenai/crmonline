@@ -35,10 +35,10 @@
 	</div>
 	<p:toolbar>
 		<f:facet name="left">
+		<h:panelGrid columns="3" >
 			<p:commandButton value="☰" ajax="true" id="botao" />
 			<p:commandButton onclick="PF('novaVisita').show();"
 				value="Nova Visita" icon="ui-icon-plus" />
-
 			<h:form>
 				<p:selectOneMenu
 					disabled="#{agendaMB.agenda.id_cliente gt '0'? true:false}"
@@ -63,10 +63,8 @@
 		            <f:selectItem itemLabel="Visitas Realizadas" itemValue="1" />
 		            <p:ajax listener="#{agendaMB.controlevisita}" event="change" update=":formTabela:tabela filcliente" />
 		        </p:selectOneMenu>
-		        
-		       
-        
 			</h:form>
+			</h:panelGrid>
 			</f:facet>
 			 <f:facet name="right">
 			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}"/>

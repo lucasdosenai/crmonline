@@ -57,7 +57,6 @@
 		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
 			<p:commandButton value="Imprimir" type="button" onclick="imprimir()"/>
-			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 		</f:facet>
 		<f:facet name="right">
 			<h:form>
@@ -70,6 +69,7 @@
 				</p:selectOneMenu>
 				
 				<p:commandButton value="Buscar" actionListener="#{relatorioMB.listaFiltro}" ajax="true" update="@all"/>
+				<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 			</h:form>
 			
 		</f:facet>
