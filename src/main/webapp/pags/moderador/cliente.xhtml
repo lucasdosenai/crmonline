@@ -5,6 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="css" name="estilo.css" />
+
 </h:head>
 
 <h:body>
@@ -34,6 +35,7 @@
 	<p:toolbar>
 		<f:facet name="left">
 			<p:commandButton value="☰" ajax="true" id="botao" />
+			<p:commandButton value="Novo" icon="ui-icon-disk" onclick="PF('newC').show();" />
 		</f:facet>
 		<f:facet name="right">
 			<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
@@ -41,9 +43,7 @@
 	</p:toolbar>
 	<p:column>
 		<h:form>
-			<p:panelGrid columns="5">
-				<p:commandButton value="Novo" icon="ui-icon-disk"
-					onclick="PF('newC').show();" />
+			<p:panelGrid>	
 				<p:panel id="listaCategoria">
 					<p:selectOneMenu id="categoria2" style="width:150px"
 						value="#{clienteMB.categoriaEscolhida}">
