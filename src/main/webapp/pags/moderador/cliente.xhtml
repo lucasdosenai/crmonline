@@ -46,21 +46,20 @@
 			<p:panelGrid>	
 				<p:panel id="listaCategoria">
 					<p:selectOneMenu id="categoria2" style="width:150px"
-						value="#{clienteMB.categoriaEscolhida}">
-						<f:selectItem itemLabel="Todos" itemValue=""
-							noSelectionOption="true" />
+						value="#{clienteMB.cFiltro.ramo}">
+						<f:selectItem itemLabel="Todos" itemValue="" noSelectionOption="true" />
 						<f:selectItems var="buscaCategoria"
 							value="#{categoriaMB.categorias}"
 							itemLabel="#{buscaCategoria.nome}"
 							itemValue="#{buscaCategoria.codigo}" />
-						<p:ajax listener="#{clienteMB.SelectOneMenuAtivosDesativados()}"
+						<p:ajax listener="#{clienteMB.filtroCliente()}"
 							update="listaCompletaCliente" />
 					</p:selectOneMenu>
 					<p:selectOneMenu id="statuCliente" style="width:150px"
-						value="#{clienteMB.selectOneMenu_Ativados_e_Desativados}">
+						value="#{clienteMB.cFiltro.estado}">
 						<f:selectItem itemLabel="Ativados" itemValue="1" />
 						<f:selectItem itemLabel="Desativados" itemValue="0" />
-						<p:ajax listener="#{clienteMB.SelectOneMenuAtivosDesativados()}"
+						<p:ajax listener="#{clienteMB.filtroCliente()}"
 							update="listaCompletaCliente" />
 					</p:selectOneMenu>
 				</p:panel>
@@ -147,11 +146,11 @@
 				<p:column>
 					<p:outputLabel value="RAMO : #{cliente.categoria.nome}" />
 				</p:column>
-
+<!-- value="#{cliente.statu eq '1' ? 'Desativar' : 'Ativar'}" -->
 				<p:column>
-					<p:commandButton action="#{clienteMB.desativarCliente(cliente)}"
-						value="#{cliente.statu eq '1' ? 'Desativar' : 'Ativar'}"
-						update="listaCompletaCliente" />
+					<p:commandButton actionListener="#{clienteMB.desativarCliente(cliente)}"
+						value="#{clienteMB.selectOneMenu_nome_btn}"
+						ajax="true" update="listaCompletaCliente" />
 
 					<p:commandButton icon="ui-icon-pencil" value="Informações"
 						update="dialog" oncomplete="PF('editC').show();">

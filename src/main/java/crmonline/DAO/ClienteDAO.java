@@ -1,5 +1,6 @@
 package crmonline.DAO;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.List;
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Categoria;
 import crmonline.Entidade.Cliente;
+import crmonline.Entidade.ClienteFiltro;
 
 public class ClienteDAO {
 
@@ -30,8 +32,9 @@ public class ClienteDAO {
 		String SQL = "UPDATE CLIENTE SET STATU = ? WHERE ID = ?";
 		PreparedStatement ps;
 
-		if (c.getStatu() != 0) c.setStatu(0);
-		else c.setStatu(1);
+		if (c.getStatu() != 0) { 
+			c.setStatu(0);	
+		}else c.setStatu(1);
 
 		ps = con.prepareStatement(SQL);
 		ps.setInt(1, c.getStatu());
@@ -93,7 +96,78 @@ public class ClienteDAO {
 		}
 		return null;
 	}
-
+	
+	public List<Cliente> listaFiltro(ClienteFiltro cFiltro) throws SQLException{
+		/*
+		 Essa Lógica foi pensada pelo Felipe Dias (Grupo 5 - Giventario)
+		 */
+		String SQL = "SELECT * FROM CLIENTE";
+		List<Cliente> clientes = new ArrayList<>();
+		int contador = 0;
+		for(Field var : cFiltro.getClass().getDeclaredFields()) {
+			try {
+				Object value = var.get(cFiltro);
+				if(value != null) {
+					if(contador == 0) {
+						if(var.getName().equals("ramo")) {
+							SQL +=  " WHERE ID_CATEGORIA = " + value;
+						}else {
+							SQL += " WHERE STATU = " + value;
+						}
+					}else {
+						SQL += " AND STATU = " + value;
+					}
+					contador++;
+				}
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ResultSet rs = ps.executeQuery();
+		
+		while (rs.next()) {
+			Cliente c = new Cliente();
+			c.setNome(rs.getString("NOME"));
+			c.setNumeroFuncionario(rs.getString("N_FUNCIONARIO"));
+			c.setCnjp(rs.getString("CNPJ"));
+			c.setTelefone(rs.getString("TELEFONE"));
+			c.setEmail(rs.getString("EMAIL"));
+			c.setLogradouro(rs.getString("LOGRADOURO"));
+			c.setCidade(rs.getString("CIDADE"));
+			c.setCodigo(rs.getInt("ID"));
+			c.getCategoria().setId(rs.getInt("ID_CATEGORIA"));
+			c.getCategoria().setNome(nomeCategoria(c.getCategoria().getId()));
+			c.setStatu(rs.getInt("STATU"));
+			clientes.add(c);
+		}
+		return clientes;
+	}
+	
+	private String nomeCategoria(Integer codigo) {
+		String SQL = "SELECT * FROM CATEGORIA WHERE ID = " + codigo;
+		String resultado = "";
+		try {
+			PreparedStatement ps = con.prepareStatement(SQL);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				resultado = rs.getString("NOME");
+			}else {
+				resultado = "S/Ramo";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
 	public ArrayList<Cliente> listaCategoriaCliente(Integer codigo,Integer statu) {
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String SQL = "SELECT * FROM CLIENTE AS C INNER JOIN CATEGORIA AS CT ON C.ID_CATEGORIA = CT.ID AND C.STATU = ? WHERE C.ID_CATEGORIA = ?  ";

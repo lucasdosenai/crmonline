@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import crmonline.DAO.ClienteDAO;
 import crmonline.Entidade.Categoria;
 import crmonline.Entidade.Cliente;
+import crmonline.Entidade.ClienteFiltro;
 
 @ViewScoped
 @ManagedBean
@@ -26,19 +27,38 @@ public class ClienteMB {
 	private Integer categoriaEscolhida;
 	private String selectOneMenu_nome_btn = "Desativar";
 	private Integer selectOneMenu_Ativados_e_Desativados = 1;
-
+	
+	ClienteFiltro cFiltro;
+	
 	public ClienteMB() {
 		cliente = new Cliente();
 		cDao = new ClienteDAO();
 		categorias = new ArrayList<>();
 		clientes = new ArrayList<>();
-
+		cFiltro = new ClienteFiltro();
 		// Retorna uma lista de categorias preenchida
 		// categorias = cDao.listaCategorias();
 		clientes = cDao.listaCliente(selectOneMenu_Ativados_e_Desativados);
 
 	}
-
+	
+	public void filtroCliente() {
+		try {
+			if(cFiltro.estado != 0) {
+				selectOneMenu_nome_btn = "Desativar";
+			}else {
+				selectOneMenu_nome_btn = "Ativar";
+			}
+			clientes =  (ArrayList<Cliente>) cDao.listaFiltro(cFiltro);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage("Problema ao carregar a lista de cliente"));
+		}
+	}
+	
 	public void removeBean(String bean) {
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(bean);
 	}
@@ -58,17 +78,12 @@ public class ClienteMB {
 
 	public void desativarCliente(Cliente c) throws SQLException {
 		if (cDao.desativarAtivarUsuario(c)) {
-			if (c.getStatu() == 0)
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("Usuario " + c.getNome() + " Desativado com sucesso!"));
-			else
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("Usuario " + c.getNome() + " Ativado com sucesso!"));
+			if (c.getStatu() == 0) FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario " + c.getNome() + " Desativado com sucesso!"));
+			else FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario " + c.getNome() + " Ativado com sucesso!"));
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Usuario " + c.getNome() + " Usuario não desativado"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario " + c.getNome() + " Usuario não desativado"));
 		}
-		clientes = cDao.listaCliente(selectOneMenu_Ativados_e_Desativados);
+		clientes = (ArrayList<Cliente>) cDao.listaFiltro(cFiltro);
 	}
 
 	public void listaCategorias(Integer codigo) {
@@ -157,6 +172,14 @@ public class ClienteMB {
 
 	public String getCategoria() {
 		return categoria;
+	}
+
+	public ClienteFiltro getcFiltro() {
+		return cFiltro;
+	}
+
+	public void setcFiltro(ClienteFiltro cFiltro) {
+		this.cFiltro = cFiltro;
 	}
 
 	public void setCategoria(String categoria) {
