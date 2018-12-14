@@ -3,10 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<h:outputStylesheet library="resource" name="estilo.css" />
+	<title>Gerenciar Agendamentos</title>
 	<h:outputStylesheet library="css" name="estilo.css" />
-	<h:outputStylesheet library="css" name="pushy.css" />
-	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 
 <h:body>
@@ -42,22 +40,22 @@
 			<h:form>
 				<p:selectOneMenu
 					disabled="#{agendaMB.agenda.id_cliente gt '0'? true:false}"
-					value="#{agendaMB.curso.id}" id="filcurso">
-					<f:selectItem itemLabel="Buscar p/ Curso" itemValue="0" />
+					value="#{agendaMB.aFiltro.id_curso}" id="filcurso">
+					<f:selectItem itemLabel="Buscar p/ Curso" itemValue="" />
 					<f:selectItems itemValue="#{c.id}" itemLabel="#{c.nome}"
 						value="#{agendaMB.cursos}" var="c" />
-					<p:ajax listener="#{agendaMB.listacurso}" event="change"
+					<p:ajax listener="#{agendaMB.filtroAgenda}" event="change"
 						update=":formTabela:tabela filcliente :formEditar" />
+						
 				</p:selectOneMenu>
 				<p:selectOneMenu disabled="#{agendaMB.curso.id gt '0'? true:false}"
-					value="#{agendaMB.agenda.id_cliente}" id="filcliente">
-					<f:selectItem itemLabel="Buscar p/ Cliente" itemValue="0" />
+					value="#{agendaMB.aFiltro.id_cliente}" id="filcliente">
+					<f:selectItem itemLabel="Buscar p/ Cliente" itemValue="" />
 					<f:selectItems value="#{clienteMB.clientes}" var="cli"
 						itemLabel="#{cli.nome}" itemValue="#{cli.codigo}" />
-					<p:ajax listener="#{agendaMB.listacliente}" event="change"
-						update=":formTabela:tabela filcurso :formEditar" />
+					<p:ajax listener="#{agendaMB.filtroAgenda}" event="change"
+						update=":formTabela:tabela filcurso :formEditar" />		 
 				</p:selectOneMenu>
-				
 				<p:selectOneMenu id="visitacontrole" value="#{agendaMB.selectOneMenu_Ativados_e_Desativados}" >
 		            <f:selectItem itemLabel="Visitas Pendentes" itemValue="0" />
 		            <f:selectItem itemLabel="Visitas Realizadas" itemValue="1" />

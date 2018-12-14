@@ -18,6 +18,7 @@ import crmonline.DAO.AgendaDAO;
 import crmonline.DAO.ClasseGenericaDao;
 import crmonline.DAO.CursoDAO;
 import crmonline.Entidade.Agenda;
+import crmonline.Entidade.AgendaFiltro;
 import crmonline.Entidade.ClasseGenerica;
 import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Contato;
@@ -47,9 +48,10 @@ public class AgendaMB {
 
 	String dataFinal;
 	Agenda visitaSelecionadaIndex;
-	String selectOneMenu_Ativados_e_Desativados = "0";
+	Integer selectOneMenu_Ativados_e_Desativados = 0;
 	boolean btDisabled = false;
-
+	
+	AgendaFiltro aFiltro;
 	public AgendaMB() {
 
 		novoCurso = new Curso();
@@ -64,7 +66,8 @@ public class AgendaMB {
 		visitas = new ArrayList<>();
 		visitas = aDao.listarAgenda("0");
 		visitaSelecionadaIndex = new Agenda();
-
+		aFiltro = new AgendaFiltro();
+		
 		try {
 			cursos = classeGenericaDao.listarCurso();
 			categorias = classeGenericaDao.buscaCategoria();
@@ -74,7 +77,19 @@ public class AgendaMB {
 			Mensagem.make(e.toString());
 		}
 	}
-
+	
+	public void filtroAgenda() {
+		try {
+			visitas = aDao.listaFiltro(aFiltro, selectOneMenu_Ativados_e_Desativados);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void visualizarConvertendoData() {
 		dataFinal = "" + converteDate(agenda.getData()) + "";
 	}
@@ -118,13 +133,21 @@ public class AgendaMB {
 	}
 
 	public void controlevisita() {
-		if (selectOneMenu_Ativados_e_Desativados.equals("0")) {
+		if (selectOneMenu_Ativados_e_Desativados == 0) {
 			btDisabled = false;
 		} else {
 			btDisabled = true;
 		}
 		visitas = new ArrayList<Agenda>();
-		visitas = aDao.listarAgenda(selectOneMenu_Ativados_e_Desativados);
+		try {
+			visitas = aDao.listaFiltro(aFiltro, selectOneMenu_Ativados_e_Desativados);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void realizaVisita() {
@@ -206,11 +229,11 @@ public class AgendaMB {
 		this.contato = contato;
 	}
 
-	public String getSelectOneMenu_Ativados_e_Desativados() {
+	public Integer getSelectOneMenu_Ativados_e_Desativados() {
 		return selectOneMenu_Ativados_e_Desativados;
 	}
 
-	public void setSelectOneMenu_Ativados_e_Desativados(String selectOneMenu_Ativados_e_Desativados) {
+	public void setSelectOneMenu_Ativados_e_Desativados(Integer selectOneMenu_Ativados_e_Desativados) {
 		this.selectOneMenu_Ativados_e_Desativados = selectOneMenu_Ativados_e_Desativados;
 	}
 
@@ -244,6 +267,14 @@ public class AgendaMB {
 
 	public void setAgenda(Agenda agenda) {
 		this.agenda = agenda;
+	}
+
+	public AgendaFiltro getaFiltro() {
+		return aFiltro;
+	}
+
+	public void setaFiltro(AgendaFiltro aFiltro) {
+		this.aFiltro = aFiltro;
 	}
 
 	public ClasseGenericaDao getClasseGenericaDao() {

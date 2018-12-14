@@ -11,8 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import java.lang.reflect.Field;
+
 import crmonline.DB.ConDB;
 import crmonline.Entidade.Agenda;
+import crmonline.Entidade.AgendaFiltro;
 import crmonline.Entidade.Cliente;
 import crmonline.Entidade.Curso;
 import crmonline.MBean.LoginMB;
@@ -27,6 +30,68 @@ public class AgendaDAO {
 
 	}
 
+	public List<Agenda> listaFiltro(AgendaFiltro aFiltro,Integer estado) throws IllegalArgumentException, 
+	IllegalAccessException{
+		String SQL = "SELECT * FROM AGENDA";
+		List<Agenda> agendas = new ArrayList<>();
+		int contador = 0;
+		
+		for(Field var : aFiltro.getClass().getDeclaredFields()) {
+			Object value = var.get(aFiltro);
+				if(value != null) {
+					if(contador == 0) {
+						if(var.getName().equals("id_curso")) {
+							SQL += " WHERE " + var.getName() +" = " + value;
+
+						}else {
+							SQL += " WHERE " + var.getName() +" = "  + value;
+						}
+					}else {
+						SQL += " AND " + var.getName() +" = " + value + " AND ESTADOS = " + estado;
+					}
+					contador++;
+				}
+			}
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(SQL);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Agenda a = new Agenda();
+				a.setCodigo(rs.getInt("ID"));
+				a.setNome(rs.getString("NOME"));
+				a.setAtendente(rs.getString("ATENDENTE"));
+				
+				String data = rs.getString("DATAV");
+				SimpleDateFormat b = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					a.setData(b.parse(data));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				a.setHora(rs.getString("HORARIO"));
+				a.setEstadovisita(rs.getInt("ESTADOS"));
+				a.setClassificacao(rs.getString("CLASSFICACOES"));
+				a.setObservacao(rs.getString("OBSERVACOES"));
+				a.setId_visitante(rs.getInt("ID_VISITANTE"));
+				a.setId_cliente(rs.getInt("ID_CLIENTE"));
+				
+				Cliente c = new Cliente();
+				c.setCodigo(rs.getInt("ID_CLIENTE"));
+				a.setCliente(c);
+				
+				a.setCurso(rs.getInt("ID_CURSO"));
+				
+				agendas.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return agendas;
+	}
+	
 	public boolean inserir(Agenda agenda) throws SQLException {
 		String sql = "INSERT INTO AGENDA(NOME,ATENDENTE,DATAV,HORARIO,ESTADOS,ID_VISITANTE,ID_CLIENTE,ID_CURSO)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
