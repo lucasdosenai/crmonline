@@ -68,7 +68,7 @@
 						var="c" value="#{relatorioMB.listaClientesDropDown}" />
 				</p:selectOneMenu>
 				
-				<p:commandButton value="Buscar" actionListener="#{relatorioMB.listaFiltro}" ajax="true" update="@all"/>
+				<p:commandButton value="Buscar" actionListener="#{relatorioMB.listaFiltro}" ajax="true" update=":form:dataList"/>
 				<p:commandButton value="Deslogar" action="#{loginMB.desligaUsuario}" />
 			</h:form>
 			
