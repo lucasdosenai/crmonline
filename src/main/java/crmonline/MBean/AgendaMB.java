@@ -48,7 +48,7 @@ public class AgendaMB {
 
 	String dataFinal;
 	Agenda visitaSelecionadaIndex;
-	Integer selectOneMenu_Ativados_e_Desativados = 0;
+	Integer selectOneMenu_Ativados_e_Desativados;
 	boolean btDisabled = false;
 	
 	AgendaFiltro aFiltro;
@@ -67,7 +67,7 @@ public class AgendaMB {
 		visitas = aDao.listarAgenda("0");
 		visitaSelecionadaIndex = new Agenda();
 		aFiltro = new AgendaFiltro();
-		
+		selectOneMenu_Ativados_e_Desativados = 0;
 		try {
 			cursos = classeGenericaDao.listarCurso();
 			categorias = classeGenericaDao.buscaCategoria();
@@ -80,7 +80,7 @@ public class AgendaMB {
 	
 	public void filtroAgenda() {
 		try {
-			visitas = aDao.listaFiltro(aFiltro, selectOneMenu_Ativados_e_Desativados);
+			visitas = aDao.listaFiltro_0_1(aDao.listaFiltro(aFiltro),selectOneMenu_Ativados_e_Desativados);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -140,7 +140,7 @@ public class AgendaMB {
 		}
 		visitas = new ArrayList<Agenda>();
 		try {
-			visitas = aDao.listaFiltro(aFiltro, selectOneMenu_Ativados_e_Desativados);
+			visitas = aDao.listaFiltro_0_1(aDao.listaFiltro(aFiltro),selectOneMenu_Ativados_e_Desativados);
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

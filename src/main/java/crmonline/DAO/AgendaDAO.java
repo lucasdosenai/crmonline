@@ -29,8 +29,19 @@ public class AgendaDAO {
 		con = ConDB.getConnection();
 
 	}
-
-	public List<Agenda> listaFiltro(AgendaFiltro aFiltro,Integer estado) throws IllegalArgumentException, 
+	public List<Agenda> listaFiltro_0_1(List<Agenda> agendas, Integer codigo){
+		List<Agenda> resultado = new ArrayList<>();
+		List<Agenda> resto = new ArrayList<>();
+		for(Agenda a : agendas) {
+			if(a.getEstadovisita() == codigo) {
+				resultado.add(a);
+			}else {
+				resto.add(a);
+			}
+		}
+		return resultado;
+	}
+	public List<Agenda> listaFiltro(AgendaFiltro aFiltro) throws IllegalArgumentException, 
 	IllegalAccessException{
 		String SQL = "SELECT * FROM AGENDA";
 		List<Agenda> agendas = new ArrayList<>();
@@ -47,7 +58,7 @@ public class AgendaDAO {
 							SQL += " WHERE " + var.getName() +" = "  + value;
 						}
 					}else {
-						SQL += " AND " + var.getName() +" = " + value + " AND ESTADOS = " + estado;
+						SQL += " AND " + var.getName() +" = "+ value;
 					}
 					contador++;
 				}
@@ -77,11 +88,9 @@ public class AgendaDAO {
 				a.setId_visitante(rs.getInt("ID_VISITANTE"));
 				a.setId_cliente(rs.getInt("ID_CLIENTE"));
 				
-				Cliente c = new Cliente();
-				c.setCodigo(rs.getInt("ID_CLIENTE"));
-				a.setCliente(c);
-				
+				a.setCliente(clientePorID(a.getId_cliente()));
 				a.setCurso(rs.getInt("ID_CURSO"));
+				a.setCursoObj(cursoPorID(a.getCurso()));
 				
 				agendas.add(a);
 			}
@@ -91,7 +100,32 @@ public class AgendaDAO {
 		}	
 		return agendas;
 	}
+	public Cliente clientePorID(Integer codigo) throws SQLException{
+		Cliente c = new Cliente();
+		String SQL = "SELECT * FROM CLIENTE WHERE ID = " + codigo;
+		
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			c.setNome(rs.getString("NOME"));
+		}
+		return c;
+	}
 	
+	public Curso cursoPorID(Integer codigo) throws SQLException{
+		Curso c = new Curso();
+		String SQL = "SELECT * FROM CURSO WHERE ID = " + codigo;
+		
+		PreparedStatement ps = con.prepareStatement(SQL);
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			c.setNome(rs.getString("NOME"));
+			c.setVAGAS_TOTAL(rs.getInt("VAGAS_TOTAL"));
+		}
+		return c;
+	}
 	public boolean inserir(Agenda agenda) throws SQLException {
 		String sql = "INSERT INTO AGENDA(NOME,ATENDENTE,DATAV,HORARIO,ESTADOS,ID_VISITANTE,ID_CLIENTE,ID_CURSO)"
 				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
