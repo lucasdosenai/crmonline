@@ -190,7 +190,7 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.cargos}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					<p:ajax listener="#{contatosMB.buscarCargo}" update="@all"/>
+					<p:ajax listener="#{contatosMB.buscarCargo}" update="formTabela:tabela" event="change"/>
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Cliente : " />
@@ -198,7 +198,7 @@
 					<f:selectItem itemLabel="Selecionar" itemValue="0" />
 					<f:selectItems value="#{contatosMB.clientes}" var="c"
 						itemLabel="#{c.nome}" itemValue="#{c.codigo}" />
-					<p:ajax listener="#{contatosMB.buscaCliente}" update="@all"/>
+					<p:ajax listener="#{contatosMB.buscaCliente}" update="formTabela:tabela" event="change"/>
 				</p:selectOneMenu>
 			</p:panelGrid>
 			<p:commandButton value="emails" oncomplete="PF('emailsCompletos').show();" >

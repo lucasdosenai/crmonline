@@ -28,7 +28,7 @@ public class Mod implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("Encontreou um moderador com filtro!");
+		System.out.println("CRMONLINE DETECTOU UM USUÁRIO LOGADO!");
 		login = (LoginMB) ((HttpServletRequest) request).getSession().getAttribute("loginMB");
 		if(login == null || login.getUsuario().equals("")) {
 			String diretorio = ((HttpServletRequest)request).getContextPath();

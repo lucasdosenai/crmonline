@@ -16,10 +16,10 @@ public static Connection getConnection(){
 		try {
 			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 			con = DriverManager.getConnection(dns,user,pass);
-			System.out.println("CRMONLINE : DB conectado com sucesso!");
+			System.out.println("CRMONLINE CONECTADO COM SUCESSO!");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("CRMONLINE : Erro ao conectar no DB");
+			System.out.println("CRMONLINE FALHOU AO SE CONECTAR COM O SERVIDOR!");
 			e.printStackTrace();
 		}
 	}
